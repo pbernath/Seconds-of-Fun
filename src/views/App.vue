@@ -1,14 +1,14 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import LandingPage from './LandingPage.vue'
+import TheWelcome from './ActivityChooser.vue'
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <img alt="SOF logo" class="logo" src="../assets/sof-logo-500.png" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <LandingPage msg="Welcome!" />
     </div>
   </header>
 
