@@ -1,13 +1,27 @@
+import promiseNoData from "../views/promiseNoData";
+import resolvePromise from "../resolvePromise"
 
+const Sidebar={ //Vue component
+    props: ["model"], 
+    data(){return {jokePromiseState: {} };},
 
-export default
-function SideMenu(props){ //Exports function as SideMenu(from sideMenuPresenter.js)
+    created(){},
 
-    function someACB(){
-        
+    render(){
+
+    function fetchJokeACB(){
+        //this.jokePromiseState.promise=fetch joke from API 
+        console.log("Presenter about to resolve promise")
+        resolvePromise(this.jokePromiseState.promise, this.jokePromiseState)
     }
 
-    return (<SideMenuView someEvent={props.doSomething}
-    />
-    ); //returns component to be displayed in App
-}
+
+    return (
+        <div>
+            <ActivityChooser buttonClickEvent={fetchJokeACB.bind(this)} />
+        </div>
+    );
+
+    },
+};
+export default Sidebar;
