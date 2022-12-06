@@ -1,8 +1,8 @@
 class secondsModel{
 
-    constructor(){
+    constructor(testArray = []){
         this.observers = [];
-
+        this.testing = testArray;
     }
 
     addObserver(addObserverACB){
@@ -28,6 +28,37 @@ class secondsModel{
         }
         
         this.observers.forEach(invokeObserverCB)
+    }
+
+
+
+
+    addToTest(infoToAdd){
+        this.testing= [...this.testing, infoToAdd]
+
+        this.notifyObservers({addTestInfo: infoToAdd})
+    }
+    
+    removeFromTest(infoToRemove){
+        function hasSameIdNotifsCB(info){
+            return info === infoToRemove;
+        }
+        
+        if(this.testing.some(hasSameIdNotifsCB) == false){
+            return;
+        }
+
+        function hasSameIdCB(info){
+            if (info === infoToRemove) {
+                return false;
+            }
+            return true;
+        }
+
+        this.testing = this.testing.filter(hasSameIdCB);
+
+        this.notifyObservers({removeTestInfo: infoToRemove});
+
     }
 
 

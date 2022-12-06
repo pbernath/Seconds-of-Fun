@@ -1,6 +1,8 @@
 <script setup>
 import LandingPage from './LandingPage.vue'
 import TheWelcome from './ActivityChooser.vue'
+import secondsModel from '../model/secondsModel';
+const model = new secondsModel();
 </script>
 
 <template>
