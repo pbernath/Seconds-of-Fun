@@ -11,11 +11,11 @@ defineProps({
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
     <h3>
-      You've found your way to <h3 class="green">Seconds of Fun!</h3>
+      <h4>You've found your way to </h4> <h3 class="green">Seconds of Fun!</h3>
     </h3>
-    <h3>
+    <h4>
       Please choose an activity
-    </h3>
+    </h4>
   </div>
 </template>
 
@@ -27,6 +27,10 @@ h1 {
 }
 
 h3 {
+  font-size: 1.2rem;
+}
+h4 {
+  color: white;
   font-size: 1.2rem;
 }
 

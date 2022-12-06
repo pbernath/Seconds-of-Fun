@@ -12,34 +12,46 @@ import SupportIcon from './icons/IconSupport.vue'
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading>Choice 0</template>
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <ToolingIcon />
-    </template>
-    <template #heading>Choice 1</template>
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <EcosystemIcon />
-    </template>
-    <template #heading>Choice 2</template>
+    <template #heading><button class="button"  v-on:click="getJoke">Comic strips!</button></template>
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <CommunityIcon />
     </template>
-    <template #heading>Choice 3</template>
+    <template #heading><button class="button"  v-on:click="getJoke">Jokes!</button></template>
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <SupportIcon />
     </template>
-    <template #heading>Choice 4</template>
+    <template #heading><button class="button"  v-on:click="getJoke">Most liked joke!</button></template>
   </WelcomeItem>
+
 </template>
+<script>export default {
+props:{},
+methods:{getJoke() {this.$emit("getJokeCustomEvent")}},
+
+
+};
+</script>
+
+<style scoped>
+  .button {
+        background-color:#191a1c;
+        border-color: #5b576b;
+        border-radius: 4px;
+        color:antiquewhite;
+        height:50px; 
+        width: 100px;
+        place-items: center;
+    }
+  .button:hover {
+        background-color:#ffccc5;
+        transition: 0.7s;
+        border-radius: 10px;
+        color:black;
+    }
+</style>
