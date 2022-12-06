@@ -5,6 +5,7 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+import {joke} from '../jokeSource.js'
 </script>
 
 <template>
@@ -12,7 +13,7 @@ import SupportIcon from './icons/IconSupport.vue'
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading><button class="button"  v-on:click="getJoke">Comic strips!</button></template>
+    <template #heading><button class="button"  v-on:click="joke">Comic strips!</button></template>
   </WelcomeItem>
 
   <WelcomeItem>
@@ -26,13 +27,13 @@ import SupportIcon from './icons/IconSupport.vue'
     <template #icon>
       <SupportIcon />
     </template>
-    <template #heading><button class="button"  v-on:click="getJoke">Most liked joke!</button></template>
+    <template #heading><button class="button"  v-on:click="joke">Most liked joke!</button></template>
   </WelcomeItem>
 
 </template>
 <script>export default {
 props:{},
-methods:{getJoke() {this.$emit("getJokeCustomEvent")}},
+methods:{getJoke() {joke()}},
 
 
 };

@@ -22,19 +22,17 @@ function getJoke(category){
     return getJokeFromCat(new URLSearchParams(category)).then(treatHTTPResponseACB).then(responseCB);
 }*/
 
-function test(){
-
-console.log("XHR TEST")
+function joke(){
 var baseURL = "https://v2.jokeapi.dev";
 var xhr = new XMLHttpRequest();
-xhr.open("GET", baseURL + "/joke/" + "Any?type=single");
+xhr.open("GET", "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single");
 
 xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status < 300) // readyState 4 means request has finished + we only want to parse the joke if the request was successful (status code lower than 300)
     {
         var randomJoke = JSON.parse(xhr.responseText);
         console.log(randomJoke.joke);
-        //alert(randomJoke.joke);
+        alert(randomJoke.joke);
     }
     else if(xhr.readyState == 4)
     {
@@ -44,3 +42,5 @@ xhr.onreadystatechange = function() {
 
 xhr.send(); 
 }
+
+export {joke}
