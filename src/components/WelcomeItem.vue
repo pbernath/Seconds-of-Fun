@@ -29,14 +29,13 @@ i {
   place-content: center;
   width: 32px;
   height: 32px;
-
   color: var(--color-text);
 }
 
 h3 {
   font-size: 1.2rem;
   font-weight: 500;
-  vertical-align: middle;
+  margin-bottom: 0.4rem;
   color: var(--color-heading);
 }
 

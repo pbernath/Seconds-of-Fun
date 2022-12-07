@@ -83,11 +83,4 @@ function updateModelFromFirebase(model) {
 }
 
 
-
-
-
-
-
-
-
 export {observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase};
