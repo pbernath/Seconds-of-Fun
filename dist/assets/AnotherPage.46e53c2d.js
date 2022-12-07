@@ -1,1 +1,0 @@
-import{_ as e,o as t,c as s,a as o}from"./index.414730b1.js";const _={},n={class:"another_page"},a=o("h1",null,"This is another page to display something else",-1),c=[a];function r(i,h){return t(),s("div",n,c)}const d=e(_,[["render",r]]);export{d as default};
