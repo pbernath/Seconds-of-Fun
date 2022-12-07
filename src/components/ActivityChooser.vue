@@ -13,27 +13,32 @@ import {joke} from '../configs/jokeSource.js'
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading><button class="button"  v-on:click="joke">Comic strips!</button></template>
+    <template #heading>
+      <button class="button" @click="$router.push('/')">Home</button>
+    </template>
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <CommunityIcon />
     </template>
-    <template #heading><button class="button"  v-on:click="getJoke">Jokes!</button></template>
+    <template #heading>
+      <button class="button" @click="$router.push('/another_page')">AnotherPage</button>
+    </template>
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <SupportIcon />
     </template>
-    <template #heading><button class="button"  v-on:click="joke">Most liked joke!</button></template>
+    <template #heading>
+      <button class="button"  v-on:click="getJoke">Get joke!</button></template>
   </WelcomeItem>
 
 </template>
 <script>export default {
 props:{},
-methods:{getJoke() {joke()}},
+methods:{getJoke() { joke() }},
 
 
 };

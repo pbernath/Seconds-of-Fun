@@ -1,22 +1,15 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import LandingPage from '../components/LandingPage.vue'
+import ActivityChooser from '../components/ActivityChooser.vue';
+
 </script>
 
 <template>
   <header>
-    <img alt="SOF logo" class="logo" src="@/assets/sof-logo-500.png" width="125" height="125" />
-
     <div class="wrapper">
-      <LandingPage msg="Welcome!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/another_page">Another Page</RouterLink>
-      </nav>
+      <ActivityChooser />
     </div>
-  </header>
-
+    </header>
   <RouterView />
 </template>
 
@@ -31,31 +24,6 @@ header {
   margin: 0 auto 2rem;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
 @media (min-width: 1024px) {
   header {
     display: flex;
@@ -67,7 +35,7 @@ nav a:first-of-type {
     margin: 0 2rem 0 0;
   }
 
-  header .wrapper {
+  header.wrapper {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
