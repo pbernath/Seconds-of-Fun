@@ -2,23 +2,23 @@
 
 ## Mid-project review
 
-###Description
+### Description
 This project aims to provide seconds of fun, thus the name. To accomplish this and ensure everyone gets their seconds of fun, our aim is to incorporate both several different APIs, but also personal preferences for the site to maximize enjoyment.
 
-###What we have done
+### What we have done
 So far, we have created the framework for the site, started on design as well as making sure some basics are working. One API is making a call to fetch a short joke, this is still however not displayed as text with promises as in our tutorials, but as a pop-up message. 
 
-###Plan to do
+### Plan to do
 Implement models.
 Implement presenters. 
 More api calls.
 Add more functionality 
 Improve designs/layout.
 
-####Wishlist
+#### Wishlist
 Compatible with mobiles.
 
-###our project file structure
+### Our project file structure
 
 Assets:
    base.css/main.cssThey came with the template and are the base for what the app displays.
