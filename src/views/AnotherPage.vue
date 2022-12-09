@@ -1,6 +1,6 @@
 <template>
   <div class="another_page">
-    <h1 class="another_page_msg">This is another page to display something else</h1>
+    <h1 class="another_page_msg"></h1>
   </div>
 </template>
 

@@ -1,3 +1,4 @@
+import {joke} from '../configs/jokeSource.js'
 class secondsModel{
 
     constructor(testArray = []){
@@ -30,8 +31,10 @@ class secondsModel{
         this.observers.forEach(invokeObserverCB)
     }
 
+    fetchJoke(){
+        joke();
 
-
+    }
 
     addToTest(infoToAdd){
         this.testing= [...this.testing, infoToAdd]

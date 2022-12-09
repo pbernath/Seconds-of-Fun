@@ -1,11 +1,8 @@
 <script setup>
 import WelcomeItem from './WelcomeItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
-import {joke} from '../configs/jokeSource.js'
 </script>
 
 <template>
@@ -32,17 +29,30 @@ import {joke} from '../configs/jokeSource.js'
       <SupportIcon />
     </template>
     <template #heading>
-      <button class="button"  v-on:click="getJoke">Get joke!</button></template>
-  </WelcomeItem>
+      <button class="button" @click="getJokeACB">Get joke!</button>
+    </template>
+    </WelcomeItem>
 
 </template>
+
 <script>export default {
-props:{},
-methods:{getJoke() { joke() }},
-
-
-};
+  props: {},
+  emits:['getJokeEvent'],
+  methods:{getJokeACB(){this.$emit('getJokeEvent')}
+},};
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style scoped>
   .button {

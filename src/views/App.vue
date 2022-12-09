@@ -1,13 +1,13 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import ActivityChooser from '../components/ActivityChooser.vue';
-
+import { RouterLink, RouterView } from 'vue-router';
+import jokePresenter from '../presenter/jokePresenter.vue';
+import secondsModel from  '../model/secondsModel.js';
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <ActivityChooser />
+      <jokePresenter :model="new secondsModel()"/>
     </div>
     </header>
   <RouterView />
