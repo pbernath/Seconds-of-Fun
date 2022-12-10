@@ -1,6 +1,8 @@
 <template>
   <div class="another_page">
     <h1 class="another_page_msg">This is another page to display something else</h1>
+    <img src="https://imgs.xkcd.com/comics/solar_system_model.png" alt="XKCD">
+    
   </div>
 </template>
 

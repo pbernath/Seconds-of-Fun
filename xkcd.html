@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-if="loading">
+        <p>Loading...</p>
+      </div>
+      <div v-else>
+        <p>
+            <button v-on:click="previousComic">Previous</button>
+            <button v-on:click="nextComic">Next</button>
+            <button v-on:click="randomComic">Random</button>
+          </p>
+        <h2>{{current.safe_title}}</h2>
+        <img v-bind:src="current.img" v-bind:alt="current.alt">
+        <p>{{current.alt}}</p>
+        <p><i>#{{current.num}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
+      </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
