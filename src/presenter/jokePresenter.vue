@@ -19,7 +19,7 @@ export default { //Vue component
         //this.jokePromiseState.promise=fetch joke from API 
         //console.log("Presenter about to resolve promise")
         //resolvePromise(this.jokePromiseState.promise, this.jokePromiseState)
-        this.model.fetchJoke()
+        this.model.setCurrentJoke();    
     }
 }
 

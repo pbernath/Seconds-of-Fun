@@ -1,28 +1,30 @@
-export default function resolvePromise(promise, promiseState, notify){
-    if(promise===null){
-        return promiseState;
+function resolvePromise(promiseToResolve, promiseState){
+    if (promiseToResolve === null) {
+        return;
     }
 
-    if(notify){
-        console.log("Resolve promise notice"); 
-        notify();
-    }
-
-    promiseState.promise=promise;
-    promiseState.data= null;           
+    promiseState.promise=promiseToResolve;
+    promiseState.data= null;
     promiseState.error= null;
-    
+
     function saveDataACB(result){ 
-        if(promiseState.promise!==promise) return;
-        promiseState.data= result; 
-        if(notify) notify();
-    }  // triggers UI update because of changing state
+        if(promiseState.promise !== promiseToResolve) {
+            return;
+        }
+        promiseState.data= result;
+        console.log(promiseState.data.joke)
+    }
 
-    function saveErrorACB(err)  { 
-        if(promiseState.promise!==promise) return;
-        promiseState.error= err; 
-        if(notify)notify();
-    }    // triggers UI update because of changing state
+    function saveErrorACB(err)  {
+        if(promiseState.promise !== promiseToResolve) {
+            return;
+        }
+        promiseState.error= err;
 
-    return promise.then(saveDataACB).catch(saveErrorACB);
+      
+    }
+
+    promiseToResolve.then(saveDataACB).catch(saveErrorACB);
 }
+
+export {resolvePromise};
