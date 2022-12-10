@@ -5,12 +5,11 @@ class secondsModel{
     constructor(testArray = []){
         this.jokePromiseState = {};
         this.testing = testArray;
-
-        this.currentJoke = "";
     }
 
     setCurrentJoke(){ 
         resolvePromise(getJoke(), this.jokePromiseState)
+        console.log(this.jokePromiseState);
     }
 
 
