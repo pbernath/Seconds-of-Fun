@@ -1,6 +1,6 @@
 <template>
   <div class="another_page">
-    <h1 class="another_page_msg"></h1>
+    <h1 class="another_page_msg">{{}}</h1>
   </div>
 </template>
 
@@ -22,3 +22,8 @@
   }
 }
 </style>
+
+<script>export default {
+
+};
+</script>

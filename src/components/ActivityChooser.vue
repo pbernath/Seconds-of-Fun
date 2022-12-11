@@ -36,7 +36,6 @@ import SupportIcon from './icons/IconSupport.vue'
 </template>
 
 <script>export default {
-  props: {},
   emits:['getJokeEvent'],
   methods:{getJokeACB(){this.$emit('getJokeEvent')}
 },};

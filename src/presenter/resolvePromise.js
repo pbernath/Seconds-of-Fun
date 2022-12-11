@@ -12,7 +12,6 @@ function resolvePromise(promiseToResolve, promiseState){
             return;
         }
         promiseState.data= result;
-        console.log(promiseState.data)
     }
 
     function saveErrorACB(err)  {
