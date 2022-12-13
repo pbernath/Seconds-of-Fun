@@ -15,14 +15,15 @@ import { render } from 'vue';
 
 export default { //Vue component
     props: ['model'],
-    data(){ return {jokeData: this.model.jokePromiseState.data,
-        loadingDataGif: ""
-        };
+    data(){ return {jokeData: this.model.jokePromiseState,
+        loadingDataGif: "",    
+    };
+        
     },
     created(){
-        if(this.model.jokePromiseState.promise == undefined) resolvePromise(getJoke(),this.model.jokePromiseState);
-        if (this.model.jokePromiseState.data == null) {
-            this.model.jokePromiseState.data = { joke: 'no joke'}
+        if(this.jokeData.promise == undefined) resolvePromise(getJoke(),this.jokeData);
+        if (this.jokeData.data == null) {
+            this.jokeData.data = { joke: 'no joke'}
         }
     }, 
     methods:{setCurrentJokeACB(){ 

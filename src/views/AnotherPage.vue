@@ -34,8 +34,9 @@ import LoadingGIF from '../components/icons/LoadingGIF.vue';
 <script>export default {
   props: ['jokeData', 'loading'],
   emits:['getNewJokeACB'],
-  data(){return {joke: this.jokeData.joke}},
-  methods:{getJokeACB(){this.$emit('getNewJokeACB'); },
+  data(){return {joke: this.jokeData.data.joke}},
+  methods:{getJokeACB(){this.$emit('getNewJokeACB'); 
+},
   
   
 },

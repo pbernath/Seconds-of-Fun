@@ -3,18 +3,22 @@ import { RouterLink, RouterView } from 'vue-router';
 import secondsModel from  '../model/secondsModel.js';
 import ActivityChooser from '../views/ActivityChooser.vue';
 import ActivityPresenter from '../presenter/ActivityPresenter.vue';
+import {myModel} from '../main.js'
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-        <ActivityPresenter :model="new secondsModel()"/>
+        <ActivityPresenter :model="model"/>
     </div>
     </header>
-  <RouterView :model="new secondsModel()"/>
+  <RouterView :model="model"/>
 </template>
 <script>
-
+export default{
+  data(){return{model: myModel}},
+  inheritAttrs: false
+}
 
 </script>
 <style scoped>
