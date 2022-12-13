@@ -1,6 +1,12 @@
+<script setup>
+import styledButton from '../components/styledButton.vue';
+</script>
+
 <template>
   <div class="another_page">
-    <h1 class="another_page_msg">{{}}</h1>
+    <h1 class="another_page_msg">{{model}}</h1>
+    <styledButton buttonText="Get joke!" @click="logging"/>
+
   </div>
 </template>
 
@@ -24,6 +30,7 @@
 </style>
 
 <script>export default {
-
+  props: ['model'],
+  methods: {logging(){console.log(this.$route.state);}}
 };
 </script>

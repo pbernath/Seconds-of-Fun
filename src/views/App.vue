@@ -1,18 +1,22 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-import jokePresenter from '../presenter/jokePresenter.vue';
 import secondsModel from  '../model/secondsModel.js';
+import ActivityChooser from '../views/ActivityChooser.vue';
+import ActivityPresenter from '../presenter/ActivityPresenter.vue';
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <jokePresenter :model="new secondsModel()"/>
+        <ActivityPresenter :model="new secondsModel()"/>
     </div>
     </header>
   <RouterView />
 </template>
+<script>
 
+
+</script>
 <style scoped>
 header {
   line-height: 1.5;
