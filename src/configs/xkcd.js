@@ -16,6 +16,9 @@ let app = new Vue({
     created() {
       this.xkcd();
     },
+    components: {
+        VueXKCD
+        },
     computed: {
         month() {
           var month = new Array;
@@ -62,7 +65,7 @@ let app = new Vue({
         getRandom(min, max) {
             min = Math.ceil(min);
             max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum and minimum are inclusive
+            return Math.floor(Math.random() * (max - min + 1)) + min;
           },
           randomComic() {
             this.number = this.getRandom(1, this.max);
@@ -97,4 +100,4 @@ let app = new Vue({
     },
   });
 
-  export default app;
+  export {app, created, computed, watch, methods, xkcd, getRandom, randomComic, previousComic, nextComic, addComment, month, number, max, current, loading, addedName, addedComment, comments, Vue, axios}

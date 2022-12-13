@@ -6,6 +6,7 @@ import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
 import {joke} from '../configs/jokeSource.js'
+
 </script>
 
 <template>
@@ -23,7 +24,7 @@ import {joke} from '../configs/jokeSource.js'
       <CommunityIcon />
     </template>
     <template #heading>
-      <button class="button" @click="$router.push('/another_page')">AnotherPage</button>
+      <button class="button" @click="$router.push('/xkcd')">XKCD</button>
     </template>
   </WelcomeItem>
 
