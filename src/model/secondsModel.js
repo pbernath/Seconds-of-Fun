@@ -9,7 +9,6 @@ class secondsModel{
     
     setCurrentJoke(){ 
         resolvePromise(getJoke(), this.jokePromiseState)
-        
     }
 
     

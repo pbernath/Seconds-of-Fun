@@ -1,11 +1,13 @@
 <script setup>
 import styledButton from '../components/styledButton.vue';
+import LoadingGIF from '../components/icons/LoadingGIF.vue';
 </script>
 
 <template>
   <div class="another_page">
     <h1 class="another_page_msg">{{joke}}</h1>
-    <styledButton buttonText="Get joke!" @click="getJokeACB"/>
+    <LoadingGIF v-if="loading == true"/>
+    <styledButton  v-if="loading == false" buttonText="Next joke!" @click="getJokeACB" />
 
   </div>
 </template>
@@ -30,9 +32,13 @@ import styledButton from '../components/styledButton.vue';
 </style>
 
 <script>export default {
-  props: ['jokeData'],
+  props: ['jokeData', 'loading'],
   emits:['getNewJokeACB'],
-  data(){return {joke: this.jokeData}},
-  methods:{getJokeACB(){this.$emit('getNewJokeACB');}},
+  data(){return {joke: this.jokeData.joke}},
+  methods:{getJokeACB(){this.$emit('getNewJokeACB'); },
+  
+  
+},
+
 };
 </script>

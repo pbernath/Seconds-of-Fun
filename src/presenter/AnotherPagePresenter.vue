@@ -5,8 +5,10 @@ import { getJoke } from '../jokeSource';
 import { render } from 'vue';
 </script>
 <template>
-    <AnotherPage v-if="dataExists" :jokedata="jokeData" @getNewJokeACB="setCurrentJokeACB"/>
-    <AnotherPage v-else :jokeData="{data: {joke: 'nej'}}" @getNewJokeACB="setCurrentJokeACB"/>
+    <AnotherPage v-if="jokeData" 
+                        :jokeData="jokeData" :loading="false" @getNewJokeACB="setCurrentJokeACB"/>
+
+    <AnotherPage v-else :jokeData="loadingDataGif" :loading="true" @getNewJokeACB="setCurrentJokeACB"/>
 
 </template>
 <script>
@@ -14,18 +16,23 @@ import { render } from 'vue';
 export default { //Vue component
     props: ['model'],
     data(){ return {jokeData: this.model.jokePromiseState.data,
-                    dataExists: (this.model.jokePromiseState.data != undefined)
+        loadingDataGif: ""
         };
     },
     created(){
         if(this.model.jokePromiseState.promise == undefined) resolvePromise(getJoke(),this.model.jokePromiseState);
-        
+        if (this.model.jokePromiseState.data == null) {
+            this.model.jokePromiseState.data = { joke: 'no joke'}
+        }
     }, 
-    methods:{setCurrentJokeACB(){this.model.setCurrentJoke()}},
+    methods:{setCurrentJokeACB(){ 
+        this.model.setCurrentJoke()
+    }
+},
     components: {
         AnotherPage
     },
-    
+
 
 }
 </script>
