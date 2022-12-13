@@ -22,8 +22,9 @@ export default { //Vue component
     components: {
     ActivityChooser
   },
-    methods:{routeToJokesACB(){
-        this.$router.push({name: 'another_page', state: { model: this.model }})
+    methods:{
+    routeToJokesACB(){
+        this.$router.push({name: 'another_page'})
 
     },
     routeToHomeACB(){this.$router.push({name: 'home'})}

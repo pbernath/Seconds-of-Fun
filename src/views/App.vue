@@ -11,7 +11,7 @@ import ActivityPresenter from '../presenter/ActivityPresenter.vue';
         <ActivityPresenter :model="new secondsModel()"/>
     </div>
     </header>
-  <RouterView />
+  <RouterView :model="new secondsModel()"/>
 </template>
 <script>
 

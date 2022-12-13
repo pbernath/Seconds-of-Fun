@@ -4,8 +4,8 @@ import styledButton from '../components/styledButton.vue';
 
 <template>
   <div class="another_page">
-    <h1 class="another_page_msg">{{model}}</h1>
-    <styledButton buttonText="Get joke!" @click="logging"/>
+    <h1 class="another_page_msg">{{joke}}</h1>
+    <styledButton buttonText="Get joke!" @click="getJokeACB"/>
 
   </div>
 </template>
@@ -30,7 +30,9 @@ import styledButton from '../components/styledButton.vue';
 </style>
 
 <script>export default {
-  props: ['model'],
-  methods: {logging(){console.log(this.$route.state);}}
+  props: ['jokeData'],
+  emits:['getNewJokeACB'],
+  data(){return {joke: this.jokeData}},
+  methods:{getJokeACB(){this.$emit('getNewJokeACB');}},
 };
 </script>
