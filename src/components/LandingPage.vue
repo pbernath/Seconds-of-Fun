@@ -36,10 +36,17 @@ h4 {
 
 .greetings h1,
 .greetings h3 {
-  text-align: center;
+  text-align: start;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 769px) {
+  .greetings h1,
+  .greetings h3 {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
   .greetings h1,
   .greetings h3 {
     text-align: left;

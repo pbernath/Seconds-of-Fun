@@ -10,29 +10,34 @@ import {joke} from '../configs/jokeSource.js'
 
 <template>
   <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
     <template #heading>
+      <div class="container">
+      <div class="button-wrap">
       <button class="button" @click="$router.push('/')">Home</button>
+    </div>
+    </div>
     </template>
   </WelcomeItem>
 
   <WelcomeItem>
-    <template #icon>
-      <CommunityIcon />
-    </template>
     <template #heading>
+      <div class="container">
+      <div class="button-wrap">
       <button class="button" @click="$router.push('/another_page')">AnotherPage</button>
+    </div>
+    </div>
     </template>
   </WelcomeItem>
 
   <WelcomeItem>
-    <template #icon>
-      <SupportIcon />
-    </template>
     <template #heading>
-      <button class="button"  v-on:click="getJoke">Get joke!</button></template>
+      <div class="container">
+      <div class="button-wrap">
+      <button class="button"  v-on:click="getJoke">Get joke!</button>
+    </div>
+    </div>
+    </template>
+      
   </WelcomeItem>
 
 </template>
@@ -44,8 +49,45 @@ methods:{getJoke() { joke() }},
 };
 </script>
 
-<style scoped>
+<style media="all">
+.mobile-display {
+    display: inline-block;
+}
+.desktop-display {
+    display: grid;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  margin: auto;
+}
+
+.button-wrap {
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+@media (max-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+  .button-wrap {
+    padding: 1em 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
   .button {
+    flex: 0 0 20%;
+  }
+
+}
+  .button {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
         background-color:#191a1c;
         border-color: #5b576b;
         border-radius: 4px;
@@ -53,6 +95,8 @@ methods:{getJoke() { joke() }},
         height:50px; 
         width: 100px;
         place-items: center;
+        position: relative;
+        flex: 0 0 auto;
     }
   .button:hover {
         background-color:#ffccc5;
