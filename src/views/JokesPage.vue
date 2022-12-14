@@ -5,10 +5,8 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 
 <template>
   <div class="another_page">
-    <h1 class="another_page_msg">{{ joke }}</h1>
-    <LoadingGIF v-if="loading == true" />
+    <p class="another_page_msg">{{ joke }}</p>
     <styledButton
-      v-if="loading == false"
       buttonText="Next joke!"
       @click="getJokeACB"
     />
@@ -22,7 +20,12 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 }
 
 .another_page_msg {
+  
+  border-style: solid;
+  border-radius: 12px;
   color: white;
+  height: 250px;
+  width: 500px;
 }
 
 @media (min-width: 1024px) {

@@ -2,20 +2,11 @@
 import JokesPage from "../views/JokesPage.vue";
 import { resolvePromise } from "../resolvePromise";
 import { getJoke } from "../jokeSource";
-import { render } from "vue";
 </script>
 <template>
   <JokesPage
-    v-if="jokeData"
+    v-if="jokeData != undefined"
     :jokeData="jokeData"
-    :loading="false"
-    @getNewJokeACB="setCurrentJokeACB"
-  />
-
-  <JokesPage
-    v-else
-    :jokeData="loadingDataGif"
-    :loading="true"
     @getNewJokeACB="setCurrentJokeACB"
   />
 </template>
@@ -23,19 +14,17 @@ import { render } from "vue";
 export default {
   //Vue component
   props: ["model"],
-  data() {
-    return { loadingDataGif: {joke:""} };
+  computed: {
+    jokeData() {
+      if (this.model.jokePromiseState.data == null) {
+        this.model.jokePromiseState.data = { joke: "Waiting for a joke..." };
+      }
+      return this.model.jokePromiseState;
+    },
   },
-  computed:{
-    jokeData(){return this.model.jokePromiseState}
-  }
-  ,
   created() {
     if (this.model.jokePromiseState.promise == undefined)
-      resolvePromise(getJoke(), this.jokeData);
-    if (this.model.jokePromiseState.data == null) {
-      this.model.jokePromiseState.data = { joke: "no joke" };
-    }
+      resolvePromise(getJoke(), this.model.jokePromiseState);
   },
   methods: {
     setCurrentJokeACB() {
