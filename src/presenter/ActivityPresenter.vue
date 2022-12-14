@@ -1,34 +1,28 @@
 <script setup>
-import ActivityChooser from '../views/ActivityChooser.vue';
-import { resolvePromise } from '../resolvePromise';
-import { getJoke } from '../jokeSource';
-import { render } from 'vue';
+import ActivityChooser from "../views/ActivityChooser.vue";
+import { render } from "vue";
 </script>
 
 <template>
-    <ActivityChooser
-    @anotherPageRoutingACB="routeToJokesACB"
-    @homePageRoutingACB="routeToHomeACB">
-    </ActivityChooser>
+  <ActivityChooser
+    @JokesPageRoutingACB="routeToJokesACB"
+    @homePageRoutingACB="routeToHomeACB"/>
 </template>
 
 <script>
-export default { //Vue component
-    props: ["model" ],
-    data(){return {jokeData: this.model.jokePromiseState.data
-        };
-    },
-    created(){if(this.model.jokePromiseState.promise == null) resolvePromise(getJoke(),this.model.jokePromiseState);}, 
-    components: {
-    ActivityChooser
+export default {
+  //Vue component
+  props: ["model"],
+  components: {
+    ActivityChooser,
   },
-    methods:{
-    routeToJokesACB(){
-        this.$router.push({name: 'another_page'})
-
+  methods: {
+    routeToJokesACB() {
+      this.$router.push({ name: "another_page" });
     },
-    routeToHomeACB(){this.$router.push({name: 'home'})}
-}
-
-}
+    routeToHomeACB() {
+      this.$router.push({ name: "home" });
+    },
+  },
+};
 </script>

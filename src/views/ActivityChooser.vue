@@ -21,7 +21,7 @@ import styledButton from '../components/styledButton.vue'
       <CommunityIcon />
     </template>
     <template #heading>
-      <styledButton buttonText="AnotherPage" @click="goToAnotherPageACB"/>
+      <styledButton buttonText="JokesPage" @click="goToJokesPageACB"/>
     </template>
   </WelcomeItem>
 
@@ -37,8 +37,8 @@ import styledButton from '../components/styledButton.vue'
 </template>
 
 <script>export default {
-  emits:['anotherPageRoutingACB', 'homePageRoutingACB'],
-  methods:{goToAnotherPageACB(){this.$emit('anotherPageRoutingACB')},
+  emits:['JokesPageRoutingACB', 'homePageRoutingACB'],
+  methods:{goToJokesPageACB(){this.$emit('JokesPageRoutingACB')},
           goToHomeACB(){this.$emit('homePageRoutingACB')}
 
 },};
