@@ -8,6 +8,7 @@ import { render } from 'vue';
 <template>
     <ActivityChooser
     @anotherPageRoutingACB="routeToJokesACB"
+    @thirdRoutingACB="routeToThirdACB"
     @homePageRoutingACB="routeToHomeACB">
     </ActivityChooser>
 </template>
@@ -25,9 +26,9 @@ export default { //Vue component
     methods:{
     routeToJokesACB(){
         this.$router.push({name: 'another_page'})
-
     },
-    routeToHomeACB(){this.$router.push({name: 'home'})}
+    routeToHomeACB(){this.$router.push({name: 'home'})},
+    routeToThirdACB(){this.$router.push({name: 'third'})}
 }
 
 }

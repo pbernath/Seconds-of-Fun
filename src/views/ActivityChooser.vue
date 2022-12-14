@@ -7,39 +7,22 @@ import styledButton from '../components/styledButton.vue'
 </script>
 
 <template>
-  <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>
       <styledButton buttonText="Home" @click="goToHomeACB"/>
-    </template>
-  </WelcomeItem>
 
-  <WelcomeItem>
-    <template #icon>
-      <CommunityIcon />
-    </template>
-    <template #heading>
       <styledButton buttonText="AnotherPage" @click="goToAnotherPageACB"/>
-    </template>
-  </WelcomeItem>
 
-  <WelcomeItem>
-    <template #icon>
-      <SupportIcon />
-    </template>
-    <template #heading>
-      <styledButton buttonText="No purpose yet"/>
-    </template>
-    </WelcomeItem>
-
+      <styledButton buttonText="Third" @click="goToThirdACB"/>
 </template>
 
 <script>export default {
-  emits:['anotherPageRoutingACB', 'homePageRoutingACB'],
-  methods:{goToAnotherPageACB(){this.$emit('anotherPageRoutingACB')},
-          goToHomeACB(){this.$emit('homePageRoutingACB')}
+  emits:['anotherPageRoutingACB', 'homePageRoutingACB', 'thirdRoutingACB'],
+  methods:{
+    goToAnotherPageACB(){
+      this.$emit('anotherPageRoutingACB')},
+    goToHomeACB(){
+      this.$emit('homePageRoutingACB')},
+    goToThirdACB(){
+      this.$emit('thirdRoutingACB')}
 
 },};
 </script>

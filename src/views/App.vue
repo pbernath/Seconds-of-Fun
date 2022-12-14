@@ -3,17 +3,25 @@ import { RouterLink, RouterView } from 'vue-router';
 import secondsModel from  '../model/secondsModel.js';
 import ActivityChooser from '../views/ActivityChooser.vue';
 import ActivityPresenter from '../presenter/ActivityPresenter.vue';
+
+
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-        <ActivityPresenter :model="new secondsModel()"/>
+      <ActivityPresenter :model="this.model"/>
     </div>
-    </header>
-  <RouterView :model="new secondsModel()"/>
+  </header>
+  <RouterView :model="this.model"/>
 </template>
+
 <script>
+
+export default{
+  props: ['model'],
+
+};
 
 
 </script>
