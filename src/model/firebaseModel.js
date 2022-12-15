@@ -12,10 +12,48 @@ firebase.initializeApp(firebaseConfig);
 // instructions from firebase, but how to call the functions? firebase.database not a function...
 import {initializeApp} from "firebase/app";
 import {getDatabase, ref, set, get, onChildRemoved, onChildAdded, onValue} from "firebase/database";
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+const auth = getAuth(app);
 
 const REF="testingModel";
+
+
+
+function createAccount (email, password) {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            return user;
+        }
+    )
+    .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            return {errorCode, errorMessage};
+        }
+    );
+}
+
+function signInToAccount (email, password) {
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            return user;
+        }
+    )
+    .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            return {errorCode, errorMessage};
+        }
+    );
+}
+
 
 function observerRecap(model) {
 
@@ -23,7 +61,6 @@ function observerRecap(model) {
     
         if (payload) {
             if (payload.input) {
-                console.log(payload.input);
                 set(ref(database, REF + "/input/"), payload.input);
             }
         }
@@ -74,7 +111,6 @@ function updateModelFromFirebase(model) {
 
     onValue(ref(database, REF+"/input/"),
         function inputHasChangedInFirebaseACB(firebaseData) {
-            console.log(firebaseData);
             model.setInput(firebaseData.val());
         }
     )
@@ -105,4 +141,4 @@ function updateModelFromFirebase(model) {
 }
 
 
-export {observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase};
+export {observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase, createAccount, signInToAccount};

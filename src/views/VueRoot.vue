@@ -49,7 +49,6 @@ export default {
       }
     },
     continueSetup() {
-      console.log("test");
       this.myModel = this.firebaseModelPromiseState.data;
       window.myModel = this.myModel;
       updateModelFromFirebase(this.firebaseModelPromiseState.data);
