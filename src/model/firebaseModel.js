@@ -11,24 +11,19 @@ firebase.initializeApp(firebaseConfig);
 
 // instructions from firebase, but how to call the functions? firebase.database not a function...
 import {initializeApp} from "firebase/app";
-import {getDatabase, ref, set, get, child, onChildRemoved, onChildAdded} from "firebase/database";
+import {getDatabase, ref, set, get, onChildRemoved, onChildAdded} from "firebase/database";
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-
-console.log(app);
-console.log(database);
-
 
 const REF="testingModel";
 
 function observerRecap(model) {
 
     function obsACB(payload){
-        // usually runs 1000000 times
-        // console.log(payload);
     
         if (payload) {
             if (payload.input) {
+                console.log(payload.input);
                 set(ref(database, REF+"/input/" + payload.input), payload.input);
             }
             if (payload.addTestInfo) {
@@ -73,8 +68,6 @@ function firebaseModelPromise() {
 }
 
 function updateFirebaseFromModel(model) {
-    console.log("This log is from updateFirebaseFromModel");
-    console.log(model);
     observerRecap(model);
     return;
 }
