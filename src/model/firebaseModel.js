@@ -11,7 +11,7 @@ firebase.initializeApp(firebaseConfig);
 
 // instructions from firebase, but how to call the functions? firebase.database not a function...
 import {initializeApp} from "firebase/app";
-import {getDatabase, ref, set, get, onChildRemoved, onChildAdded} from "firebase/database";
+import {getDatabase, ref, set, get, onChildRemoved, onChildAdded, onValue} from "firebase/database";
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
@@ -24,13 +24,7 @@ function observerRecap(model) {
         if (payload) {
             if (payload.input) {
                 console.log(payload.input);
-                set(ref(database, REF+"/input/" + payload.input), payload.input);
-            }
-            if (payload.addTestInfo) {
-                set(ref(database, REF+"/testingList/" + payload.addTestInfo), payload.addTestInfo);
-            }
-            if (payload.removeTestInfo) {
-                set(ref(database, REF+"/testingList/" + payload.removeTestInfo), null);
+                set(ref(database, REF + "/input/"), payload.input);
             }
         }
     }
@@ -41,11 +35,11 @@ function observerRecap(model) {
 function firebaseModelPromise() {
 
     function makeBigPromiseACB(firebaseData) {
-        let testsList = [];
+        let input = "";
 
         if (firebaseData.val()) {
-            if(firebaseData.val().testingList){
-                testsList = firebaseData.val().testingList;
+            if(firebaseData.val().input){
+                input = firebaseData.val().input;
             }
         }
         
@@ -55,12 +49,16 @@ function firebaseModelPromise() {
         }
         */
         
-        function createModelACB(testInfo) {
-            return new secondsModel(testInfo);
+        function createModelACB() {
+            return new secondsModel(input);
         }
 
+        /*
         const testPromiseArray= Object.keys(testsList);
         return Promise.all(testPromiseArray).then(createModelACB);
+        */
+        
+        return createModelACB();
     }
 
     return get(ref(database, REF)).then(makeBigPromiseACB);
@@ -73,7 +71,15 @@ function updateFirebaseFromModel(model) {
 }
 
 function updateModelFromFirebase(model) {
+
+    onValue(ref(database, REF+"/input/"),
+        function inputHasChangedInFirebaseACB(firebaseData) {
+            console.log(firebaseData);
+            model.setInput(firebaseData.val());
+        }
+    )
     
+    /*
     onChildAdded(ref(database, REF+"/testingList/"),
         function testAddedInFirebaseACB(firebaseData){
             function testAlreadyAddedCB(test) {
@@ -93,7 +99,8 @@ function updateModelFromFirebase(model) {
             model.removeFromTest({id: +firebaseData.key}); 
         }
     )
-    
+    */
+
     return;
 }
 

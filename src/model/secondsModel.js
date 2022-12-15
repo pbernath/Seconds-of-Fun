@@ -2,12 +2,10 @@ import {getJoke} from '../jokeSource.js'
 import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{
 
-    constructor(testArray = []){
+    constructor(input = ""){
         this.observers = [];
         this.jokePromiseState = {};
-        this.currentInput = "";
-
-        this.testing = testArray;
+        this.currentInput = input;
     }
 
     addObserver(addObserverACB){
