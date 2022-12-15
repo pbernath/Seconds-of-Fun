@@ -1,4 +1,4 @@
-function resolvePromise(promiseToResolve, promiseState){
+function resolvePromise(promiseToResolve, promiseState, notify){
     if (promiseToResolve === null) {
         return;
     }
@@ -12,6 +12,9 @@ function resolvePromise(promiseToResolve, promiseState){
             return;
         }
         promiseState.data= result;
+        if (notify) {
+            notify();
+        }
     }
 
     function saveErrorACB(err)  {

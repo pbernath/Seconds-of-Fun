@@ -20,15 +20,15 @@ import { resolvePromise } from "../resolvePromise";
   <App v-if="doesFirebaseHaveData()" :model="myModel" />
   <LoadingGIF v-else />
 </template>
+
 <script>
 export default {
   data() {
     return { myModel: new secondsModel(), firebaseModelPromiseState:{}};
   },
   created() {
-    window.myModel = this.myModel;
     if (!this.firebaseModelPromiseState.promise) {
-      resolvePromise(firebaseModelPromise(), this.firebaseModelPromiseState);
+      resolvePromise(firebaseModelPromise(), this.firebaseModelPromiseState, this.continueSetup);
     }
   },
   methods: {
@@ -40,7 +40,6 @@ export default {
       }
 
       if (this.firebaseModelPromiseState.data) {
-        this.continueSetup();
         return true;
       }
 
@@ -50,8 +49,11 @@ export default {
       }
     },
     continueSetup() {
-        updateModelFromFirebase(this.firebaseModelPromiseState.data);
-        updateFirebaseFromModel(this.firebaseModelPromiseState.data);
+      console.log("test");
+      this.myModel = this.firebaseModelPromiseState.data;
+      window.myModel = this.myModel;
+      updateModelFromFirebase(this.firebaseModelPromiseState.data);
+      updateFirebaseFromModel(this.firebaseModelPromiseState.data);
     },
   },
 };

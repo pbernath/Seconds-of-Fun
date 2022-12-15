@@ -94,29 +94,6 @@ function updateModelFromFirebase(model) {
         }
     )
     
-    /*
-    database.ref(REF+"/testingList/").on(
-        "child_added",
-        function testAddedInFirebaseACB(firebaseData){
-            function testAlreadyAddedCB(test) {
-                return test == +firebaseData.key;
-            }
-            if (!model.testing.find(testAlreadyAddedCB)) {
-                function addTestACB(test) {
-                    model.addToTest(test);
-                }
-                getDishDetails(firebaseData.key).then(addTestACB);
-            }
-        },
-    );
-
-    database.ref(REF+"/testingList/").on(
-        "child_removed",
-        function testRemovedInFirebaseACB(firebaseData){
-            model.removeFromTest({id: +firebaseData.key}); 
-        },
-    );
-    */
     return;
 }
 
