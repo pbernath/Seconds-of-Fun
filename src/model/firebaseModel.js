@@ -1,27 +1,41 @@
 import firebaseConfig from "../configs/firebaseConfig.js";
 import secondsModel from "./secondsModel.js";
 
-import { initializeApp } from "firebase/app";
-
-
-const firebase = initializeApp(firebaseConfig);
+/*
+// as done in the turorial
+import firebase from "firebase/app";
 import "firebase/database";
+firebase.initializeApp(firebaseConfig);
+*/
+
+
+// instructions from firebase, but how to call the functions? firebase.database not a function...
+import {initializeApp} from "firebase/app";
+import {getDatabase, ref, set, get, child, onChildRemoved, onChildAdded} from "firebase/database";
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+console.log(app);
+console.log(database);
+
 
 const REF="testingModel";
 
 function observerRecap(model) {
 
     function obsACB(payload){
-        
+        // usually runs 1000000 times
+        // console.log(payload);
+    
         if (payload) {
             if (payload.input) {
-                firebase.database().ref(REF+"/input/" + payload.input).set(payload.input);
+                set(ref(database, REF+"/input/" + payload.input), payload.input);
             }
             if (payload.addTestInfo) {
-                firebase.database().ref(REF+"/testingList/" + payload.addTestInfo).set(payload.addTestInfo);
+                set(ref(database, REF+"/testingList/" + payload.addTestInfo), payload.addTestInfo);
             }
             if (payload.removeTestInfo) {
-                firebase.database().ref(REF+"/testingList/" + payload.removeTestInfo).set(null);
+                set(ref(database, REF+"/testingList/" + payload.removeTestInfo), null);
             }
         }
     }
@@ -30,7 +44,7 @@ function observerRecap(model) {
 }
 
 function firebaseModelPromise() {
-    
+
     function makeBigPromiseACB(firebaseData) {
         let testsList = [];
 
@@ -39,34 +53,56 @@ function firebaseModelPromise() {
                 testsList = firebaseData.val().testingList;
             }
         }
-
+        
         /*
         function makeDishPromiseCB(dishId) {
             return getDishDetails(dishId);
         }
         */
-
+        
         function createModelACB(testInfo) {
             return new secondsModel(testInfo);
         }
 
         const testPromiseArray= Object.keys(testsList);
         return Promise.all(testPromiseArray).then(createModelACB);
-        
-        
     }
-    
-    return firebase.database().ref(REF).once("value").then(makeBigPromiseACB);
+
+    return get(ref(database, REF)).then(makeBigPromiseACB);
+
 }
 
 function updateFirebaseFromModel(model) {
+    console.log("This log is from updateFirebaseFromModel");
+    console.log(model);
     observerRecap(model);
     return;
 }
 
 function updateModelFromFirebase(model) {
+    
+    onChildAdded(ref(database, REF+"/testingList/"),
+        function testAddedInFirebaseACB(firebaseData){
+            function testAlreadyAddedCB(test) {
+                return test == +firebaseData.key;
+            }
+            if (!model.testing.find(testAlreadyAddedCB)) {
+                function addTestACB(test) {
+                    model.addToTest(test);
+                }
+                addTestACB();
+            }
+        }
+    )
 
-    firebase.database().ref(REF+"/testingList/").on(
+    onChildRemoved(ref(database, REF+"/testingList/"),
+        function testRemovedInFirebaseACB(firebaseData){
+            model.removeFromTest({id: +firebaseData.key}); 
+        }
+    )
+    
+    /*
+    database.ref(REF+"/testingList/").on(
         "child_added",
         function testAddedInFirebaseACB(firebaseData){
             function testAlreadyAddedCB(test) {
@@ -81,13 +117,13 @@ function updateModelFromFirebase(model) {
         },
     );
 
-    firebase.database().ref(REF+"/testingList/").on(
+    database.ref(REF+"/testingList/").on(
         "child_removed",
         function testRemovedInFirebaseACB(firebaseData){
             model.removeFromTest({id: +firebaseData.key}); 
         },
     );
-
+    */
     return;
 }
 

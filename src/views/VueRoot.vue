@@ -8,10 +8,16 @@ import {
 import secondsModel from "../model/secondsModel";
 import LoadingGIF from "../components/icons/LoadingGIF.vue";
 import { resolvePromise } from "../resolvePromise";
+
+/*
+  <App v-if="doesFirebaseHaveData()" :model="myModel" />
+  <LoadingGIF v-else />
+*/
+
 </script>
 
 <template>
-  <App v-if="doesFirebaseHaveData" :model="myModel" />
+  <App v-if="doesFirebaseHaveData()" :model="myModel" />
   <LoadingGIF v-else />
 </template>
 <script>
@@ -20,12 +26,15 @@ export default {
     return { myModel: new secondsModel(), firebaseModelPromiseState:{}};
   },
   created() {
+    window.myModel = this.myModel;
     if (!this.firebaseModelPromiseState.promise) {
       resolvePromise(firebaseModelPromise(), this.firebaseModelPromiseState);
     }
   },
   methods: {
+
     doesFirebaseHaveData() {
+
       if (!this.firebaseModelPromiseState.promise) {
         return false;
       }
@@ -41,10 +50,8 @@ export default {
       }
     },
     continueSetup() {
-      if (this.firebaseModelPromiseState.data) {
         updateModelFromFirebase(this.firebaseModelPromiseState.data);
         updateFirebaseFromModel(this.firebaseModelPromiseState.data);
-      }
     },
   },
 };
