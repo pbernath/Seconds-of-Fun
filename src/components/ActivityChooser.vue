@@ -49,19 +49,7 @@ methods:{getJoke() { joke() }},
 };
 </script>
 
-<style media="all">
-.mobile-display {
-    display: inline-block;
-}
-.desktop-display {
-    display: grid;
-}
-
-.container {
-  display: flex;
-  width: 100%;
-  margin: auto;
-}
+<style>
 
 .button-wrap {
   padding: 1em;
@@ -71,7 +59,48 @@ methods:{getJoke() { joke() }},
 }
 @media (max-width: 768px) {
   .container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    column-gap: 1em;
+    justify-content: center;
+
+  }
+  .button-wrap {
+    padding: 1em 0;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .button {
+    display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background-color:#191a1c;
+        border-color: #5b576b;
+        border-radius: 4px;
+        color:antiquewhite;
+        height:50px; 
+        width: 100px;
+        place-items: center;
+        position: relative;
+        flex: 0 0 auto;
+  }
+  .button:hover {
+        background-color:#ffccc5;
+        transition: 0.7s;
+        border-radius: 10px;
+        color:black;
+    }
+}
+
+@media (min-width: 769px) {
+  .container {
+    display: flex;
     flex-direction: row;
+    box-sizing: border-box;
+    column-gap: 1em;
+    justify-content: center;
   }
   .button-wrap {
     padding: 1em 0;
@@ -80,11 +109,27 @@ methods:{getJoke() { joke() }},
     justify-content: space-between;
   }
   .button {
-    flex: 0 0 20%;
+    display: flex;
+        justify-content: center;
+        flex-direction: row;
+        background-color:#191a1c;
+        border-color: #5b576b;
+        border-radius: 4px;
+        color:antiquewhite;
+        height:50px; 
+        width: 100px;
+        place-items: center;
+        position: relative;
+        flex: 0 0 auto;
   }
-
+  .button:hover {
+        background-color:#ffccc5;
+        transition: 0.7s;
+        border-radius: 10px;
+        color:black;
+    }
 }
-  .button {
+  /* .button {
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -103,5 +148,5 @@ methods:{getJoke() { joke() }},
         transition: 0.7s;
         border-radius: 10px;
         color:black;
-    }
+    } */
 </style>

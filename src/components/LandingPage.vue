@@ -45,11 +45,19 @@ h4 {
 
 .greetings h1,
 .greetings h3 {
-  text-align: start;
+  text-align: center;
 }
 
 @media (min-width: 769px) {
-
+  .greetings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  top: -10em;
+  }
   .greetings h1,
   .greetings h3 {
     text-align: center;
@@ -57,9 +65,18 @@ h4 {
 }
 
 @media (max-width: 768px) {
+  .greetings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  top: 12em;
+  }
   .greetings h1,
   .greetings h3 {
-    text-align: left;
+    text-align: center;
   }
 }
 </style>

@@ -94,10 +94,9 @@ header {
   } */
 
   .routerBox{
-    position:absolute;
-    top:0;
-    left:0;
-    width:10%;
+    position:relative;
+    
+
   }
 
   .wrapper {

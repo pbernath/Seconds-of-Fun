@@ -53,10 +53,12 @@
 *,
 *::before,
 *::after {
-  /* box-sizing: border-box; */
-  /* margin: 0; */
-  /* position: relative; */
+  box-sizing: border-box;
+  position: relative;
   font-weight: normal;
+  column-gap: 1em;
+  justify-content: center;
+  
 }
 
 body {
