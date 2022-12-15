@@ -10,7 +10,7 @@ defineProps({
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
-    <h3>
+   <h3>
       <h4>You've found your way to </h4> <h3 class="green">Seconds of Fun!</h3>
     </h3>
     <h4>
@@ -19,7 +19,16 @@ defineProps({
   </div>
 </template>
 
-<style scoped>
+<style>
+.greetings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
 h1 {
   font-weight: 500;
   font-size: 2.6rem;
@@ -40,9 +49,10 @@ h4 {
 }
 
 @media (min-width: 769px) {
+
   .greetings h1,
   .greetings h3 {
-    text-align: left;
+    text-align: center;
   }
 }
 

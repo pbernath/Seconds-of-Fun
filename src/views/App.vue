@@ -24,50 +24,52 @@ header {
 @media (min-width: 769px) {
   .mainDiv {
   display: flex;
+  /* height:auto; */
   flex-direction: column;
-  align-content: center;
+  align-content: space-between;
   place-items: flex-start;
+  align-items: flex-start;
+  justify-content: left;
+  flex-wrap: wrap;
+
   /* padding-right: calc(var(--section-gap) / 2); */
   }
-  
-  .logo {
-    /* margin: 0 2rem 0 0; */
-    position: relative;
-    top: 15px;
-    right: 15px;
-  }
 
-  .mainDiv.wrapper {
+  /* .mainDiv.wrapper {
+
     display: flex;
     place-items: flex-start;
     justify-content: left;
-    align-items: left;
+    align-items: flex-start;
     flex-direction: column;
     flex-wrap: nowrap;
-    
-  }
+  } */
 
-  nav {
+  /* .nav {
     text-align: left;
-    /* margin-left: -1rem; */
+    margin-left: -1rem;
     font-size: 1rem;
 
     padding: 1rem 0;
-    /* margin-top: 1rem; */
-  }
+    margin-top: 1rem;
+  } */
   .routerBox{
-    position:absolute;
-    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    right: -224px;
 
   }
   .wrapper {
-    position: absolute;
+    position: fixed;
     display: flex;
     place-items: flex-start;
     justify-content: left;
-    align-items: left;
     flex-direction: column;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    left: 1em;
+    top: 1em;
 
   }
 }
@@ -78,17 +80,10 @@ header {
     flex-direction: row;
     align-content: bottom;
     place-items: end start;
-    padding-right: calc(var(--section-gap) / 2);
+    /* padding-right: calc(var(--section-gap) / 2); */
   }
 
-  .logo {
-    /* margin: 0 2rem 0 0; */
-    position: absolute;
-    top: 15px;
-    right: 15px;
-  }
-
-  .mainDiv.wrapper {
+  /* .mainDiv.wrapper {
     display: flex;
     place-items: flex-start;
     justify-content: center;
@@ -96,31 +91,25 @@ header {
     flex-direction: row;
     flex-wrap: wrap;
     
-  }
+  } */
 
-  nav {
-    text-align: left;
-    /* margin-left: -1rem; */
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    /* margin-top: 1rem; */
-  }
   .routerBox{
     position:absolute;
     top:0;
     left:0;
     width:10%;
-
   }
+
   .wrapper {
-    position: absolute;
+    position: fixed;
     display: flex;
-    place-items: flex-start;
+    place-items: flex-end;
     justify-content: center;
     align-items: center;
+    align-content: bottom;
     flex-direction: row;
     flex-wrap: wrap;
+    bottom: 1em;
 
   }
 }

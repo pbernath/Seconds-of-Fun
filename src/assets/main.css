@@ -1,12 +1,12 @@
 @import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
+/* #app { */
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
+  /* display: contents;
+  font-weight: normal; */
+/* } */
 a,
 .green {
   text-decoration: none;
@@ -20,7 +20,7 @@ a,
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   body {
     display: flex;
     position: relative;
@@ -30,9 +30,9 @@ a,
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    display: contents;
+    /* grid-template-columns: 1fr 1fr;
+    padding: 0 2rem; */
   }
 
   /* For mobile */
