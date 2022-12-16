@@ -1,18 +1,27 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import ActivityChooser from '../components/ActivityChooser.vue';
+import { RouterLink, RouterView } from 'vue-router';
+import ActivityPresenter from '../presenter/ActivityPresenter.vue';
 
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <ActivityChooser />
+      <ActivityPresenter :model="this.model"/>
     </div>
-    </header>
-  <RouterView />
+  </header>
+  <RouterView :model="this.model"/>
 </template>
 
+<script>
+
+export default{
+  props: ['model'],
+
+};
+
+
+</script>
 <style scoped>
 header {
   line-height: 1.5;

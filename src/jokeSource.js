@@ -1,27 +1,19 @@
-/*function treatHTTPResponseACB(response){ 
-    if(response.status !== 200){
-        throw new Error("HTTP error with status: " + response.status);
-    }
-    else {
-    return response.json();
-    }
-}
+function treatHTTPResponseACB(response){ 
+    if(response.status == 200){
 
-function getJokeFromCat(category){
-    return fetch("https://v2.jokeapi.dev/joke/Any", {  // object literal
-        "method": "GET"       
+        return response.json();
+    }
+    throw ("Status is not 200");
+}
+function getJoke(){
+    return fetch("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single", {  // object literal
+        method: "GET"       
      } 
-)
-} 
-
-function responseCB(response){
-    return response.results;
+    ).then(treatHTTPResponseACB);
 }
 
-function getJoke(category){
-    return getJokeFromCat(new URLSearchParams(category)).then(treatHTTPResponseACB).then(responseCB);
-}*/
 
+/*
 function joke(){
 var baseURL = "https://v2.jokeapi.dev";
 var xhr = new XMLHttpRequest();
@@ -42,5 +34,5 @@ xhr.onreadystatechange = function() {
 
 xhr.send(); 
 }
-
-export {joke}
+*/
+export {getJoke}

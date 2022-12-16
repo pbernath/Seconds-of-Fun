@@ -1,34 +1,51 @@
+import {getJoke} from '../jokeSource.js'
+import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{
 
-    constructor(testArray = []){
+    constructor(input = "", user = null){
         this.observers = [];
-        this.testing = testArray;
+        this.jokePromiseState = {};
+        this.currentInput = input;
+        this.user = user;
     }
 
     addObserver(addObserverACB){
-
         this.observers = [...this.observers, addObserverACB]
     }
 
     removeObserver(removeObserverACB){
-
         function removeObsCB(obs){
             return obs!==removeObserverACB;
         }
-
         this.observers = this.observers.filter(removeObsCB)
     }
 
     notifyObservers(payload){
-        
         function invokeObserverCB(obs){
             try{obs(payload);}
-            catch(err){ console.log(err);
-            }
+            catch(err){console.log(err);}
         }
-        
         this.observers.forEach(invokeObserverCB)
     }
+
+
+
+
+    
+    setCurrentJoke(){ 
+        resolvePromise(getJoke(), this.jokePromiseState)
+    }
+
+    setInput(input){
+        this.currentInput = input;
+        this.notifyObservers({input: input});
+    }
+
+    getInput() {
+        return this.currentInput;
+    }
+
+
 
 
 
@@ -61,8 +78,20 @@ class secondsModel{
 
     }
 
+    setUser (user) {
+        this.user = user;
+        this.notifyObservers({userID: user})
+    }
 
+    getUser () {
+        return this.user;
+    }
 
+    
+
+  setCurrentJoke() {
+    resolvePromise(getJoke(), this.jokePromiseState);
+  }
 }
 
 export default secondsModel;

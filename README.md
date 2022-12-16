@@ -1,50 +1,56 @@
 # seconds-of-fun
 
-## Mid-project review
+This template should help get you started developing with Vue 3 in Vite.
 
-### Description
-This project aims to provide seconds of fun, thus the name. To accomplish this and ensure everyone gets their seconds of fun, our aim is to incorporate both several different APIs, but also personal preferences for the site to maximize enjoyment.
+## Recommended IDE Setup
 
-### What we have done
-So far, we have created the framework for the site, started on design as well as making sure some basics are working. One API is making a call to fetch a short joke, this is still however not displayed as text with promises as in our tutorials, but as a pop-up message. 
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-### Plan to do
-Implement models.
-Implement presenters. 
-More api calls.
-Add more functionality 
-Improve designs/layout.
+## Customize configuration
 
-#### Wishlist
-Compatible with mobiles.
+See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-### Our project file structure
+## Project Setup
 
-Assets:
-   base.css/main.cssThey came with the template and are the base for what the app displays.
+```sh
+npm install
+```
 
-Components:
-Icons: They are icons.
-ActivityChooser.vue: This component contains buttons that lets someone navigate to a different view or get a joke. 
-LandingPage.vue: This component contains what is show in the home view.
-WelcomeItem.vue: This component is used to group (and styles) the icons and the buttons in ActivityChooser.vue.
+### Compile and Hot-Reload for Development
 
-Configs:
-Firebase configuration.
-jokeSource.js: Api calls.
+```sh
+npm run dev
+```
 
-Model:
-Models are not currently used, placeholders for future models. 
-firebaseModel.js will fetch the online data and sync it with the local model secondsModel.js
+### Compile and Minify for Production
 
-Presenters:
-Presenters are currently not used, placeholder for future presenters when we have a model to talk to.
+```sh
+npm run build
+```
 
-Router:
-index.js: Initializes the routing of the different views. 
+# To do: 
 
-Views:
-AnotherPage.vue: A different view, will have some functionality later on.
-App.vue: Manages components and views. 
-
-main.js: Creates the app.
+## Jokes:
+        -API categories and flags (including user-submitted jokes).
+        -Create own jokes.
+        -Vote on jokes.
+        -Favorite jokes. 
+## Comic:
+        -Implement comic and its description.
+        -Random, previous and next.
+## Login/Settings:
+        -Logout?
+        -Reset password.
+        -Delete account.
+        -Show the email instead of the ID.
+        -Preferences
+            -Start Screen.
+            -Theme
+## Main:
+        -Overall design.
+        -Start page.
+## Code:
+        -Add comments.
+        -Make sure that Callbacks are named properly.
+        -MVP is being followed.
+        -Code readability and coherency (maybe use the extension 'Prettier - Code formatter').
