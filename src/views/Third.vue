@@ -13,6 +13,7 @@ import ThirdPresenter from '../presenter/ThirdPresenter.vue';
   </div>
   <div>
     <h3>{{someText}}</h3>
+    <h3 v-if="fetchUser != null">{{fetchUser}}</h3>
     <input id="emailField" placeholder="e-mail" @keydown="checkForEnterWhileLoginACB">
     <input id="passwordField" placeholder="password" @keydown="checkForEnterWhileLoginACB">
     <input v-if="!logIn" id="secondPasswordField" placeholder="repeat password" @keydown="checkForEnterWhileLoginACB">
@@ -47,18 +48,14 @@ import ThirdPresenter from '../presenter/ThirdPresenter.vue';
 
 <script>export default {
   props: ['inputFromTheModel', 'userFromFirebase'],
-  emits:['getTextFromInputACB'],
+  emits:['getTextFromInputACB', 'getDetailsForAuthACB'],
   data(){return {logIn: true, signUp: false, someText: "This is a template for a log in page, i know, it's cool. (◕‿◕)"}},
   computed: {
     fetchFromModel() {
       return this.inputFromTheModel;
     },
     fetchUser () {
-      if (this.userFromFirebase.errorMessage) {
-        this.someText = errorMessage;
-      } else {
-        this.someText = this.userFromFirebase;
-      }
+      return this.userFromFirebase;
     }
   },
   methods:{
@@ -91,10 +88,9 @@ import ThirdPresenter from '../presenter/ThirdPresenter.vue';
           return;
         }
       }
-      this.$emit('getDetailsForAuthACB', emailField.value, passwordField, this.logIn);
+      this.$emit('getDetailsForAuthACB', {email: emailField.value, password: passwordField.value, logIn: this.logIn});
       this.someText = "if everything goes according to plan you should soon be signed in";
       passwordField.value = "";
-      secondPasswordField.value = "";
     }
   },
 };

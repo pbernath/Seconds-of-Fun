@@ -29,19 +29,20 @@ export default { //Vue component
         getInputFromModel() {
             return this.model.currentInput;
         },
-        getUserFromFirebase (props) {
-            return props;
+        getUserFromFirebase () {
+            return this.model.user;
         }
     },
     methods:{
         setInputACB(input){
             this.model.setInput(input)
         },
-        handleAuthACB (email, password, logIn) {
-            if (logIn) {
-                signInToAccount(email, password).then(this.getUserFromFirebase);
-            } else if (!logIn) {
-                createAccount(email, password).then(this.getUserFromFirebase);
+        handleAuthACB (event) {
+            console.log(event);
+            if (event.logIn) {
+                signInToAccount(event.email, event.password, this.model);
+            } else if (!event.logIn) {
+                createAccount(event.email, event.password, this.model);
             }
         }
     },

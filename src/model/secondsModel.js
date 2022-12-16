@@ -2,10 +2,11 @@ import {getJoke} from '../jokeSource.js'
 import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{
 
-    constructor(input = ""){
+    constructor(input = "", user = null){
         this.observers = [];
         this.jokePromiseState = {};
         this.currentInput = input;
+        this.user = user;
     }
 
     addObserver(addObserverACB){
@@ -75,6 +76,15 @@ class secondsModel{
 
         this.notifyObservers({removeTestInfo: infoToRemove});
 
+    }
+
+    setUser (user) {
+        this.user = user;
+        this.notifyObservers({userID: user})
+    }
+
+    getUser () {
+        return this.user;
     }
 
     

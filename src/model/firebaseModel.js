@@ -22,34 +22,34 @@ const REF="testingModel";
 
 
 
-function createAccount (email, password) {
+function createAccount (email, password, model) {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            return user;
+            model.setUser(user.uid);
         }
     )
     .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            return {errorCode, errorMessage};
+            console.log(error);
         }
     );
 }
 
-function signInToAccount (email, password) {
+function signInToAccount (email, password, model) {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            return user;
+            model.setUser(user.uid);
         }
     )
     .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            return {errorCode, errorMessage};
+            console.log(error);
         }
     );
 }
@@ -63,6 +63,9 @@ function observerRecap(model) {
             if (payload.input) {
                 set(ref(database, REF + "/input/"), payload.input);
             }
+            if (payload.userID) {
+                set(ref(database, REF + "/user/"), payload.userID);
+            }
         }
     }
     model.addObserver(obsACB);
@@ -73,10 +76,14 @@ function firebaseModelPromise() {
 
     function makeBigPromiseACB(firebaseData) {
         let input = "";
+        let user = null;
 
         if (firebaseData.val()) {
             if(firebaseData.val().input){
                 input = firebaseData.val().input;
+            }
+            if(firebaseData.val().user){
+                user = firebaseData.val().user;
             }
         }
         
@@ -87,7 +94,7 @@ function firebaseModelPromise() {
         */
         
         function createModelACB() {
-            return new secondsModel(input);
+            return new secondsModel(input, user);
         }
 
         /*
@@ -112,6 +119,12 @@ function updateModelFromFirebase(model) {
     onValue(ref(database, REF+"/input/"),
         function inputHasChangedInFirebaseACB(firebaseData) {
             model.setInput(firebaseData.val());
+        }
+    )
+
+    onValue(ref(database, REF+"/user/"),
+        function userHasChangedInFirebaseACB(firebaseData) {
+            model.setUser(firebaseData.val());
         }
     )
     
