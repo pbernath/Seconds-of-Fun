@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
 
-const REF="testingModel";
+const REF="cloudModel";
 
 
 
@@ -44,6 +44,7 @@ function signInToAccount (email, password, model) {
             // Signed in 
             const user = userCredential.user;
             model.setUser(user.uid);
+            updateModelFromFirebase(model);
         }
     )
     .catch((error) => {
@@ -61,7 +62,9 @@ function observerRecap(model) {
     
         if (payload) {
             if (payload.input) {
-                set(ref(database, REF + "/input/"), payload.input);
+                if (auth.currentUser) {
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/input/"), payload.input);
+                }
             }
             if (payload.userID) {
                 set(ref(database, REF + "/user/"), payload.userID);
@@ -116,7 +119,7 @@ function updateFirebaseFromModel(model) {
 
 function updateModelFromFirebase(model) {
 
-    onValue(ref(database, REF+"/input/"),
+    onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/input/"),
         function inputHasChangedInFirebaseACB(firebaseData) {
             model.setInput(firebaseData.val());
         }
