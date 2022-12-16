@@ -21,7 +21,7 @@ header {
   max-height: 100vh;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .mainDiv {
   display: flex;
   /* height:auto; */
@@ -94,8 +94,8 @@ header {
   } */
 
   .routerBox{
-    position:relative;
-    
+    position:absolute;
+
 
   }
 
@@ -103,11 +103,11 @@ header {
     position: fixed;
     display: flex;
     place-items: flex-end;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-evenly;
+    /* align-items: center; */
     align-content: bottom;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     bottom: 1em;
 
   }

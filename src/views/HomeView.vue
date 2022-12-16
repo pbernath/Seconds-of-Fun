@@ -17,11 +17,46 @@ import LandingPage from '../components/LandingPage.vue'
    position: relative;
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 768px) {
     .home {
       display: flex;
       height: auto;
       flex-direction: row;
+      align-content: space-between;
+      place-items: flex-start;
+      align-items: flex-start;
+      justify-content: left;
+      flex-wrap: wrap;
+    }
+
+    .home .logo {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+    }
+
+    .logo {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+    }
+    .home .wrapper {
+      display: flex;
+      place-items: flex-start;
+      justify-content: left;
+      align-items: flex-start;
+      flex-direction: column;
+      flex-wrap: nowrap;
+
+    }
+  }
+
+  @media (max-width: 768px) {
+
+    .home {
+      display: flex;
+      height: auto;
+      flex-direction: column;
       align-content: space-between;
       place-items: flex-start;
       align-items: flex-start;
@@ -42,7 +77,6 @@ import LandingPage from '../components/LandingPage.vue'
       align-items: flex-start;
       flex-direction: column;
       flex-wrap: nowrap;
-      order: 0;
     }
   }
 

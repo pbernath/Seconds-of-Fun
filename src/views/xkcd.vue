@@ -52,7 +52,7 @@ import Tasks from '../components/Tasks.vue';
   }
 
   
-  @media (min-width: 769px) {
+  @media (min-width: 768px) {
     .about {
       min-height: 100vh;
       display: flex;

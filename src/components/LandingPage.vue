@@ -48,7 +48,7 @@ h4 {
   text-align: center;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .greetings {
   display: flex;
   flex-direction: column;

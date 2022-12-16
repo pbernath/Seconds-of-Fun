@@ -51,12 +51,6 @@ methods:{getJoke() { joke() }},
 
 <style>
 
-.button-wrap {
-  padding: 1em;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
 @media (max-width: 768px) {
   .container {
     display: flex;
@@ -69,7 +63,7 @@ methods:{getJoke() { joke() }},
   .button-wrap {
     padding: 1em 0;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
   }
   .button {
@@ -94,7 +88,7 @@ methods:{getJoke() { joke() }},
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .container {
     display: flex;
     flex-direction: row;

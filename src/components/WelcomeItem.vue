@@ -18,7 +18,7 @@
   /* margin-top: 2rem; */
   display: flex;
   flex-direction: column;
-  
+
 }
 
 .details {
@@ -43,7 +43,7 @@
   color: var(--color-heading);
 } */
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .item {
     /* margin-top: 0.5em; */
     display:flex;
