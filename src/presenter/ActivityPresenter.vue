@@ -1,12 +1,15 @@
 <script setup>
-import ActivityChooser from "../views/ActivityChooser.vue";
-import { render } from "vue";
+import ActivityChooser from "../views/ActivityChooserView.vue";
 </script>
 
 <template>
   <ActivityChooser
-    @JokesPageRoutingACB="routeToJokesACB"
-    @homePageRoutingACB="routeToHomeACB"/>
+    @jokesPageRoutingACB="routeToJokesACB"
+    @homePageRoutingACB="routeToHomeACB"
+    @comicPageRoutingACB="routeToComicACB"
+    @loginPageRoutingACB="routeToLoginACB"
+  >
+  </ActivityChooser>
 </template>
 
 <script>
@@ -17,11 +20,17 @@ export default {
     ActivityChooser,
   },
   methods: {
-    routeToJokesACB() {
-      this.$router.push({ name: "another_page" });
-    },
     routeToHomeACB() {
       this.$router.push({ name: "home" });
+    },
+    routeToJokesACB() {
+      this.$router.push({ name: "jokes" });
+    },
+    routeToComicACB() {
+      this.$router.push({ name: "comic" });
+    },
+    routeToLoginACB() {
+      this.$router.push({ name: "login" });
     },
   },
 };

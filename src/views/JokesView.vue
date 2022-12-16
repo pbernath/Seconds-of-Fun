@@ -4,8 +4,9 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 </script>
 
 <template>
-  <div class="another_page">
-    <p class="another_page_msg">{{ joke }}</p>
+  <div class="jokes_page">
+    <p v-if="joke != msg" class="jokes_page_msg">{{ joke }}</p>
+    <LoadingGIF class="jokes_page_msg" v-else/>
     <styledButton
       buttonText="Next joke!"
       @click="getJokeACB"
@@ -14,12 +15,12 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 </template>
 
 <style>
-.another_page {
+.jokes_page {
   width: 430px;
   height: 290;
 }
 
-.another_page_msg {
+.jokes_page_msg {
   
   border-style: solid;
   border-radius: 12px;
@@ -41,6 +42,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 export default {
   props: ["jokeData", "loading"],
   emits: ["getNewJokeACB"],
+  data(){return {msg: "Waiting for a joke..."}},
   computed: {
     joke() {
       return this.jokeData.data.joke;

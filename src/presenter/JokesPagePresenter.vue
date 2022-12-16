@@ -1,5 +1,5 @@
 <script setup>
-import JokesPage from "../views/JokesPage.vue";
+import JokesPage from "../views/JokesView.vue";
 import { resolvePromise } from "../resolvePromise";
 import { getJoke } from "../jokeSource";
 </script>
