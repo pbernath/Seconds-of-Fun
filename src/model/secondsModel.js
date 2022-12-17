@@ -1,12 +1,16 @@
-import {getJoke} from '../jokeSource.js'
+import {getJoke, getJokeByID} from '../jokeSource.js'
 import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{
 
-    constructor(input = "", user = null){
+    constructor(input = "", user = null, favoriteJokes = []){
         this.observers = [];
+
         this.jokePromiseState = {};
         this.currentInput = input;
+        this.favoriteJokesPromiseState={data: {joke: "No favorite joke."}, };
         this.user = user;
+        this.currentJoke = "";
+        this.favoriteJokes=favoriteJokes;
     }
 
     addObserver(addObserverACB){
@@ -28,14 +32,6 @@ class secondsModel{
         this.observers.forEach(invokeObserverCB)
     }
 
-
-
-
-    
-    setCurrentJoke(){ 
-        resolvePromise(getJoke(), this.jokePromiseState)
-    }
-
     setInput(input){
         this.currentInput = input;
         this.notifyObservers({input: input});
@@ -44,11 +40,6 @@ class secondsModel{
     getInput() {
         return this.currentInput;
     }
-
-
-
-
-
 
     addToTest(infoToAdd){
         this.testing= [...this.testing, infoToAdd]
@@ -87,11 +78,14 @@ class secondsModel{
         return this.user;
     }
 
-    
+    addJokeToFavorites(joke){
+        this.favoriteJokes=[...this.favoriteJokes, joke]
+        this.notifyObservers({favoriteJokes: this.favoriteJokes})
+    }
+    getAJoke(){ 
+        resolvePromise(getJoke(), this.jokePromiseState)
+    }
 
-  setCurrentJoke() {
-    resolvePromise(getJoke(), this.jokePromiseState);
-  }
 }
 
 export default secondsModel;

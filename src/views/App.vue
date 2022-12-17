@@ -7,10 +7,10 @@ import ActivityPresenter from '../presenter/ActivityPresenter.vue';
 <template>
   <header>
     <div class="wrapper">
-      <ActivityPresenter :model="this.model"/>
+      <ActivityPresenter/>
     </div>
   </header>
-  <RouterView :model="this.model"/>
+  <RouterView :model="model"/>
 </template>
 
 <script>
@@ -19,8 +19,6 @@ export default{
   props: ['model'],
 
 };
-
-
 </script>
 <style scoped>
 header {

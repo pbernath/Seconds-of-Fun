@@ -11,8 +11,35 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
       buttonText="Next joke!"
       @click="getJokeACB"
     />
+    <styledButton v-if="loggedIn"
+      buttonText="Save!"
+      @click="addToFavoriteJokesACB"
+    />
+    <p v-else>Log in to save the joke!</p>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["jokeData", "loading", "loggedIn"],
+  emits: ["getNewJokeACB", "setJokeOnLoadACB" ,"sendJokeToFavoriteACB"],
+  data(){return {msg: "Waiting for a joke..."}},
+  computed: {
+    joke() {
+      this.$emit("setJokeOnLoadACB");
+      return this.jokeData.data.joke;
+    },
+  },
+  methods: {
+    getJokeACB() {
+      this.$emit("getNewJokeACB");
+    },
+    addToFavoriteJokesACB() {
+      this.$emit("sendJokeToFavoriteACB");
+    },
+  },
+};
+</script>
 
 <style>
 .jokes_page {
@@ -37,21 +64,3 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
   }
 }
 </style>
-
-<script>
-export default {
-  props: ["jokeData", "loading"],
-  emits: ["getNewJokeACB"],
-  data(){return {msg: "Waiting for a joke..."}},
-  computed: {
-    joke() {
-      return this.jokeData.data.joke;
-    },
-  },
-  methods: {
-    getJokeACB() {
-      this.$emit("getNewJokeACB");
-    },
-  },
-};
-</script>

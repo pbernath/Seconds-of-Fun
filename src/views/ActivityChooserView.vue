@@ -15,6 +15,9 @@ import styledButton from "../components/styledButton.vue";
   <div>
     <styledButton buttonText="Login" @click="goToLoginACB" />
   </div>
+  <div>
+    <styledButton buttonText="Favorite jokes" @click="goToFavoriteJokesACB" />
+  </div>
 </template>
 
 <script>
@@ -24,6 +27,7 @@ export default {
     "jokesPageRoutingACB",
     "comicPageRoutingACB",
     "loginPageRoutingACB",
+    "favoriteJokesPageRoutingACB"
   ],
   methods: {
     goToHomeACB() {
@@ -37,6 +41,9 @@ export default {
     },
     goToLoginACB() {
       this.$emit("loginPageRoutingACB");
+    },
+    goToFavoriteJokesACB() {
+      this.$emit("favoriteJokesPageRoutingACB");
     },
   },
 };

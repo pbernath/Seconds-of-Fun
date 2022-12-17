@@ -17,8 +17,8 @@ import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} fro
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
-
-const REF="cloudModel";
+import { getJoke, getJokeByID } from "../jokeSource.js";
+const REF="sashasModel";
 
 
 
@@ -69,6 +69,11 @@ function observerRecap(model) {
             if (payload.userID) {
                 set(ref(database, REF + "/user/"), payload.userID);
             }
+            if (payload.favoriteJokes){
+                if (auth.currentUser) {
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteJokes/"), payload.favoriteJokes);
+                }
+            }
         }
     }
     model.addObserver(obsACB);
@@ -80,7 +85,7 @@ function firebaseModelPromise() {
     function makeBigPromiseACB(firebaseData) {
         let input = "";
         let user = null;
-
+        let favoriteJokes = [];
         if (firebaseData.val()) {
             if(firebaseData.val().input){
                 input = firebaseData.val().input;
@@ -88,13 +93,15 @@ function firebaseModelPromise() {
             if(firebaseData.val().user){
                 user = firebaseData.val().user;
             }
+            if(firebaseData.val().favoriteJokes){
+                favoriteJokes = firebaseData.val().favoriteJokes;
+            }
         }
         
-        /*
-        function makeDishPromiseCB(dishId) {
-            return getDishDetails(dishId);
+        
+        function makeJokePromiseCB(ID) {
+            return getJokeByID(ID);
         }
-        */
         
         function createModelACB() {
             return new secondsModel(input, user);

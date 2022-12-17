@@ -1,23 +1,23 @@
 <script setup>
-import ActivityChooser from "../views/ActivityChooserView.vue";
+import ActivityChooserView from "../views/ActivityChooserView.vue";
 </script>
 
 <template>
-  <ActivityChooser
+  <ActivityChooserView
     @jokesPageRoutingACB="routeToJokesACB"
     @homePageRoutingACB="routeToHomeACB"
     @comicPageRoutingACB="routeToComicACB"
     @loginPageRoutingACB="routeToLoginACB"
+    @favoriteJokesPageRoutingACB="routeToFavoriteJokesACB"
   >
-  </ActivityChooser>
+  </ActivityChooserView>
 </template>
 
 <script>
 export default {
   //Vue component
-  props: ["model"],
   components: {
-    ActivityChooser,
+    ActivityChooserView,
   },
   methods: {
     routeToHomeACB() {
@@ -31,6 +31,9 @@ export default {
     },
     routeToLoginACB() {
       this.$router.push({ name: "login" });
+    },
+    routeToFavoriteJokesACB() {
+      this.$router.push({ name: "favorite_jokes" });
     },
   },
 };
