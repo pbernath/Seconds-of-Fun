@@ -17,6 +17,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 <style scoped>
 .jokes_page {
   display:flex;
+  flex-direction: column;
 }
 
 .button {
@@ -26,7 +27,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
         color:antiquewhite;
         height: 100px; 
         width: 100px;
-        place-items: center;
+        margin-left: auto;
     }
 
 .button:hover {
