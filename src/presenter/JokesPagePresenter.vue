@@ -13,7 +13,7 @@ import { getJoke } from "../jokeSource";
 <script>
 export default {
   //Vue component
-  props: ["model"],
+  props: ['model'],
   computed: {
     jokeData() {
       if (this.model.jokePromiseState.data == null) {

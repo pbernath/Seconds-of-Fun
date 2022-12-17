@@ -23,6 +23,7 @@ const REF="cloudModel";
 
 
 function createAccount (email, password, model) {
+    
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
             // Signed in 
@@ -39,6 +40,7 @@ function createAccount (email, password, model) {
 }
 
 function signInToAccount (email, password, model) {
+
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 

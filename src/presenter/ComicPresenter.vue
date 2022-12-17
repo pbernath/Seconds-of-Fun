@@ -9,9 +9,12 @@ import ComicView from "../views/ComicView.vue";
 <script>
 export default {
   //Vue component
-  props: ["model"],
+  props: ['model'],
   components: {
     ComicView,
+  },
+  created() {
+    
   },
 };
 </script>

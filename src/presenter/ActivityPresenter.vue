@@ -15,9 +15,12 @@ import ActivityChooser from "../views/ActivityChooserView.vue";
 <script>
 export default {
   //Vue component
-  props: ["model"],
+  props: ['model'],
   components: {
     ActivityChooser,
+  },
+  created() {
+    
   },
   methods: {
     routeToHomeACB() {
