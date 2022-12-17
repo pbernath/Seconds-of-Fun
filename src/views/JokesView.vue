@@ -64,9 +64,22 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
   border-width: 0px;
   /* height: 250px;
   width: 500px; */
-  margin:auto;
-  padding: 10em;
+  margin: auto;
 }
+
+.button {
+        background-color:#191a1c;
+        border-color: #5b576b;
+        border-radius: 4px;
+        color:antiquewhite;
+        height: 100px; 
+        width: 100px;
+        margin-left: auto;
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -80,8 +93,16 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
   width: 500px; */
   margin:auto;
   padding: 1em;
-  text-: 1em;
   }
+  .button {
+        background-color:#191a1c;
+        border-color: #5b576b;
+        border-radius: 4px;
+        color:antiquewhite;
+        height: 100px; 
+        width: 100px;
+        margin-left: auto;
+    }
 }
 </style>
 

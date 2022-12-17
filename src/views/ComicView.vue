@@ -13,6 +13,6 @@ export default {};
   border-style: solid;
   border-radius: 0px;
   border-color: #00bd7e;
-  border-width: 1px;
+  border-width: 0px;
 }
 </style>

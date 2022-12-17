@@ -28,14 +28,14 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 
 </template>
 
-<style>
+<style scoped>
 .login_page{
   width: 100%;
   height: 100%;
   border-color: #00bd7e;
   border-style: solid;
   border-radius: 0px;
-  border-width: 1px;
+  border-width: 0px;
 }
 
 
@@ -45,7 +45,33 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
     display: flex;
     align-items: center;
   }
+  .login_page{
+  width: 100%;
+  height: 100%;
+  border-color: #00bd7e;
+  border-style: solid;
+  border-radius: 0px;
+  border-width: 0px;
+  margin: auto;
 }
+}
+
+@media (max-width: 768px) {
+  .about {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .login_page{
+  width: 100%;
+  height: 100%;
+  border-color: #00bd7e;
+  border-style: solid;
+  border-radius: 0px;
+  border-width: 0px;
+}
+}
+
 </style>
 
 <script>export default {
