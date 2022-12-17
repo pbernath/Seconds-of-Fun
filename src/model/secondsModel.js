@@ -1,10 +1,12 @@
 import {getJoke} from '../jokeSource.js'
+import {getComic} from "../comicSource"
 import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{
 
     constructor(input = "", user = null){
         this.observers = [];
         this.jokePromiseState = {};
+        this.comicPromiseState={};
         this.currentInput = input;
         this.user = user;
     }
@@ -34,6 +36,10 @@ class secondsModel{
     
     setCurrentJoke(){ 
         resolvePromise(getJoke(), this.jokePromiseState)
+    }
+
+    setCurrentComic(){
+        resolvePromise(getComic(), this.comicPromiseState)
     }
 
     setInput(input){
@@ -87,11 +93,6 @@ class secondsModel{
         return this.user;
     }
 
-    
-
-  setCurrentJoke() {
-    resolvePromise(getJoke(), this.jokePromiseState);
-  }
 }
 
 export default secondsModel;
