@@ -20,6 +20,7 @@ coverage
 # Editor directories and files
 .firebase
 .firebaserc
+firebase.json
 .vscode
 # !.vscode/extensions.json
 .idea
