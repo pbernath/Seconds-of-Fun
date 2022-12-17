@@ -39,10 +39,10 @@ h4 {
   text-align: center;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .greetings h1,
   .greetings h3 {
-    text-align: left;
+    text-align: center;
   }
 }
 </style>

@@ -6,8 +6,10 @@ import ActivityPresenter from '../presenter/ActivityPresenter.vue';
 
 <template>
   <header>
+    <div class="mainDiv">
     <div class="wrapper">
       <ActivityPresenter :model="this.model"/>
+    </div>
     </div>
   </header>
   <RouterView :model="this.model"/>
@@ -23,40 +25,57 @@ export default{
 
 </script>
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
+@media (min-width: 768px) {
+  .header {
     display: flex;
     place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  .mainDiv {
+  display: flex;
+  /* height:auto; */
+  flex-direction: column;
+  align-content: space-between;
+  place-items: flex-start;
+  align-items: flex-start;
+  justify-content: left;
+  flex-wrap: wrap;
   }
 
-  header.wrapper {
+  .wrapper {
+    position: fixed;
     display: flex;
     place-items: flex-start;
+    justify-content: left;
+    flex-direction: column;
     flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+    top: 0.3em;
+    left: 0.3em;
   }
 }
+
+@media (max-width: 768px) {
+  .mainDiv {
+    display: flex;
+    flex-direction: row;
+    align-content: bottom;
+    place-items: end start;
+  }
+
+  .wrapper {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    place-items: flex-end;
+    justify-content: space-evenly;
+    /* align-items: center; */
+    align-content: bottom;
+    flex-direction: row;
+    flex-wrap: wrap;
+    bottom: 0em;
+    left: 0em;
+  }
+}
+
 </style>

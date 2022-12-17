@@ -32,13 +32,14 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 .login_page{
   width: 100%;
   height: 100%;
-  color: white;
+  border-color: #00bd7e;
   border-style: solid;
-  border-radius: 12px;
+  border-radius: 0px;
+  border-width: 1px;
 }
 
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .about {
     min-height: 100vh;
     display: flex;

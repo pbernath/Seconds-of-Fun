@@ -16,20 +16,22 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 
 <style>
 .jokes_page {
-  width: 430px;
-  height: 290;
+  display:flex;
 }
 
 .jokes_page_msg {
-  
+  color:white;
   border-style: solid;
-  border-radius: 12px;
-  color: white;
-  height: 250px;
-  width: 500px;
+  border-radius: 0px;
+  border-color: #00bd7e;
+  border-width: 0px;
+  /* height: 250px;
+  width: 500px; */
+  margin:auto;
+  padding: 10em;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .about {
     min-height: 100vh;
     display: flex;

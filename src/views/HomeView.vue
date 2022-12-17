@@ -5,7 +5,7 @@ import LandingPage from '../components/LandingPage.vue'
 <template>
   <main class="home">
     <header>
-    <img alt="SOF logo" class="logo" src="@/assets/sof-logo-500.png" width="125" height="125" />
+    <!-- <img alt="SOF logo" class="logo" src="@/assets/sof-logo-500.png" width="100" height="100" /> -->
 
     <div class="wrapper">
       <LandingPage msg="Welcome!" />
@@ -14,12 +14,50 @@ import LandingPage from '../components/LandingPage.vue'
   </main>
 </template>
 
-<style scoped>
+<style>
 
-.home{
-  width: 430px;
-  height: 290;
-}
+/* @media (min-width: 768px) {
+    .home {
+      display: flex;
+      height: auto;
+      flex-direction: row;
+      align-content: space-between;
+      place-items: flex-start;
+      align-items: flex-start;
+      justify-content: left;
+      flex-wrap: wrap;
+    }
+
+    .home .wrapper {
+      display: flex;
+      place-items: flex-start;
+      justify-content: left;
+      align-items: flex-start;
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+  } */
+  /* @media (max-width: 768px) {
+    .home {
+      display: flex;
+      height: auto;
+      flex-direction: column;
+      align-content: space-between;
+      place-items: flex-start;
+      align-items: flex-start;
+      justify-content: left;
+      flex-wrap: wrap;
+    }
+
+    .home .wrapper {
+      display: flex;
+      place-items: flex-start;
+      justify-content: left;
+      align-items: flex-start;
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+  } */
 
 
 
