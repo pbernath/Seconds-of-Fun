@@ -28,9 +28,10 @@
         color:antiquewhite;
         height: 100px; 
         width: 100px;
-        place-items: stretch;
-        align-items: stretch;
-        flex-grow: 1;
+        max-width: 100%;
+        flex-grow: 4;
+        margin:0px;
+        padding:0px;
     }
 
   }

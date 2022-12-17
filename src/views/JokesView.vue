@@ -14,9 +14,26 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
   </div>
 </template>
 
-<style>
+<style scoped>
 .jokes_page {
   display:flex;
+}
+
+.button {
+        background-color:#191a1c;
+        border-color: #5b576b;
+        border-radius: 4px;
+        color:antiquewhite;
+        height: 100px; 
+        width: 100px;
+        place-items: center;
+    }
+
+.button:hover {
+  background-color: #00bd7e;
+  transition: 0.7s;
+  border-radius: 10px;
+  color: black;
 }
 
 .jokes_page_msg {
@@ -36,6 +53,33 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
     min-height: 100vh;
     display: flex;
     align-items: center;
+  }
+
+  .jokes_page_msg {
+  color:white;
+  border-style: solid;
+  border-radius: 0px;
+  border-color: #00bd7e;
+  border-width: 0px;
+  /* height: 250px;
+  width: 500px; */
+  margin:auto;
+  padding: 10em;
+}
+}
+
+@media (max-width: 768px) {
+  .jokes_page_msg {
+  color:white;
+  border-style: solid;
+  border-radius: 0px;
+  border-color: #00bd7e;
+  border-width: 0px;
+  /* height: 250px;
+  width: 500px; */
+  margin:auto;
+  padding: 1em;
+  text-: 1em;
   }
 }
 </style>
