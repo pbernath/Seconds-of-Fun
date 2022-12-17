@@ -5,16 +5,22 @@ function treatHTTPResponseACB(response){
     }
     throw ("Status is not 200");
 }
+
 function getComic(){
-    function randomizeComicCB(){
-        return Math.floor((Math.random() * 2712)+1);
-    }
+    let comicNmbr=Math.floor((Math.random() * 2712)+1);
 
-
-    return fetch("https://xkcd.now.sh/?comic=1", {  // object literal
+    return fetch("https://xkcd.now.sh/?comic="+comicNmbr.toString(), {  // object literal
         method: "GET"       
      } 
     ).then(treatHTTPResponseACB);
+}
+
+function getNextComic(){
+    let comicNmbr=1;
+}
+
+function getPrevComic(){
+
 }
 
 export {getComic};

@@ -9,8 +9,9 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
         {{ comicTitle }}
     </p>
     <LoadingGIF class="comic_page" v-else/>
-    <img v-bind:src=comicImage>
-        
+
+    <img v-if="comicTitle != msg" :src=comicImage >
+    <LoadingGIF v-else/>
 
     <styledButton
       buttonText="Random Comic strip"
