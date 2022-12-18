@@ -75,7 +75,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 							<div v-if="!showPassword" @click="toggleShowPasswordACB">
 								<table>
 									<td>
-										<h3 style="color: #ebebeba3"> (◕‿◕) </h3>
+										<h3 style="color: #00bd7e"> (◕‿◕) </h3>
 									</td>
 									<td>
 										<h3 style="color: #ebebeba3">Show Password</h3>
@@ -85,7 +85,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 							<div v-if="showPassword" @click="toggleShowPasswordACB">
 								<table>
 									<td>
-										<h3 style="color: #ebebeba3"> (>‿&lt) </h3>
+										<h3 style="color: #00bd7e"> (>‿&lt) </h3>
 									</td>
 									<td>
 										<h3 style="color: #ebebeba3">Hide Password</h3>
