@@ -89,13 +89,10 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 			</div>
 			<br />
 			<div>
-
-        <li class="pointer">
 				<h3 style="color: #ebebeba3;" v-if="logIn" @click="switchToSignUpACB">Not yet registered? Click here to</h3>
-        <h3 style="color: #00bd7e;" v-if="logIn" @click="switchToSignUpACB">Sign Up!</h3>
-        <h3 style="color: #ebebeba3;" v-if="!logIn" @click="switchToSignUpACB">Already signed up? Click here to</h3>
-				<h3 style="color: #00bd7e;" v-if="!logIn" @click="switchToLogInACB">Log In!</h3>
-        </li>
+        <h3 style="color: #00bd7e;" v-if="logIn" @click="switchToSignUpACB"><li class="pointer">Sign Up!</li></h3>
+        <h3 style="color: #ebebeba3;" v-if="!logIn" @click="switchToLogInACB">Already signed up? Click here to</h3>
+				<h3 style="color: #00bd7e;" v-if="!logIn" @click="switchToLogInACB"><li class="pointer">Log In!</li></h3>
 			</div>
 		</div>
 		<div v-else>
