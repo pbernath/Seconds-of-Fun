@@ -17,4 +17,11 @@ function getJoke(){
     ).then(treatHTTPResponseACB);
 }
 
-export {getJoke}
+function getJokeByID(ID) {
+    return fetch("https://v2.jokeapi.dev/joke/Any?idRange=" + ID + "?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single", {  // object literal
+    method: "GET"       
+    } 
+    ).then(treatHTTPResponseACB);
+}
+
+export {getJoke, getJokeByID}

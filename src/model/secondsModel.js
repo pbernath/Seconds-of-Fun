@@ -3,15 +3,19 @@
     * It is responsible for storing the state of the page and notifying the view when the state changes.
 */
 
-import {getJoke} from '../jokeSource.js'
+import {getJoke, getJokeByID} from '../jokeSource.js'
 import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{
 
-    constructor(userMail = null){
+    constructor(userMail = null, favoriteJokes = []){
         this.observers = [];
+
         this.jokePromiseState = {};
         this.userMail = userMail;
+        this.favoriteJokesPromiseState={data: {joke: "No favorite joke."}, };
         this.authErrorMessage = null;
+        this.currentJoke = "";
+        this.favoriteJokes=favoriteJokes;
     }
 
     addObserver(addObserverACB){
@@ -32,44 +36,26 @@ class secondsModel{
         }
         this.observers.forEach(invokeObserverCB);
     }
-
-
-
-
     
-    setCurrentJoke(){ 
-        resolvePromise(getJoke(), this.jokePromiseState);
-    }
-
-
-
-
-
-
-    addToTest(infoToAdd){
-        this.testing= [...this.testing, infoToAdd];
-        this.notifyObservers({addTestInfo: infoToAdd});
-    }
-    
-    removeFromTest(infoToRemove){
-        function hasSameIdNotifsCB(info){
-            return info === infoToRemove;
+    removeFromFavorites(jokeToRemove){
+        function hasSameIdNotifsCB(joke){
+            return joke.id === jokeToRemove.id;
         }
         
-        if(this.testing.some(hasSameIdNotifsCB) == false){
+        if(this.favoriteJokes.some(hasSameIdNotifsCB) == false){
+            console.log("yeah2")
             return;
         }
 
-        function hasSameIdCB(info){
-            if (info === infoToRemove) {
+        function hasSameIdCB(joke){
+            if (joke.id === jokeToRemove.id) {
                 return false;
             }
             return true;
         }
 
-        this.testing = this.testing.filter(hasSameIdCB);
-
-        this.notifyObservers({removeTestInfo: infoToRemove});
+        this.favoriteJokes = this.favoriteJokes.filter(hasSameIdCB);
+        this.notifyObservers({removeJoke: jokeToRemove});
 
     }
 
@@ -82,11 +68,21 @@ class secondsModel{
         this.authErrorMessage = error;
     }
 
-    
+    addJokeToFavorites(jokeToAdd){
+        function hasSameIdNotifsCB(joke){
+            return joke.id === jokeToAdd.id;
+        }
+        
+        if(this.favoriteJokes.some(hasSameIdNotifsCB) == true){
+            return;
+        }
+        this.favoriteJokes=[...this.favoriteJokes, jokeToAdd]
+        this.notifyObservers({favoriteJokeToAdd: jokeToAdd})
+    }
+    getAJoke(){ 
+        resolvePromise(getJoke(), this.jokePromiseState)
+    }
 
-  setCurrentJoke() {
-    resolvePromise(getJoke(), this.jokePromiseState);
-  }
 }
 
 export default secondsModel;

@@ -26,8 +26,6 @@ export default{
     
   },
 };
-
-
 </script>
 <style scoped>
 /* Specific settings for Desktop view. */
