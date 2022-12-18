@@ -42,8 +42,9 @@ class secondsModel{
         this.observers.forEach(invokeObserverCB);
     }
 
-
-
+    setFavoriteJokes(listOfJokes){
+        this.favoriteJokes = listOfJokes;
+    }
 
     setUser (user) {
         this.userMail = user;
@@ -54,9 +55,12 @@ class secondsModel{
         this.authErrorMessage = error;
     }
 
-
-
-
+    jokeIdExistsInFavorites(id){
+        function compareIdCB(joke){
+            return joke.id == id;
+        }
+        return this.favoriteJokes.some(compareIdCB);
+    }
 
     removeFromFavorites(jokeToRemove){
         function hasSameIdNotifsCB(joke){

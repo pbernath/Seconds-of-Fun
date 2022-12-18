@@ -4,7 +4,7 @@ import {jokeSort} from "../utils.jsx"
 </script>
 
 <template>
-  <FavoriteJokes :jokes="favorites" @removeJokeACB="jokeRemovalACB"/>
+  <FavoriteJokes :jokes="favorites" @removeJokeACB="jokeRemovalACB" :userIsLoggedIn="user != null"/>
 </template>
 
 <script>
@@ -14,6 +14,9 @@ export default {
   computed: {
     favorites(){
         return jokeSort(this.model.favoriteJokes);
+    },
+    user(){
+      return this.model.userMail;
     }
   },
   components: {

@@ -11,22 +11,23 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
   <div class="jokes_page">
     <p v-if="joke != msg" class="jokes_page_msg">{{ joke }}</p>
     <LoadingGIF class="jokes_page_msg" v-else/>
-    <styledButton
+    <styledButton class="button"
       buttonText="Next joke!"
       @click="getJokeACB"
     />
-    <styledButton v-if="loggedIn"
+    <styledButton class="button" v-if="loggedIn"
       buttonText="Save!"
       @click="addToFavoriteJokesACB"
     />
     <p v-else>Log in to save the joke!</p>
+    <p v-if="isASavedJoke" > Joke was saved!</p>
   </div>
 </template>
 
 
 <script>
 export default {
-  props: ["jokeData", "loading", "loggedIn"],
+  props: ["jokeData", "loading", "loggedIn", "isASavedJoke"],
   emits: ["getNewJokeACB", "setJokeOnLoadACB" ,"sendJokeToFavoriteACB"],
   data(){return {msg: "Waiting for a joke..."}},
   computed: {
@@ -46,73 +47,5 @@ export default {
 };
 </script>
 
-
-<style scoped>
-/* Turns the page into a flex container where it acts as a parent where the jokes window and buttons are its children.  */
-.jokes_page {
-  display:flex;
-  flex-direction: column;
-}
-/* Global effects on the button during mouse hover. */
-.button:hover {
-  background-color: #00bd7e;
-  transition: 0.7s;
-  border-radius: 10px;
-  color: black;
-}
-/* Specific settings for Desktop view.  */
-@media (min-width: 768px) {
-  .jokes_page_msg {
-  font-size: large;
-  color:white;
-  border-style: solid;
-  border-radius: 0px;
-  border-color: #00bd7e;
-  border-width: 0px;
-  /* height: 250px;
-  width: 500px; */
-  margin: auto;
-  padding: 5em;
-}
-.button {
-        background-color:#191a1c;
-        border-color: #5b576b;
-        border-radius: 4px;
-        color:antiquewhite;
-        height: 100px; 
-        width: 100px;
-        margin-left: auto;
-        position: fixed;
-        right: 15px;
-        bottom: 15px;
-    }
-}
-/* Specific settings for Mobile view. */
-@media (max-width: 768px) {
-  .jokes_page_msg {
-  font-size: x-large;
-  color:white;
-  border-style: solid;
-  border-radius: 0px;
-  border-color: #00bd7e;
-  border-width: 0px;
-  /* height: 250px;
-  width: 500px; */
-  margin:auto;
-  padding: 3em;
-  }
-  .button {
-    position: fixed;
-        background-color:#191a1c;
-        border-color: #5b576b;
-        border-radius: 4px;
-        color:antiquewhite;
-        height: 100px; 
-        width: 100px;
-        top: 15px;
-        right: 15px;
-    }
-}
-</style>
 
 

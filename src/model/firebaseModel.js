@@ -59,6 +59,7 @@ function signOutOfAccount (model) {
     .then(function handleSignOut () {
             // Sign-out successful
             model.setUser(null);
+            model.setFavoriteJokes([]);
             model.setAuthErrorMessage(null);
             updateModelFromFirebase(model);
         }
@@ -136,17 +137,8 @@ function updateFirebaseFromModel(model) {
 }
 
 function updateModelFromFirebase(model) {
-
-    /*
-    onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/input/"),
-        function inputHasChangedInFirebaseACB(firebaseData) {
-            model.setInput(firebaseData.val());
-        }
-    )
-    */
-    
     onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
-        function testAddedInFirebaseACB(firebaseData){
+        function jokeAddedInFirebaseACB(firebaseData){
             function jokeAlreadyAddedCB(joke) {
                 return joke.id == +firebaseData.key;
             }

@@ -3,7 +3,7 @@ import {jokeSort} from "../utils.jsx"
 </script>
 
 <template>
-  <div>
+  <div v-if="userIsLoggedIn">
     <li :key="joke.id" class="jokeList" v-for="joke in jokesArray">
       <button @click="removeACB(joke.id)">X</button>
       <div class="toBeHidden">hidden</div>
@@ -12,11 +12,12 @@ import {jokeSort} from "../utils.jsx"
 
     </li>
   </div>
+  <div v-else>You need to log in to save jokes!</div>
 </template>
 
 <script>
 export default {
-  props: ["jokes"],
+  props: ["jokes", "userIsLoggedIn"],
   emits: ["removeJokeACB"],
   computed:{
     jokesArray(){

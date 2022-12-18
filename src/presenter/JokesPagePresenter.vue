@@ -11,8 +11,9 @@ import { getJoke } from "../jokeSource";
 </script>
 <template>
   <JokesPage
-    :loggedIn="this.model.userMail != null"
+    :loggedIn="model.userMail != null"
     :jokeData="jokeData"
+    :isASavedJoke="isASavedJokeACB"
     @getNewJokeACB="setCurrentJokeACB"
     @setJokeOnLoadACB="setJoke"
     @sendJokeToFavoriteACB="addCurrentJokeToFavoritesACB"
@@ -32,6 +33,13 @@ export default {
       }
       return this.model.jokePromiseState;
     },
+    isASavedJokeACB(){
+      if (this.model.jokePromiseState.data) {
+        return this.model.jokeIdExistsInFavorites(this.model.jokePromiseState.data.id);
+      };
+
+      return true;
+    }
   },
   created() {
     if (this.model.jokePromiseState.promise == undefined)
