@@ -15,6 +15,8 @@ export default {};
   height: 100%;
   color: white;
   border-style: solid;
-  border-radius: 12px;
+  border-radius: 0px;
+  border-color: #00bd7e;
+  border-width: 0px;
 }
 </style>
