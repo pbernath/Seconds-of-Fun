@@ -10,6 +10,7 @@ import secondsModel from "./secondsModel.js";
 import {initializeApp} from "firebase/app";
 import {getDatabase, ref, set, get, onChildRemoved, onChildAdded, onValue} from "firebase/database";
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import { getJoke, getJokeByID } from "../jokeSource.js";
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
@@ -77,13 +78,18 @@ function observerRecap(model) {
     
         if (payload) {
 
-            /*
-            if (payload.input) {
+            if (payload.favoriteJokeToAdd){
                 if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/input/"), payload.input);
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteJokes/" + payload.favoriteJokeToAdd.id), payload.favoriteJokeToAdd.category);
                 }
             }
-            */
+
+            if (payload.removeJoke){
+                if (auth.currentUser) {
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteJokes/" + payload.removeJoke.id), null);
+                }
+            }
+
         }
     }
     model.addObserver(obsACB);
@@ -94,39 +100,34 @@ function firebaseModelPromise() {
 
     function makeBigPromiseACB(firebaseData) {
         let user = null;
+        let favoriteJokes = [];
 
         if (firebaseData.val()) {
-            /*
-            if(firebaseData.val().user){
-                user = firebaseData.val().user;
+
+            if(firebaseData.val().favoriteJokes){
+                favoriteJokes = firebaseData.val().favoriteJokes;
+                console.log(favoriteJokes);
             }
-            */
+
         }
         
         if (auth.currentUser) {
             user = auth.currentUser.email;
         }
 
-        /*
-        function makeDishPromiseCB(dishId) {
-            return getDishDetails(dishId);
+        function makeJokePromiseCB(ID) {
+            return getJokeByID(ID);
         }
-        */
         
         function createModelACB() {
-            return new secondsModel(user);
+            return new secondsModel(user, favoriteJokes);
         }
-
-        /*
-        const testPromiseArray= Object.keys(testsList);
-        return Promise.all(testPromiseArray).then(createModelACB);
-        */
         
-        return createModelACB();
+        const jokePromiseArray= Object.keys(favoriteJokes).map(makeJokePromiseCB);
+        return Promise.all(jokePromiseArray).then(createModelACB);
     }
 
     return get(ref(database, REF)).then(makeBigPromiseACB);
-
 }
 
 function updateFirebaseFromModel(model) {
@@ -144,27 +145,27 @@ function updateModelFromFirebase(model) {
     )
     */
     
-    /*
-    onChildAdded(ref(database, REF+"/testingList/"),
+    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
         function testAddedInFirebaseACB(firebaseData){
-            function testAlreadyAddedCB(test) {
-                return test == +firebaseData.key;
+            function jokeAlreadyAddedCB(joke) {
+                return joke.id == +firebaseData.key;
             }
-            if (!model.testing.find(testAlreadyAddedCB)) {
-                function addTestACB(test) {
-                    model.addToTest(test);
+            if (!model.favoriteJokes.find(jokeAlreadyAddedCB)) {
+                function addjokeACB(joke) {
+                    model.addJokeToFavorites(joke);
                 }
-                addTestACB();
+                getJokeByID(+firebaseData.key).then(addjokeACB);
             }
         }
     )
 
-    onChildRemoved(ref(database, REF+"/testingList/"),
-        function testRemovedInFirebaseACB(firebaseData){
-            model.removeFromTest({id: +firebaseData.key}); 
+    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
+        function jokeRemovedInFirebaseACB(firebaseData){
+            console.log(model.favoriteJokes)
+            model.removeFromFavorites({id: +firebaseData.key}); 
+            console.log(model.favoriteJokes)
         }
     )
-    */
 
     return;
 }

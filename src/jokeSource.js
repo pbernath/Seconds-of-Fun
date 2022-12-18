@@ -10,11 +10,17 @@ function treatHTTPResponseACB(response){
     throw ("Status is not 200");
 }
 function getJoke(){
-    // Object literal.
-    return fetch("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single", {  
+    return fetch("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single", {  // object literal
         method: "GET"       
      } 
     ).then(treatHTTPResponseACB);
 }
 
-export {getJoke}
+function getJokeByID(ID) {
+    return fetch("https://v2.jokeapi.dev/joke/Any?idRange=" + ID + "?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single", {  // object literal
+    method: "GET"       
+    } 
+    ).then(treatHTTPResponseACB);
+}
+
+export {getJoke, getJokeByID}
