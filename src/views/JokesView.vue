@@ -34,6 +34,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 /* Specific settings for Desktop view. */
 @media (min-width: 768px) {
   .jokes_page_msg {
+  font-size: large;
   color:white;
   border-style: solid;
   border-radius: 0px;
@@ -42,6 +43,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
   /* height: 250px;
   width: 500px; */
   margin: auto;
+  padding: 5em;
 }
 .button {
         background-color:#191a1c;
@@ -59,6 +61,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 /* Specific settings for Mobile view. */
 @media (max-width: 768px) {
   .jokes_page_msg {
+  font-size: x-large;
   color:white;
   border-style: solid;
   border-radius: 0px;
@@ -67,16 +70,18 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
   /* height: 250px;
   width: 500px; */
   margin:auto;
-  padding: 1em;
+  padding: 3em;
   }
   .button {
+    position: fixed;
         background-color:#191a1c;
         border-color: #5b576b;
         border-radius: 4px;
         color:antiquewhite;
         height: 100px; 
         width: 100px;
-        margin-left: auto;
+        top: 15px;
+        right: 15px;
     }
 }
 </style>
