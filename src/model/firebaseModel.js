@@ -12,7 +12,7 @@ firebase.initializeApp(firebaseConfig);
 // instructions from firebase, but how to call the functions? firebase.database not a function...
 import {initializeApp} from "firebase/app";
 import {getDatabase, ref, set, get, onChildRemoved, onChildAdded, onValue} from "firebase/database";
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
@@ -21,38 +21,65 @@ const auth = getAuth(app);
 const REF="cloudModel";
 
 
-
 function createAccount (email, password, model) {
-    
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-            // Signed in 
+    .then(function handleSignUp (userCredential) {
+            // Signed in
             const user = userCredential.user;
-            model.setUser(user.uid);
+            console.log(user);
+            model.setUser(user.email);
+            model.setAuthErrorMessage(null);
         }
     )
-    .catch((error) => {
+    .catch(function handleError (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
             console.log(error);
+            model.setAuthErrorMessage(error);
         }
     );
 }
 
 function signInToAccount (email, password, model) {
-
     signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
+    .then(function handleSignIn (userCredential) {
+            // Signed in
             const user = userCredential.user;
-            model.setUser(user.uid);
+            console.log(user);
+            model.setUser(user.email);
+            model.setAuthErrorMessage(null);
             updateModelFromFirebase(model);
         }
     )
-    .catch((error) => {
+    .catch(function handleError (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
             console.log(error);
+            model.setAuthErrorMessage(error);
+        }
+    );
+}
+
+function signOutOfAccount (model) {
+    signOut(auth)
+    .then(function handleSignOut () {
+            // Sign-out successful
+            model.setUser(null);
+            model.setAuthErrorMessage(null);
+            updateModelFromFirebase(model);
+        }
+    )
+    .catch(function handleError (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
+            console.log(error);
+            model.setAuthErrorMessage(error);
         }
     );
 }
@@ -63,14 +90,14 @@ function observerRecap(model) {
     function obsACB(payload){
     
         if (payload) {
+
+            /*
             if (payload.input) {
                 if (auth.currentUser) {
                     set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/input/"), payload.input);
                 }
             }
-            if (payload.userID) {
-                set(ref(database, REF + "/user/"), payload.userID);
-            }
+            */
         }
     }
     model.addObserver(obsACB);
@@ -80,18 +107,20 @@ function observerRecap(model) {
 function firebaseModelPromise() {
 
     function makeBigPromiseACB(firebaseData) {
-        let input = "";
         let user = null;
 
         if (firebaseData.val()) {
-            if(firebaseData.val().input){
-                input = firebaseData.val().input;
-            }
+            /*
             if(firebaseData.val().user){
                 user = firebaseData.val().user;
             }
+            */
         }
         
+        if (auth.currentUser) {
+            user = auth.currentUser.email;
+        }
+
         /*
         function makeDishPromiseCB(dishId) {
             return getDishDetails(dishId);
@@ -99,7 +128,7 @@ function firebaseModelPromise() {
         */
         
         function createModelACB() {
-            return new secondsModel(input, user);
+            return new secondsModel(user);
         }
 
         /*
@@ -121,17 +150,13 @@ function updateFirebaseFromModel(model) {
 
 function updateModelFromFirebase(model) {
 
+    /*
     onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/input/"),
         function inputHasChangedInFirebaseACB(firebaseData) {
             model.setInput(firebaseData.val());
         }
     )
-
-    onValue(ref(database, REF+"/user/"),
-        function userHasChangedInFirebaseACB(firebaseData) {
-            model.setUser(firebaseData.val());
-        }
-    )
+    */
     
     /*
     onChildAdded(ref(database, REF+"/testingList/"),
@@ -159,4 +184,4 @@ function updateModelFromFirebase(model) {
 }
 
 
-export {observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase, createAccount, signInToAccount};
+export {observerRecap, firebaseModelPromise, updateFirebaseFromModel, updateModelFromFirebase, createAccount, signInToAccount, signOutOfAccount};

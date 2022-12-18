@@ -2,22 +2,22 @@ import {getJoke} from '../jokeSource.js'
 import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{
 
-    constructor(input = "", user = null){
+    constructor(userMail = null){
         this.observers = [];
         this.jokePromiseState = {};
-        this.currentInput = input;
-        this.user = user;
+        this.userMail = userMail;
+        this.authErrorMessage = null;
     }
 
     addObserver(addObserverACB){
-        this.observers = [...this.observers, addObserverACB]
+        this.observers = [...this.observers, addObserverACB];
     }
 
     removeObserver(removeObserverACB){
         function removeObsCB(obs){
             return obs!==removeObserverACB;
         }
-        this.observers = this.observers.filter(removeObsCB)
+        this.observers = this.observers.filter(removeObsCB);
     }
 
     notifyObservers(payload){
@@ -25,7 +25,7 @@ class secondsModel{
             try{obs(payload);}
             catch(err){console.log(err);}
         }
-        this.observers.forEach(invokeObserverCB)
+        this.observers.forEach(invokeObserverCB);
     }
 
 
@@ -33,16 +33,7 @@ class secondsModel{
 
     
     setCurrentJoke(){ 
-        resolvePromise(getJoke(), this.jokePromiseState)
-    }
-
-    setInput(input){
-        this.currentInput = input;
-        this.notifyObservers({input: input});
-    }
-
-    getInput() {
-        return this.currentInput;
+        resolvePromise(getJoke(), this.jokePromiseState);
     }
 
 
@@ -51,9 +42,8 @@ class secondsModel{
 
 
     addToTest(infoToAdd){
-        this.testing= [...this.testing, infoToAdd]
-
-        this.notifyObservers({addTestInfo: infoToAdd})
+        this.testing= [...this.testing, infoToAdd];
+        this.notifyObservers({addTestInfo: infoToAdd});
     }
     
     removeFromTest(infoToRemove){
@@ -79,12 +69,12 @@ class secondsModel{
     }
 
     setUser (user) {
-        this.user = user;
-        this.notifyObservers({userID: user})
+        this.userMail = user;
+        this.notifyObservers({userMail: user});
     }
 
-    getUser () {
-        return this.user;
+    setAuthErrorMessage (error) {
+        this.authErrorMessage = error;
     }
 
     

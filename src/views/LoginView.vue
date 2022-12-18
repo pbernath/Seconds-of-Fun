@@ -4,26 +4,55 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 </script>
 
 <template>
-  <div class="login_page">
-    <h3>Write something below to both display it here as well as saving it in both the model and in the cloud</h3>
-    <input id="theInputField" @keydown="checkForEnterACB">
-    <styledButton buttonText="Add to model" @click="addToModelACB"/>
-    <h1>{{fetchFromModel}}</h1>
-    <div>
-    <h3>{{someText}}</h3>
-    <h3 v-if="fetchUser != null">{{fetchUser}}</h3>
-    <input id="emailField" placeholder="e-mail" @keydown="checkForEnterWhileLoginACB">
-    <input id="passwordField" placeholder="password" @keydown="checkForEnterWhileLoginACB">
-    <input v-if="!logIn" id="secondPasswordField" placeholder="repeat password" @keydown="checkForEnterWhileLoginACB">
-    <styledButton v-if="logIn" buttonText="Log In" @click="continueLogInACB"/>
-    <styledButton v-if="!logIn" buttonText="Sign Up!" @click="continueLogInACB"/>
-  </div>
   <div>
-    <h3 v-if="logIn" @click="switchToSignUpACB" @mouseover="" >Not yet registered? Click here to Sign Up!</h3>
-    <h3 v-if="!logIn" @click="switchToLogInACB" @mouseover="" >Already signed up? Click here to Log In!</h3>
-  </div>
-  <div>PLACEHOLDER Forgot your password? Click here!</div>
-
+    <div v-if="!fetchUser">
+      <div>
+        <div>
+          <h1>Sign in to enable extra features!</h1>
+        </div>
+        <br/>
+        <table>
+          <td>
+            <div>
+              <input id="emailField" type="text" placeholder="e-mail" @keydown="checkForEnterACB" v-model="email">
+            </div>
+            <div>
+              <input v-if="!showPassword" id="passwordField" type="password" placeholder="password" @keydown="checkForEnterACB" v-model="password">
+              <input v-else id="passwordField" type="text" placeholder="password" @keydown="checkForEnterACB" v-model="password" >
+            </div>
+            <div>
+              <input v-if="!logIn && !showPassword" id="secondPasswordField" type="password" placeholder="repeat password" @keydown="checkForEnterACB" v-model="secondPassword">
+              <input v-if="!logIn && showPassword" id="secondPasswordField" type="text" placeholder="repeat password" @keydown="checkForEnterACB" v-model="secondPassword">
+            </div>
+          </td>
+          <td></td>
+          <td>
+            <tr></tr>
+            <div>
+              <h3 v-if="!showPassword" @click="toggleShowPasswordACB">(◕‿◕) Show password</h3>
+              <h3 v-if="showPassword" @click="toggleShowPasswordACB">(>‿&lt) Hide password</h3>
+            </div>
+          </td>
+        </table>
+        <br/>
+        <div>
+          <styledButton v-if="logIn" buttonText="Log In" @click="continueLogInACB"/>
+          <styledButton v-if="!logIn" buttonText="Sign Up!" @click="continueLogInACB"/>
+        </div>
+      </div>
+      <br/>
+      <div>
+        <h3 v-if="logIn" @click="switchToSignUpACB" @mouseover="" >Not yet registered? Click here to Sign Up!</h3>
+        <h3 v-if="!logIn" @click="switchToLogInACB" @mouseover="" >Already signed up? Click here to Log In!</h3>
+      </div>
+    </div>
+    <div v-else>
+      <h1>Signed in as {{fetchUser}}</h1>
+      <br/>
+      <h3 @click="logOutACB">Click here to sign out!</h3>
+    </div>
+    <h3 color="red">{{fetchErrorMessage}}</h3>
+    <h3 color="red">{{passwordMismatch}}</h3>
   </div>
 
 </template>
@@ -48,50 +77,62 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 </style>
 
 <script>export default {
-  props: ['inputFromTheModel', 'userFromFirebase'],
-  emits:['getTextFromInputACB', 'getDetailsForAuthACB'],
-  data(){return {logIn: true, signUp: false, someText: "This is a template for a log in page, i know, it's cool. (◕‿◕)"}},
+  props: ['userFromFirebase', 'errorMessage'],
+  emits:['getDetailsForAuthACB', 'signOutFromFirebaseACB', 'errorAckACB'],
+  data(){return {logIn: true, showPassword: false, email: null, password: null, secondPassword: null, passwordMismatch: null}},
+  created(){
+
+  },
   computed: {
-    fetchFromModel() {
-      return this.inputFromTheModel;
-    },
     fetchUser () {
       return this.userFromFirebase;
-    }
+    },
+    fetchErrorMessage () {
+      let error = this.errorMessage;
+      console.log(error);
+      if (error) {
+        let code = error.code;
+        return "Error: " + code.split("/").pop();
+      } else {
+        return null;
+      }
+    },
   },
   methods:{
-
-    addToModelACB(){
-      this.$emit('getTextFromInputACB', theInputField.value);
-    },
-    checkForEnterACB(e){
-      if (e.key === "Enter") {
-        this.addToModelACB();
-      }
+    toggleShowPasswordACB () {
+      this.showPassword = !this.showPassword;
     },
     switchToSignUpACB () {
       this.logIn = false;
     },
     switchToLogInACB () {
+      this.secondPassword = null;
       this.logIn = true;
     },
-    checkForEnterWhileLoginACB (e) {
+    checkForEnterACB (e) {
       if (e.key === "Enter") {
         this.continueLogInACB();
       }
     },
     continueLogInACB () {
+      this.$emit('errorAckACB');
+      this.passwordMismatch = null;
       if (!this.logIn) {
-        if (passwordField.value !== secondPasswordField.value) {
-          this.someText = "Password fields don't match";
-          passwordField.value = "";
-          secondPasswordField.value = "";
+        if (this.password !== this.secondPassword) {
+          this.passwordMismatch = "Error: password fields don't match";
+          this.password = null;
+          this.secondPassword = null;
           return;
         }
       }
-      this.$emit('getDetailsForAuthACB', {email: emailField.value, password: passwordField.value, logIn: this.logIn});
-      this.someText = "if everything goes according to plan you should soon be signed in";
-      passwordField.value = "";
+      this.$emit('getDetailsForAuthACB', {email: this.email, password: this.password, logIn: this.logIn});
+      this.password = null;
+      this.secondPassword = null;
+    },
+    logOutACB () {
+      this.switchToLogInACB();
+      this.showPassword = false;
+      this.$emit('signOutFromFirebaseACB');
     }
   },
 };

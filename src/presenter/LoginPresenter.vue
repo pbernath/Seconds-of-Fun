@@ -2,15 +2,16 @@
 import Login from '../views/LoginView.vue';
 import { resolvePromise } from '../resolvePromise';
 import { render } from 'vue';
-import {createAccount, signInToAccount} from '../model/firebaseModel.js';
+import {createAccount, signInToAccount, signOutOfAccount, updateModelFromFirebase} from '../model/firebaseModel.js';
 </script>
 
 <template>
     <Login
-    :inputFromTheModel="getInputFromModel"
-    :userFromFirebase="getUserFromFirebase"
-    @getTextFromInputACB="setInputACB"
+    :userFromFirebase="getUserFromModel"
+    :errorMessage="getAuthErrorMessageFromModel"
     @getDetailsForAuthACB="handleAuthACB"
+    @signOutFromFirebaseACB="handleSignOutACB"
+    @errorAckACB="resetErrorMessageACB"
     />
 </template>
 
@@ -26,25 +27,27 @@ export default { //Vue component
 
     },
     computed: {
-        getInputFromModel() {
-            return this.model.currentInput;
+        getUserFromModel () {
+            return this.model.userMail;
         },
-        getUserFromFirebase () {
-            return this.model.user;
-        }
+        getAuthErrorMessageFromModel () {
+            return this.model.authErrorMessage;
+        },
     },
     methods:{
-        setInputACB(input){
-            this.model.setInput(input)
-        },
         handleAuthACB (event) {
-            console.log(event);
             if (event.logIn) {
                 signInToAccount(event.email, event.password, this.model);
-            } else if (!event.logIn) {
+            } else {
                 createAccount(event.email, event.password, this.model);
             }
-        }
+        },
+        handleSignOutACB() {
+            signOutOfAccount(this.model);
+        },
+        resetErrorMessageACB() {
+            this.model.setAuthErrorMessage(null);
+        },
     },
     components: {
         Login
