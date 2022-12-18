@@ -1,3 +1,7 @@
+<!--
+  * JokesView contains settings for how the jokes page looks, such as color, dimensions and button settings.
+-->
+
 <script setup>
 import styledButton from "../components/styledButton.vue";
 import LoadingGIF from "../components/icons/LoadingGIF.vue";
@@ -18,6 +22,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
     <p v-else>Log in to save the joke!</p>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -41,26 +46,73 @@ export default {
 };
 </script>
 
-<style>
+
+<style scoped>
+/* Turns the page into a flex container where it acts as a parent where the jokes window and buttons are its children.  */
 .jokes_page {
-  width: 430px;
-  height: 290;
+  display:flex;
+  flex-direction: column;
 }
-
-.jokes_page_msg {
-  
+/* Global effects on the button during mouse hover. */
+.button:hover {
+  background-color: #00bd7e;
+  transition: 0.7s;
+  border-radius: 10px;
+  color: black;
+}
+/* Specific settings for Desktop view.  */
+@media (min-width: 768px) {
+  .jokes_page_msg {
+  font-size: large;
+  color:white;
   border-style: solid;
-  border-radius: 12px;
-  color: white;
-  height: 250px;
-  width: 500px;
+  border-radius: 0px;
+  border-color: #00bd7e;
+  border-width: 0px;
+  /* height: 250px;
+  width: 500px; */
+  margin: auto;
+  padding: 5em;
 }
-
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+.button {
+        background-color:#191a1c;
+        border-color: #5b576b;
+        border-radius: 4px;
+        color:antiquewhite;
+        height: 100px; 
+        width: 100px;
+        margin-left: auto;
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+    }
+}
+/* Specific settings for Mobile view. */
+@media (max-width: 768px) {
+  .jokes_page_msg {
+  font-size: x-large;
+  color:white;
+  border-style: solid;
+  border-radius: 0px;
+  border-color: #00bd7e;
+  border-width: 0px;
+  /* height: 250px;
+  width: 500px; */
+  margin:auto;
+  padding: 3em;
   }
+  .button {
+    position: fixed;
+        background-color:#191a1c;
+        border-color: #5b576b;
+        border-radius: 4px;
+        color:antiquewhite;
+        height: 100px; 
+        width: 100px;
+        top: 15px;
+        right: 15px;
+    }
 }
 </style>
+
+

@@ -8,20 +8,22 @@ import styledButton from "../components/styledButton.vue";
 </script>
 
 <template>
-  <div @click="goToHomeACB">
-		<img v-if="goToHomeACB" src="../assets/sof-logo-500.png" id="homeLogo" width="100" height="100" />
-	</div>
-  <div>
-    <styledButton buttonText="Jokes" @click="goToJokesPageACB" />
-  </div>
-  <div>
-    <styledButton buttonText="Comics" @click="goToComicACB" />
-  </div>
-  <div>
-    <styledButton buttonText="Login" @click="goToLoginACB" />
-  </div>
-  <div>
-    <styledButton buttonText="Favorite jokes" @click="goToFavoriteJokesACB" />
+  <div class="flex-container">
+    <div>
+      <img src="../assets/sof-logo-500.png" id="homeLogo" width="100" height="100" @click="goToHomeACB" class="pointer" />
+    </div>
+    <div>
+      <styledButton buttonText="Jokes" @click="goToJokesPageACB" />
+    </div>
+    <div>
+      <styledButton buttonText="Comics" @click="goToComicACB" />
+    </div>
+    <div>
+      <styledButton buttonText="Login" @click="goToLoginACB" />
+    </div>
+    <div>
+      <styledButton buttonText="Favorite jokes" @click="goToFavoriteJokesACB" />
+    </div>
   </div>
 </template>
 
@@ -32,7 +34,7 @@ export default {
     "jokesPageRoutingACB",
     "comicPageRoutingACB",
     "loginPageRoutingACB",
-    "favoriteJokesPageRoutingACB"
+    "favoriteJokesPageRoutingACB",
   ],
   methods: {
     goToHomeACB() {
@@ -53,3 +55,17 @@ export default {
   },
 };
 </script>
+
+<style>
+.flex-container {
+  display: flex;
+}
+.flex-container > div {
+  text-align: center;
+  width: 100px;
+  margin: 0px;
+}
+.pointer {
+  cursor: pointer;
+}
+</style>

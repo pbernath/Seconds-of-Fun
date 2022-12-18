@@ -26,9 +26,7 @@ export default {
   methods: {
     removeACB(id) {
       this.$emit("removeJokeACB", id)
-
     },
-
   },
 };
 </script>

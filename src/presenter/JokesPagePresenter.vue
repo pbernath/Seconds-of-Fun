@@ -11,7 +11,7 @@ import { getJoke } from "../jokeSource";
 </script>
 <template>
   <JokesPage
-    :loggedIn="this.model.user != null"
+    :loggedIn="this.model.userMail != null"
     :jokeData="jokeData"
     @getNewJokeACB="setCurrentJokeACB"
     @setJokeOnLoadACB="setJoke"
@@ -20,8 +20,8 @@ import { getJoke } from "../jokeSource";
 </template>
 <script>
 export default {
-  //Vue component.
-  props: ['model'],
+  //Vue component
+  props: ["model"],
   computed: {
     jokeData() {
       if (this.model.jokePromiseState.data == null) {

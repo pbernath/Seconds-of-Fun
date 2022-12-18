@@ -5,18 +5,23 @@
 
 import {getJoke, getJokeByID} from '../jokeSource.js'
 import {resolvePromise} from '../resolvePromise.js';
+
+
 class secondsModel{
 
     constructor(userMail = null, favoriteJokes = []){
         this.observers = [];
 
-        this.jokePromiseState = {};
         this.userMail = userMail;
-        this.favoriteJokesPromiseState={data: {joke: "No favorite joke."}, };
         this.authErrorMessage = null;
+
+        this.jokePromiseState = {};
         this.currentJoke = "";
-        this.favoriteJokes=favoriteJokes;
+        this.favoriteJokes = favoriteJokes;
     }
+
+
+
 
     addObserver(addObserverACB){
         this.observers = [...this.observers, addObserverACB];
@@ -36,7 +41,23 @@ class secondsModel{
         }
         this.observers.forEach(invokeObserverCB);
     }
-    
+
+
+
+
+    setUser (user) {
+        this.userMail = user;
+        this.notifyObservers({userMail: user});
+    }
+
+    setAuthErrorMessage (error) {
+        this.authErrorMessage = error;
+    }
+
+
+
+
+
     removeFromFavorites(jokeToRemove){
         function hasSameIdNotifsCB(joke){
             return joke.id === jokeToRemove.id;
@@ -59,15 +80,6 @@ class secondsModel{
 
     }
 
-    setUser (user) {
-        this.userMail = user;
-        this.notifyObservers({userMail: user});
-    }
-
-    setAuthErrorMessage (error) {
-        this.authErrorMessage = error;
-    }
-
     addJokeToFavorites(jokeToAdd){
         function hasSameIdNotifsCB(joke){
             return joke.id === jokeToAdd.id;
@@ -79,6 +91,7 @@ class secondsModel{
         this.favoriteJokes=[...this.favoriteJokes, jokeToAdd]
         this.notifyObservers({favoriteJokeToAdd: jokeToAdd})
     }
+
     getAJoke(){ 
         resolvePromise(getJoke(), this.jokePromiseState)
     }
