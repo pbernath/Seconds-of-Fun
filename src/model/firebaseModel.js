@@ -103,7 +103,6 @@ function firebaseModelPromise() {
             if(firebaseData.val().user){
                 user = firebaseData.val().user;
             }
-            */
         }
         
         if (auth.currentUser) {
