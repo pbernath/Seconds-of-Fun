@@ -9,7 +9,9 @@ import styledButton from "../components/styledButton.vue";
 
 <template>
   <div @click="goToHomeACB">
+    <li class="pointer">
 		<img v-if="goToHomeACB" src="../assets/sof-logo-500.png" id="homeLogo" width="100" height="100" />
+  </li>
 	</div>
   <div>
     <styledButton buttonText="Jokes" @click="goToJokesPageACB" />
@@ -46,3 +48,9 @@ export default {
   },
 };
 </script>
+
+<style>
+li.pointer {
+  cursor: pointer;
+}
+</style>

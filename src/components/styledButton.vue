@@ -12,7 +12,7 @@
 }
 </script>
 
-<style scoped>
+<style>
 /* Specific settings for Desktop view. */
 @media (min-width: 768px) {
   .button {
@@ -23,6 +23,7 @@
         height: 50px; 
         width: 100px;
         place-items: center;
+        cursor:pointer;
     }
   }
 /* Specific settings for Mobile view. */
@@ -33,11 +34,12 @@
         border-radius: 4px;
         color:antiquewhite;
         height: 100px; 
-        width: 100px;
-        max-width: 100%;
+        width: 10em;
         flex-grow: 4;
         margin:0px;
         padding:0px;
+        align-self: flex-start;
+        cursor:pointer;
     }
   }
 /* Settings for what happens when the mouse hovers a certain button, such as changing color. */

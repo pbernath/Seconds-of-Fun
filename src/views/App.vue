@@ -70,10 +70,9 @@ export default{
 		width: 100%;
 		display: flex;
 		place-items: flex-end;
-		justify-content: space-evenly;
-		/* align-items: center; */
-		align-content: bottom;
-		flex-direction: row;
+		justify-content: space-between;
+		align-items: stretch;
+		flex-direction: inherit;
 		flex-wrap: wrap;
 		bottom: 0em;
 		left: 0em;

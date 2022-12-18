@@ -22,6 +22,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 								id="emailField"
 								type="text"
 								placeholder="e-mail"
+                style="background-color: #191a1c; color: white;"
 								@keydown="checkForEnterACB"
 								v-model="email"
 							/>
@@ -32,6 +33,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 								id="passwordField"
 								type="password"
 								placeholder="password"
+                style="background-color: #191a1c; color: white;"
 								@keydown="checkForEnterACB"
 								v-model="password"
 							/>
@@ -40,6 +42,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 								id="passwordField"
 								type="text"
 								placeholder="password"
+                style="background-color: #191a1c; color: white;"
 								@keydown="checkForEnterACB"
 								v-model="password"
 							/>
@@ -50,6 +53,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 								id="secondPasswordField"
 								type="password"
 								placeholder="repeat password"
+                style="background-color: #191a1c; color: white;"
 								@keydown="checkForEnterACB"
 								v-model="secondPassword"
 							/>
@@ -58,6 +62,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 								id="secondPasswordField"
 								type="text"
 								placeholder="repeat password"
+                style="background-color: #191a1c; color: white;"
 								@keydown="checkForEnterACB"
 								v-model="secondPassword"
 							/>
@@ -67,8 +72,12 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 					<td>
 						<tr></tr>
 						<div>
-							<h3 v-if="!showPassword" @click="toggleShowPasswordACB">(◕‿◕) Show password</h3>
-							<h3 v-if="showPassword" @click="toggleShowPasswordACB">(>‿&lt) Hide password</h3>
+              <li class="pointer">
+              <h3 style="color: #ebebeba3;" v-if="!showPassword" @click="toggleShowPasswordACB">Show password</h3>
+							<h4 style="color: #00bd7e;" v-if="!showPassword" @click="toggleShowPasswordACB">(◕‿◕)</h4>
+							<h3 style="color: #ebebeba3;" v-if="showPassword" @click="toggleShowPasswordACB">Hide password</h3>
+              <h4 style="color: #00bd7e;" v-if="showPassword" @click="toggleShowPasswordACB">(>‿&lt)</h4>
+              </li>
 						</div>
 					</td>
 				</table>
@@ -80,16 +89,21 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 			</div>
 			<br />
 			<div>
-				<h3 v-if="logIn" @click="switchToSignUpACB" @mouseover="">
-					Not yet registered? Click here to Sign Up!
-				</h3>
-				<h3 v-if="!logIn" @click="switchToLogInACB" @mouseover="">Already signed up? Click here to Log In!</h3>
+
+        <li class="pointer">
+				<h3 style="color: #ebebeba3;" v-if="logIn" @click="switchToSignUpACB">Not yet registered? Click here to</h3>
+        <h3 style="color: #00bd7e;" v-if="logIn" @click="switchToSignUpACB">Sign Up!</h3>
+        <h3 style="color: #ebebeba3;" v-if="!logIn" @click="switchToSignUpACB">Already signed up? Click here to</h3>
+				<h3 style="color: #00bd7e;" v-if="!logIn" @click="switchToLogInACB">Log In!</h3>
+        </li>
 			</div>
 		</div>
 		<div v-else>
 			<h1>Signed in as {{ fetchUser }}</h1>
 			<br />
+      <li class="pointer">
 			<h3 @click="logOutACB">Click here to sign out!</h3>
+      </li>
 		</div>
 		<h3 color="red">{{ fetchErrorMessage }}</h3>
 		<h3 color="red">{{ passwordMismatch }}</h3>
@@ -127,6 +141,9 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 		border-radius: 0px;
 		border-width: 0px;
 	}
+}
+li.pointer {
+  cursor: pointer;
 }
 </style>
 
