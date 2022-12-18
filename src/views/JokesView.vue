@@ -31,7 +31,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
   border-radius: 10px;
   color: black;
 }
-/* Specific settings for Desktop view. */
+/* Specific settings for Desktop view.  */
 @media (min-width: 768px) {
   .jokes_page_msg {
   font-size: large;
