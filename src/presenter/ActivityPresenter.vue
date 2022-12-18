@@ -8,6 +8,7 @@ import ActivityChooser from "../views/ActivityChooserView.vue";
     @homePageRoutingACB="routeToHomeACB"
     @comicPageRoutingACB="routeToComicACB"
     @loginPageRoutingACB="routeToLoginACB"
+    @favoriteComicPageRoutingACB="routeToFavoriteComicACB"
   >
   </ActivityChooser>
 </template>
@@ -32,6 +33,9 @@ export default {
     routeToLoginACB() {
       this.$router.push({ name: "login" });
     },
+    routeToFavoriteComicACB(){
+      this.$router.push({name: "favorite_comic"});
+    }
   },
 };
 </script>

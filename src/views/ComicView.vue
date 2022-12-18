@@ -5,17 +5,28 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 
 <template>
     <div class="comic_page">
-    <p v-if="comicTitle != msg" class="comic_page">
+    <p v-if="comic != msg" class="comic_page">
         {{ comicTitle }}
     </p>
-    <LoadingGIF class="comic_page" v-else/>
 
-    <img v-if="comicTitle != msg" :src=comicImage >
+    <img v-if="comic != msg" :src=comicImage >
     <LoadingGIF v-else/>
 
     <styledButton
       buttonText="Random Comic strip"
       @click="getRandomComicACB"
+    />
+    <styledButton
+      buttonText="Next Comic"
+      @click="getNextComicACB"
+    />
+    <styledButton
+      buttonText="Previous Comic"
+      @click="getPrevComicACB"
+    />
+    <styledButton
+      buttonText="Fav"
+      @click="favComicACB"
     />
   </div>
 </template>
@@ -35,20 +46,32 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 <script>
 export default {
   props: ["comicData", "loading"],
-  emits: ["getRandomComicACB"],
+  emits: ["getRandomComicACB", "getNextComicACB", "getPrevComicACB", "favComicACB"],
   data(){return {msg: "Waiting for a comic..."}},
   computed: {
     comicTitle() {
-        return this.comicData.data.alt;
+        return this.comicData.data.safe_title;
     },
     comicImage(){
         return this.comicData.data.img;
     },
+    comic(){
+       return this.comicData.data.comic;
+    }
 
   },
   methods: {
     getRandomComicACB() {
       this.$emit("getRandomComicACB");
+    },
+    getNextComicACB() {
+      this.$emit("getNextComicACB");
+    },
+    getPrevComicACB() {
+      this.$emit("getPrevComicACB");
+    },
+    favComicACB() {
+      this.$emit("favComicACB");
     },
   },
 };

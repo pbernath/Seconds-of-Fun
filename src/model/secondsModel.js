@@ -1,14 +1,15 @@
 import {getJoke} from '../jokeSource.js'
-import {getComic} from "../comicSource"
+import {getComic, getNextComic, getPrevComic, getFavoriteComic} from "../comicSource"
 import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{
-
-    constructor(input = "", user = null){
+    constructor(input = "", user = null, comics=[]){
         this.observers = [];
         this.jokePromiseState = {};
         this.comicPromiseState={};
         this.currentInput = input;
         this.user = user;
+        this.currentComic=1;
+        this.favComics=comics;
     }
 
     addObserver(addObserverACB){
@@ -29,17 +30,38 @@ class secondsModel{
         }
         this.observers.forEach(invokeObserverCB)
     }
-
-
-
-
     
     setCurrentJoke(){ 
         resolvePromise(getJoke(), this.jokePromiseState)
     }
 
-    setCurrentComic(){
+    getRandomComic(){
         resolvePromise(getComic(), this.comicPromiseState)
+    }
+
+    setCurrentComic(num){
+        resolvePromise(getFavoriteComic(num), this.comicPromiseState)
+    }
+
+    setNextComic(){
+        resolvePromise(getNextComic(this.comicPromiseState.data.num), this.comicPromiseState)
+    }
+    setPrevComic(){
+        resolvePromise(getPrevComic(this.comicPromiseState.data.num), this.comicPromiseState)
+    }
+
+    addFavComic(comicToAdd){
+        function hasSameIdNotifsCB(comic){
+            return comic.num === comicToAdd.num;
+        }
+    
+        if(this.favComics.some(hasSameIdNotifsCB) == true){
+            return;
+        }
+
+        this.favComics=[...this.favComics, comicToAdd]
+        this.notifyObservers({favoriteComicToAdd: comicToAdd})
+        console.log(this.favComics)
     }
 
     setInput(input){
@@ -52,35 +74,24 @@ class secondsModel{
     }
 
 
-
-
-
-
-    addToTest(infoToAdd){
-        this.testing= [...this.testing, infoToAdd]
-
-        this.notifyObservers({addTestInfo: infoToAdd})
-    }
-    
-    removeFromTest(infoToRemove){
-        function hasSameIdNotifsCB(info){
-            return info === infoToRemove;
+    removeFromFavComic(comicToRemove){
+        function hasSameIdNotifsCB(comic){
+            return comic.num === comic.num;
         }
         
-        if(this.testing.some(hasSameIdNotifsCB) == false){
+        if(this.favComics.some(hasSameIdNotifsCB) == false){
             return;
         }
 
-        function hasSameIdCB(info){
-            if (info === infoToRemove) {
+        function hasSameIdCB(comic){
+            if (comic.num === comicToRemove.num) {
                 return false;
             }
             return true;
         }
 
-        this.testing = this.testing.filter(hasSameIdCB);
-
-        this.notifyObservers({removeTestInfo: infoToRemove});
+        this.favComics = this.favComics.filter(hasSameIdCB);
+        this.notifyObservers({removeComic: comicToRemove});
 
     }
 

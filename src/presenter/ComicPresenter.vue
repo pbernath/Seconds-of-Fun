@@ -8,7 +8,10 @@ import ComicView from "../views/ComicView.vue"
   <ComicView
     v-if="comicData != undefined"
     :comicData="comicData"
-    @getRandomComicACB="setCurrentComicACB" 
+    @getRandomComicACB="getRandomComicACB" 
+    @getNextComicACB="setNextComicACB"    
+    @getPrevComicACB="setPrevComicACB"
+    @favComicACB="favComicACB"
   />
 </template>
 
@@ -29,11 +32,28 @@ export default {
       resolvePromise(getComic(), this.model.comicPromiseState);
   },
   methods: {
-    setCurrentComicACB() {
+    getRandomComicACB() {
       console.log("Current comic ACB")
       console.log(this.model.comicPromiseState.data)
-      this.model.setCurrentComic();
+      this.model.getRandomComic();
     },
+    setNextComicACB() {
+      console.log("Next comic ACB")
+      console.log(this.model.comicPromiseState.data)
+      this.model.setNextComic();
+    },
+    setPrevComicACB() {
+      console.log("Previous comic ACB")
+      console.log(this.model.comicPromiseState.data)
+      this.model.setPrevComic();
+    },
+    favComicACB() {
+      console.log("fav comic ACB")
+      console.log(this.model.comicPromiseState.data)
+      this.model.addFavComic(this.model.comicPromiseState.data);
+    },
+
+    
   },
   components: {
     ComicView,
