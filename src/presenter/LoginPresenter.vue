@@ -1,3 +1,11 @@
+<!--
+    * LoginPresenter.vue contains functions related to the login page.
+    *
+    * It works together with LoginView, and is responsible for getting
+    * and setting inputs from the login window, such as authenticating
+    * the input and getting user data from Firebase.
+-->
+
 <script setup>
 import Login from '../views/LoginView.vue';
 import { resolvePromise } from '../resolvePromise';
@@ -17,7 +25,8 @@ import {createAccount, signInToAccount, signOutOfAccount, updateModelFromFirebas
 
 <script>
 
-export default { //Vue component
+export default {
+    //Vue component.
     props: ['model'],
     data(){ return {
 

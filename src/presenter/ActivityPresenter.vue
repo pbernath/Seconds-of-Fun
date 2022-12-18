@@ -1,3 +1,8 @@
+<!--
+  * ActivityPresenter.vue contains functions and actions related to the menu, home logo and buttons.
+  * It routes buttons and their clicks to other pages.
+-->
+
 <script setup>
 import ActivityChooser from "../views/ActivityChooserView.vue";
 </script>
@@ -14,7 +19,7 @@ import ActivityChooser from "../views/ActivityChooserView.vue";
 
 <script>
 export default {
-  //Vue component
+  //Vue component.
   props: ['model'],
   components: {
     ActivityChooser,

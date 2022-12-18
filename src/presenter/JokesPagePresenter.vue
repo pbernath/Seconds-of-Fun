@@ -1,3 +1,9 @@
+<!-- 
+  * JokesPagePresenter.vue contains functions and actions related to the jokes page.
+  * It works together with jokeSource and JokesView, and is responsible for
+  * launching requests to the API when a joke should be fetched.
+-->
+
 <script setup>
 import JokesPage from "../views/JokesView.vue";
 import { resolvePromise } from "../resolvePromise";
@@ -12,7 +18,7 @@ import { getJoke } from "../jokeSource";
 </template>
 <script>
 export default {
-  //Vue component
+  //Vue component.
   props: ['model'],
   computed: {
     jokeData() {

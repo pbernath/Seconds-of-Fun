@@ -1,3 +1,7 @@
+/*
+ * firebaseConfig.js is used to store the firebase configuration.
+*/
+
 const firebaseConfig = {
     apiKey: "AIzaSyAHeqVWoRshYJrpy9mfIKSQIts4PUTC5Ek",
     authDomain: "seconds-of-fun.firebaseapp.com",

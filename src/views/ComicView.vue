@@ -1,3 +1,7 @@
+<!--
+  * ComicView contains settings for how the comics page looks, such as color and dimensions.
+-->
+
 <template>
   <div class="comic_page">No comic yet.</div>
 </template>

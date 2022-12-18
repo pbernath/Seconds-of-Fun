@@ -1,15 +1,12 @@
+/*
+    * firebaseModel.js is responsible for storing the state of the page and notifying the view when the state changes.
+    * It is also responsible for communicating with the database.
+*/
+
 import firebaseConfig from "../configs/firebaseConfig.js";
 import secondsModel from "./secondsModel.js";
 
-/*
-// as done in the turorial
-import firebase from "firebase/app";
-import "firebase/database";
-firebase.initializeApp(firebaseConfig);
-*/
-
-
-// instructions from firebase, but how to call the functions? firebase.database not a function...
+// Instructions from Firebase.
 import {initializeApp} from "firebase/app";
 import {getDatabase, ref, set, get, onChildRemoved, onChildAdded, onValue} from "firebase/database";
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";

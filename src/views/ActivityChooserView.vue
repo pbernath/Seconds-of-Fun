@@ -1,11 +1,16 @@
+<!--
+  * ActivityChooserView does things related to the menu, home logo and buttons.
+  * It routes buttons and their clicks to other pages.
+-->
+
 <script setup>
 import styledButton from "../components/styledButton.vue";
 </script>
 
 <template>
-  <div>
-    <styledButton buttonText="Home" @click="goToHomeACB" />
-  </div>
+  <div @click="goToHomeACB">
+		<img v-if="goToHomeACB" src="../assets/sof-logo-500.png" id="homeLogo" width="100" height="100" />
+	</div>
   <div>
     <styledButton buttonText="JokesPage" @click="goToJokesPageACB" />
   </div>

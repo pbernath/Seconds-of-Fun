@@ -1,3 +1,7 @@
+<!--
+  * HomeView initializes LandingPage which is responsible for the view settings on the landing page.
+-->
+
 <script setup>
 import LandingPage from '../components/LandingPage.vue'
 </script>
@@ -5,8 +9,6 @@ import LandingPage from '../components/LandingPage.vue'
 <template>
   <main class="home">
     <header>
-    <img alt="SOF logo" class="logo" src="@/assets/sof-logo-500.png" width="125" height="125" />
-
     <div class="wrapper">
       <LandingPage msg="Welcome!" />
     </div>
@@ -14,14 +16,6 @@ import LandingPage from '../components/LandingPage.vue'
   </main>
 </template>
 
-<style scoped>
-
-.home{
-  width: 430px;
-  height: 290;
-}
-
-
-
-
+<style>
+/* Specific settings for the landing page are located in the LandingPage component. */
 </style>

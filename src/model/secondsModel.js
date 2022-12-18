@@ -1,3 +1,8 @@
+/*
+    * secondsModel.js is the model for the Seconds of Fun page.
+    * It is responsible for storing the state of the page and notifying the view when the state changes.
+*/
+
 import {getJoke} from '../jokeSource.js'
 import {resolvePromise} from '../resolvePromise.js';
 class secondsModel{

@@ -1,3 +1,8 @@
+<!--
+  * App.vue contains settings for the global layout.
+  * It includes settings for the buttons and where elements are placed on every page.
+-->
+
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
 import ActivityPresenter from '../presenter/ActivityPresenter.vue';
@@ -25,40 +30,55 @@ export default{
 
 </script>
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+/* Specific settings for Desktop view. */
+@media (min-width: 768px) {
+	.header {
+		display: flex;
+		place-items: center;
+	}
+	.mainDiv {
+		display: flex;
+		/* height:auto; */
+		flex-direction: column;
+		align-content: space-between;
+		place-items: flex-start;
+		align-items: flex-start;
+		justify-content: left;
+		flex-wrap: wrap;
+	}
+	.wrapper {
+		position: fixed;
+		display: flex;
+		place-items: flex-start;
+		justify-content: left;
+		flex-direction: column;
+		flex-wrap: wrap;
+		top: 0.3em;
+		left: 0.3em;
+	}
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header.wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+/* Specific settings for Mobile view. */
+@media (max-width: 768px) {
+	.mainDiv {
+		display: flex;
+		flex-direction: row;
+		align-content: bottom;
+		place-items: end start;
+	}
+	.wrapper {
+		position: fixed;
+		width: 100%;
+		display: flex;
+		place-items: flex-end;
+		justify-content: space-evenly;
+		/* align-items: center; */
+		align-content: bottom;
+		flex-direction: row;
+		flex-wrap: wrap;
+		bottom: 0em;
+		left: 0em;
+		margin: 0px;
+		padding: 0px;
+	}
 }
 </style>

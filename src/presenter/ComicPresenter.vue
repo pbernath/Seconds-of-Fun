@@ -1,3 +1,8 @@
+<!--
+  * ComicPresenter.vue contains functions and actions related to the comics page.
+  * It runs the ComicView.
+-->
+
 <script setup>
 import ComicView from "../views/ComicView.vue";
 </script>
@@ -8,7 +13,7 @@ import ComicView from "../views/ComicView.vue";
 
 <script>
 export default {
-  //Vue component
+  //Vue component.
   props: ['model'],
   components: {
     ComicView,

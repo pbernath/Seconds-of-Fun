@@ -1,3 +1,7 @@
+<!--
+  * LandingPage.vue is responsible for what is displayed on the landing page, such as settings of the text.
+-->
+
 <script setup>
 defineProps({
   msg: {
@@ -20,29 +24,37 @@ defineProps({
 </template>
 
 <style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
+/* Settings for the displayed text on the landing page.  */
+.h1 {
+	font-weight: 500;
+	font-size: 2.6rem;
+	top: -10px;
 }
-
-h3 {
-  font-size: 1.2rem;
+.h3 {
+	font-size: 1.2rem;
 }
-h4 {
-  color: white;
-  font-size: 1.2rem;
+.h4 {
+	color: white;
+	font-size: 1.2rem;
 }
-
-.greetings h1,
-.greetings h3 {
+/* Specific settings for Desktop view. */
+@media (min-width: 768px) {
+	.greetings h1,
+	.greetings h3 {
+		text-align: center;
+	}
+  .greetings h4 {
   text-align: center;
 }
-
-@media (min-width: 1024px) {
+}
+/* Specific settings for Mobile view. */
+@media (max-width: 768px) {
   .greetings h1,
   .greetings h3 {
-    text-align: left;
+    text-align: center;
   }
+  .greetings h4 {
+  text-align: center;
+}
 }
 </style>
