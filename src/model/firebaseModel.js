@@ -26,18 +26,14 @@ function createAccount (email, password, model) {
     .then(function handleSignUp (userCredential) {
             // Signed in
             const user = userCredential.user;
-            console.log(user);
             model.setUser(user.email);
             model.setAuthErrorMessage(null);
         }
     )
     .catch(function handleError (error) {
             const errorCode = error.code;
-            const errorMessage = error.message;
             console.log(errorCode);
-            console.log(errorMessage);
-            console.log(error);
-            model.setAuthErrorMessage(error);
+            model.setAuthErrorMessage(errorCode);
         }
     );
 }
@@ -47,7 +43,6 @@ function signInToAccount (email, password, model) {
     .then(function handleSignIn (userCredential) {
             // Signed in
             const user = userCredential.user;
-            console.log(user);
             model.setUser(user.email);
             model.setAuthErrorMessage(null);
             updateModelFromFirebase(model);
@@ -55,11 +50,8 @@ function signInToAccount (email, password, model) {
     )
     .catch(function handleError (error) {
             const errorCode = error.code;
-            const errorMessage = error.message;
             console.log(errorCode);
-            console.log(errorMessage);
-            console.log(error);
-            model.setAuthErrorMessage(error);
+            model.setAuthErrorMessage(errorCode);
         }
     );
 }
@@ -75,11 +67,8 @@ function signOutOfAccount (model) {
     )
     .catch(function handleError (error) {
             const errorCode = error.code;
-            const errorMessage = error.message;
             console.log(errorCode);
-            console.log(errorMessage);
-            console.log(error);
-            model.setAuthErrorMessage(error);
+            model.setAuthErrorMessage(errorCode);
         }
     );
 }

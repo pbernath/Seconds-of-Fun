@@ -89,10 +89,8 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
     },
     fetchErrorMessage () {
       let error = this.errorMessage;
-      console.log(error);
       if (error) {
-        let code = error.code;
-        return "Error: " + code.split("/").pop();
+        return "Error: " + error.split("/").pop();
       } else {
         return null;
       }
