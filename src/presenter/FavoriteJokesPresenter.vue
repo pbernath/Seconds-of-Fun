@@ -1,11 +1,10 @@
 <script setup>
-import { getJokeByID } from "../jokeSource";
 import FavoriteJokes from "../views/FavoriteJokes.vue";
-import { resolvePromise } from "../resolvePromise";
+import {jokeSort} from "../utils.jsx"
 </script>
 
 <template>
-  <FavoriteJokes :jokes="favorites"/>
+  <FavoriteJokes :jokes="favorites" @removeJokeACB="jokeRemovalACB"/>
 </template>
 
 <script>
@@ -14,13 +13,16 @@ export default {
   props: ["model"],
   computed: {
     favorites(){
-        console.log(this.model.favoriteJokes)
-        return this.model.favoriteJokes;
+        return jokeSort(this.model.favoriteJokes);
     }
   },
   components: {
     FavoriteJokes,
   },
-  methods: {},
+  methods: {
+    jokeRemovalACB(id){
+      this.model.removeFromFavorites({id:id})
+    }
+  },
 };
 </script>

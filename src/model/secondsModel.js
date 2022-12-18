@@ -31,41 +31,26 @@ class secondsModel{
         }
         this.observers.forEach(invokeObserverCB)
     }
-
-    setInput(input){
-        this.currentInput = input;
-        this.notifyObservers({input: input});
-    }
-
-    getInput() {
-        return this.currentInput;
-    }
-
-    addToTest(infoToAdd){
-        this.testing= [...this.testing, infoToAdd]
-
-        this.notifyObservers({addTestInfo: infoToAdd})
-    }
     
-    removeFromTest(infoToRemove){
-        function hasSameIdNotifsCB(info){
-            return info === infoToRemove;
+    removeFromFavorites(jokeToRemove){
+        function hasSameIdNotifsCB(joke){
+            return joke.id === jokeToRemove.id;
         }
         
-        if(this.testing.some(hasSameIdNotifsCB) == false){
+        if(this.favoriteJokes.some(hasSameIdNotifsCB) == false){
+            console.log("yeah2")
             return;
         }
 
-        function hasSameIdCB(info){
-            if (info === infoToRemove) {
+        function hasSameIdCB(joke){
+            if (joke.id === jokeToRemove.id) {
                 return false;
             }
             return true;
         }
 
-        this.testing = this.testing.filter(hasSameIdCB);
-
-        this.notifyObservers({removeTestInfo: infoToRemove});
+        this.favoriteJokes = this.favoriteJokes.filter(hasSameIdCB);
+        this.notifyObservers({removeJoke: jokeToRemove});
 
     }
 
@@ -78,9 +63,16 @@ class secondsModel{
         return this.user;
     }
 
-    addJokeToFavorites(joke){
-        this.favoriteJokes=[...this.favoriteJokes, joke]
-        this.notifyObservers({favoriteJokes: this.favoriteJokes})
+    addJokeToFavorites(jokeToAdd){
+        function hasSameIdNotifsCB(joke){
+            return joke.id === jokeToAdd.id;
+        }
+        
+        if(this.favoriteJokes.some(hasSameIdNotifsCB) == true){
+            return;
+        }
+        this.favoriteJokes=[...this.favoriteJokes, jokeToAdd]
+        this.notifyObservers({favoriteJokeToAdd: jokeToAdd})
     }
     getAJoke(){ 
         resolvePromise(getJoke(), this.jokePromiseState)
