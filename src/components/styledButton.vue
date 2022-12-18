@@ -1,3 +1,8 @@
+<!--
+  * StyledButton.vue contains global settings for the buttons that are used on the website. 
+  * Specific button settings are then made using <style scoped>.
+-->
+
 <template>
     <button class="button">{{this.buttonText}}</button>
 </template>
@@ -8,6 +13,8 @@
 </script>
 
 <style scoped>
+
+/* Specific settings for Desktop view. */
 @media (min-width: 768px) {
   .button {
         background-color:#191a1c;
@@ -20,6 +27,7 @@
     }
   }
 
+/* Specific settings for Mobile view. */
   @media (max-width: 768px) {
   .button {
         background-color:#191a1c;
@@ -33,8 +41,9 @@
         margin:0px;
         padding:0px;
     }
-
   }
+
+/* Settings for what happens when the mouse hovers a certain button, such as changing color. */
   .button:hover {
         background-color:#00bd7e;
         transition: 0.7s;

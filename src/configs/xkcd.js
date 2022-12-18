@@ -1,3 +1,8 @@
+/**
+ * xkcd.js is used to configure the xkcd component that is used to display a comic from the xkcd website.
+ * It contains functions that are used for example to get a random comic.
+*/
+
 let app = new Vue({
     el: '#app',
     data: {

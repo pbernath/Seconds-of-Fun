@@ -1,37 +1,42 @@
+<!--
+  * ActivityPresenter.vue contains functions and actions related to the menu, home logo and buttons.
+  * It routes buttons and their clicks to other pages.
+-->
+
 <script setup>
-import ActivityChooser from "../views/ActivityChooserView.vue";
+import ActivityChooser from '../views/ActivityChooserView.vue';
 </script>
 
 <template>
-  <ActivityChooser
-    @jokesPageRoutingACB="routeToJokesACB"
-    @homePageRoutingACB="routeToHomeACB"
-    @comicPageRoutingACB="routeToComicACB"
-    @loginPageRoutingACB="routeToLoginACB"
-  >
-  </ActivityChooser>
+	<ActivityChooser
+		@jokesPageRoutingACB="routeToJokesACB"
+		@homePageRoutingACB="routeToHomeACB"
+		@comicPageRoutingACB="routeToComicACB"
+		@loginPageRoutingACB="routeToLoginACB"
+	>
+	</ActivityChooser>
 </template>
 
 <script>
 export default {
-  //Vue component
-  props: ["model"],
-  components: {
-    ActivityChooser,
-  },
-  methods: {
-    routeToHomeACB() {
-      this.$router.push({ name: "home" });
-    },
-    routeToJokesACB() {
-      this.$router.push({ name: "jokes" });
-    },
-    routeToComicACB() {
-      this.$router.push({ name: "comic" });
-    },
-    routeToLoginACB() {
-      this.$router.push({ name: "login" });
-    },
-  },
+	//Vue component
+	props: ['model'],
+	components: {
+		ActivityChooser,
+	},
+	methods: {
+		routeToHomeACB() {
+			this.$router.push({ name: 'home' });
+		},
+		routeToJokesACB() {
+			this.$router.push({ name: 'jokes' });
+		},
+		routeToComicACB() {
+			this.$router.push({ name: 'comic' });
+		},
+		routeToLoginACB() {
+			this.$router.push({ name: 'login' });
+		},
+	},
 };
 </script>

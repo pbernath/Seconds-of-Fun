@@ -1,11 +1,17 @@
-import { createApp } from 'vue'
-import VueRoot from './views/VueRoot.vue'
-import router from './router'
+/**
+    * main.js is the starting point of the Vue app.
+    * It creates the Vue instance and mounts it to the DOM.
+    * It also imports the router and passes it to the Vue instance in main.js.
+*/
 
-import './assets/main.css'
+import { createApp } from 'vue';
+import VueRoot from './views/VueRoot.vue';
+import router from './router';
 
-const app = createApp(VueRoot)
+import './assets/main.css';
 
-app.use(router)
+const app = createApp(VueRoot);
 
-app.mount('#app')
+app.use(router);
+
+app.mount('#app');

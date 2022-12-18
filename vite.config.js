@@ -1,3 +1,7 @@
+/**
+  * vite.config.js is part of the Vite project.
+*/
+
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'

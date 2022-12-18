@@ -1,3 +1,7 @@
+/**
+    * jokeSource.js contains the functions that are used to get the joke from the API.
+*/
+
 function treatHTTPResponseACB(response){ 
     if(response.status == 200){
 

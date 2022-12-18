@@ -1,3 +1,15 @@
+<!--
+  * This is the root of the Vue app.
+  *
+  * It is responsible for loading the firebase data and then passing it to the App component.
+  *
+  * It also passes the firebase data to the model so that the model can update the firebase data,
+  * as well as the model to the App component so that the App component can update the model.
+  
+  * Finally it passes the model to the window so that the model can be accessed from the console.
+-->
+
+
 <script setup>
 import App from "./App.vue";
 import {

@@ -1,3 +1,9 @@
+/**
+    * This function is used to handle promise data rendering.
+    * It returns false if promiseState.data is true, otherwise it returns a div with the error message.
+*/
+
+
 export default function promiseNoData(promiseState){
     //function to handle promise data rendering
     if(!promiseState.promise){                                     

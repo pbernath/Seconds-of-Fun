@@ -1,5 +1,8 @@
+<!-- 
+  * LoginView contains settings for how the login page looks, such as color, dimensions, messages and button settings.
+-->
 <script setup>
-import styledButton from '../components/styledButton.vue';
+import StyledButton from '../components/StyledButton.vue';
 import LoginPresenter from '../presenter/LoginPresenter.vue';
 </script>
 
@@ -7,7 +10,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
   <div class="login_page">
     <h3>Write something below to both display it here as well as saving it in both the model and in the cloud</h3>
     <input id="theInputField" @keydown="checkForEnterACB">
-    <styledButton buttonText="Add to model" @click="addToModelACB"/>
+    <StyledButton buttonText="Add to model" @click="addToModelACB"/>
     <h1>{{fetchFromModel}}</h1>
     <div>
     <h3>{{someText}}</h3>
@@ -15,8 +18,8 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
     <input id="emailField" placeholder="e-mail" @keydown="checkForEnterWhileLoginACB">
     <input id="passwordField" placeholder="password" @keydown="checkForEnterWhileLoginACB">
     <input v-if="!logIn" id="secondPasswordField" placeholder="repeat password" @keydown="checkForEnterWhileLoginACB">
-    <styledButton v-if="logIn" buttonText="Log In" @click="continueLogInACB"/>
-    <styledButton v-if="!logIn" buttonText="Sign Up!" @click="continueLogInACB"/>
+    <StyledButton v-if="logIn" buttonText="Log In" @click="continueLogInACB"/>
+    <StyledButton v-if="!logIn" buttonText="Sign Up!" @click="continueLogInACB"/>
   </div>
   <div>
     <h3 v-if="logIn" @click="switchToSignUpACB" @mouseover="" >Not yet registered? Click here to Sign Up!</h3>
@@ -29,15 +32,6 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 </template>
 
 <style scoped>
-.login_page{
-  width: 100%;
-  height: 100%;
-  border-color: #00bd7e;
-  border-style: solid;
-  border-radius: 0px;
-  border-width: 0px;
-}
-
 
 @media (min-width: 768px) {
   .about {

@@ -1,3 +1,8 @@
+/**
+    * This function is used to resolve a promise and save the result in the promiseState object.
+    * When the promise is resolved, the function calls the notify function.
+*/
+
 function resolvePromise(promiseToResolve, promiseState, notify){
     if (promiseToResolve === null) {
         return;
