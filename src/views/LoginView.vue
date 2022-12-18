@@ -66,9 +66,27 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 					<td></td>
 					<td>
 						<tr></tr>
-						<div>
-							<h3 v-if="!showPassword" @click="toggleShowPasswordACB">(◕‿◕) Show password</h3>
-							<h3 v-if="showPassword" @click="toggleShowPasswordACB">(>‿&lt) Hide password</h3>
+						<div @mouseover="" color="green">
+							<div v-if="!showPassword" @click="toggleShowPasswordACB">
+								<table>
+									<td>
+										<h3 color="green"> (◕‿◕) </h3>
+									</td>
+									<td>
+										<h3>Show Password</h3>
+									</td>
+								</table>
+							</div>
+							<div v-if="showPassword" @click="toggleShowPasswordACB">
+								<table>
+									<td>
+										<h3 color="green"> (>‿&lt) </h3>
+									</td>
+									<td>
+										<h3>Hide Password</h3>
+									</td>
+								</table>
+							</div>
 						</div>
 					</td>
 				</table>
