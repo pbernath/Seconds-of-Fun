@@ -15,7 +15,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
           type="checkbox"
           v-model="selectedCategories"
           :value="item"
-          @change="adjustCategoriesACB(item)"
+          @change="adjustPreferencesACB"
         />
         {{
           item
@@ -28,7 +28,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
           type="checkbox"
           v-model="selectedFlags"
           :value="item"
-          @change="adjustBlacklistACB(item)"
+          @change="adjustPreferencesACB"
         />
         {{
           item
@@ -71,10 +71,7 @@ export default {
     "getNewJokeACB",
     "setJokeOnLoadACB",
     "sendJokeToFavoriteACB",
-    "addCategoryACB",
-    "removeCategoryACB",
-    "addBlacklistACB",
-    "removeBlacklistACB",
+    "emitPreferencesACB",
   ],
   data() {
     return {
@@ -82,8 +79,8 @@ export default {
       msg: "Waiting for a joke...",
       category: ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"],
       flags: ["NSFW", "Religious", "Political", "Racist", "Sexist", "Explicit"],
-      selectedCategories: this.jokePreferences.category,
-      selectedFlags: this.jokePreferences.blacklist,
+      selectedCategories: [],
+      selectedFlags: [],
     };
   },
   computed: {
@@ -91,6 +88,10 @@ export default {
       this.$emit("setJokeOnLoadACB");
       return this.jokeData.data.joke;
     },
+
+    preferences(){
+      return this.jokePreferences;
+    }
   },
   created() {
     /*
@@ -113,35 +114,55 @@ export default {
     addToFavoriteJokesACB() {
       this.$emit("sendJokeToFavoriteACB");
     },
-    addCategoryToPreferencesACB(category) {
-      this.$emit("addCategoryACB", category);
+    adjustPreferencesACB() {
+      let calcNumber = 0;
+
+      function getNumberFromCategoriesCB(item) {
+        if (this.selectedCategories.find(item)) {
+          calcNumber =+ Math.pow(2, this.category.indexOf(item));
+        }
+      }
+      function getNumberFromFlagsCB(item) {
+        if (this.selectedFlags.find(item)) {
+          calcNumber =+ Math.pow(2, this.flags.indexOf(item) + 6);
+        }
+      }
+
+      this.category.forEach(getNumberFromCategoriesCB);
+      this.flags.forEach(getNumberFromFlagsCB);
+
+      this.$emit("emitPreferencesACB", calcNumber);
+      
+      this.setPreferencesACB();
     },
-    removeCategoryFromPreferencesACB(category) {
-      this.$emit("removeCategoryACB", category);
+    setPreferencesACB() {
+      this.selectedCategories = [];
+      this.selectedFlags = [];
+      decipherNumber(this.jokePreferences);
     },
-    addBlacklistToPreferencesACB(flag) {
-      this.$emit("addBlacklistACB", flag);
-    },
-    removeBlacklistFromPreferencesACB(flag) {
-      this.$emit("removeBlacklistACB", flag);
-    },
-    adjustCategoriesACB(item) {
-      if (this.selectedCategories.find((listItem) => {return listItem == item})) {
-        this.addCategoryToPreferencesACB(item);
-      } else {
-        this.removeCategoryFromPreferencesACB(item);
+    decipherNumber(number) {
+      let i = 0;
+      while (number != 0) {
+        if(Math.pow(2, i) >= number){
+          if(Math.pow(2, i) == number){
+            addPreferenceAccordingToIndex(i);
+            break;
+          }
+          if(Math.pow(2, i) > number){
+            addPreferenceAccordingToIndex(i-1);
+            number -= Math.pow(2, i);
+            i = -1;
+          }
+        }
+        i++;
       }
     },
-    adjustBlacklistACB(item) {
-      if (this.selectedFlags.find((listItem) => {return listItem == item})) {
-        this.addBlacklistToPreferencesACB(item);
+    addPreferenceAccordingToIndex(index) {
+      if (index < 6) {
+        this.selectedCategories = [...this.selectedCategories, this.category[index]];
       } else {
-        this.removeBlacklistFromPreferencesACB(item);
+        this.selectedFlags = [...this.selectedFlags, this.flags[index - 6]];
       }
-    },
-    setJokePreferencesACB() {
-      this.selectedCategories = this.jokePreferences.category;
-      this.selectedFlags = this.jokePreferences.blacklist;
     },
   },
 };

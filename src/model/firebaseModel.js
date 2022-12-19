@@ -97,27 +97,9 @@ function observerRecap(model) {
                 }
             }
 
-            if (payload.addJokeCategory){
+            if (payload.preference){
                 if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/categories/" + payload.addJokeCategory ), payload.addJokeCategory);
-                }
-            }
-
-            if (payload.removeJokeCategory){
-                if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/categories/" + payload.removeJokeCategory), null);
-                }
-            }
-
-            if (payload.addBlacklistFlag){
-                if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/blacklist/" + payload.addBlacklistFlag), payload.addBlacklistFlag);
-                }
-            }
-
-            if (payload.removeBlacklistFlag){
-                if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/blacklist/" + payload.removeBlacklistFlag), null);
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/"), payload.preference);
                 }
             }
 
@@ -185,13 +167,13 @@ function updateFirebaseFromModel(model) {
 
 function updateModelFromFirebase(model) {
 
-    /*
-    onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/input/"),
+    
+    onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/"),
         function inputHasChangedInFirebaseACB(firebaseData) {
-            model.setInput(firebaseData.val());
+            model.updatePreferences(firebaseData.val());
         }
     )
-    */
+    
     
     onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
         function jokeAddedInFirebaseACB(firebaseData){
@@ -212,51 +194,7 @@ function updateModelFromFirebase(model) {
             model.removeFromFavorites({id: +firebaseData.key}); 
         }
     )
-
-    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/categories/"),
-        function jokeCategoryAddedToFirebaseACB(firebaseData){
-            function categoryAlreadyAddedCB(category) {
-                return category == firebaseData.key;
-            }
-            if (!model.jokeCategories.find(categoryAlreadyAddedCB)) {
-                model.addJokeCategory(firebaseData.key);
-            }
-            else{
-                return;
-            }
-
-        }
-    )
-
-    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/categories/"),
-        function jokeCategoryRemovedFromFirebaseACB(firebaseData){
-            model.removeJokeCategory(firebaseData.key); 
-        }
-    )
-
-    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/blacklist/"),
-        function jokeBlacklistAddedToFirebaseACB(firebaseData){
-            function jokeBlacklistAlreadyAddedCB(flag) {
-                return flag == firebaseData.key;
-            }
-            if (!model.jokeBlacklist.find(jokeBlacklistAlreadyAddedCB)) {
-                model.addJokeBlacklist(firebaseData.key);
-            }
-            else{
-
-                return;
-            }
-
-        }
-    )
-
-    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/blacklist/"),
-        function jokeBlacklistRemovedFromFirebaseACB(firebaseData){
-            model.removeJokeBlacklist(firebaseData.key);
-        }
-    )
-
-
+    
     return;
 }
 

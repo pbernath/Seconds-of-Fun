@@ -9,24 +9,56 @@ function treatHTTPResponseACB(response){
     }
     throw ("Status is not 200");
 }
-function getJoke(props){
-    let blacklistItems = ["NSFW", "Religious", "Political", "Racist", "Sexist", "Explicit"];
+function getJoke(number){
+    let categoryItems = ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"];
+    let flagItems = ["NSFW", "Religious", "Political", "Racist", "Sexist", "Explicit"];
+    let selectedCategories = [];
+    let selectedFlags = [];
     let category = "any";
-    let blacklist = "";
-    let type = "?type=single";
-    if (props.category.length != 0) {
-        category = props.category.join(',');
+    let blacklist = "?blacklistFlags=" + flagItems.join(',');
+    let type = "&type=single";
+    let i = 0;
+
+    while (number != 0) {
+        if(Math.pow(2, i) >= number){
+            if(Math.pow(2, i) == number){
+                addPreferenceAccordingToIndex(i);
+                break;
+            }
+            if(Math.pow(2, i) > number){
+                addPreferenceAccordingToIndex(i-1);
+                number -= Math.pow(2, i);
+                i = -1;
+            }
+        }
+        i++;
     }
-    if (props.blacklist.length != 6) {
+
+    function addPreferenceAccordingToIndex(index) {
+        if (index < 6) {
+          selectedCategories = [categoryItems[index], ...selectedCategories];
+        } else {
+          selectedFlags = [flagItems[index - 6], ...selectedFlags];
+        }
+    }
+
+    if (selectedCategories.length != 0) {
+        category = selectedCategories.join(',');
+    }
+    if (selectedFlags.length != 6 && selectedFlags.length != 0) {
         let invertedFlags = [];
         function filterFlags(item) {
-            return !props.blacklist.includes(item);
+            return !props.selectedFlags.includes(item);
             }
-        invertedFlags = blacklistItems.filter(filterFlags);
+        invertedFlags = flagItems.filter(filterFlags);
 
         blacklist = "?blacklistFlags=" + invertedFlags.join(',');
-        type = "&type=single";
     }
+    if (selectedFlags == 0) {
+        blacklist = "";
+        type = "?type=single"
+    }
+
     return fetch("https://v2.jokeapi.dev/joke/" + category + blacklist + type, {  // object literal
         method: "GET"       
     }
