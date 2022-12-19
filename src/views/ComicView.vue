@@ -2,13 +2,39 @@
   * ComicView contains settings for how the comics page looks, such as color and dimensions.
 -->
 
+<script setup>
+import styledButton from "../components/styledButton.vue";
+import LoadingGIF from "../components/icons/LoadingGIF.vue";
+</script>
+
 <template>
-  <div class="comic_page">No comic yet.</div>
+    <div class="comic_page">
+    <p v-if="comic != msg" class="comic_page">
+        {{ comicTitle }}
+    </p>
+
+    <img v-if="comic != msg" :src=comicImage >
+    <LoadingGIF v-else/>
+
+    <styledButton
+      buttonText="Random Comic strip"
+      @click="getRandomComicACB"
+    />
+    <styledButton
+      buttonText="Next Comic"
+      @click="getNextComicACB"
+    />
+    <styledButton
+      buttonText="Previous Comic"
+      @click="getPrevComicACB"
+    />
+    <styledButton
+      buttonText="Fav"
+      @click="favComicACB"
+    />
+  </div>
 </template>
 
-<script>
-export default {};
-</script>
 <style>
 .comic_page {
   width: 100%;
@@ -20,3 +46,37 @@ export default {};
   border-width: 0px;
 }
 </style>
+ 
+<script>
+export default {
+  props: ["comicData", "loading"],
+  emits: ["getRandomComicACB", "getNextComicACB", "getPrevComicACB", "favComicACB"],
+  data(){return {msg: "Waiting for a comic..."}},
+  computed: {
+    comicTitle() {
+        return this.comicData.data.safe_title;
+    },
+    comicImage(){
+        return this.comicData.data.img;
+    },
+    comic(){
+       return this.comicData.data.comic;
+    }
+  },
+  methods: {
+    getRandomComicACB() {
+      this.$emit("getRandomComicACB");
+    },
+    getNextComicACB() {
+      this.$emit("getNextComicACB");
+    },
+    getPrevComicACB() {
+      this.$emit("getPrevComicACB");
+    },
+    favComicACB() {
+      this.$emit("favComicACB");
+    },
+  },
+};
+</script>
+
