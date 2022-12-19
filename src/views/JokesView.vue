@@ -105,8 +105,9 @@ export default {
   },
   methods: {
     changeToSettingsACB(){
+      this.setPreferencesACB();
       this.settings = !this.settings;
-      this.setJokePreferencesACB();
+      
     },
     getJokeACB() {
       this.$emit("getNewJokeACB");
@@ -118,38 +119,37 @@ export default {
       let calcNumber = 0;
 
       function getNumberFromCategoriesCB(item) {
-        if (this.selectedCategories.find(item)) {
+        if (item in this.selectedCategories) {
           calcNumber =+ Math.pow(2, this.category.indexOf(item));
         }
       }
       function getNumberFromFlagsCB(item) {
-        if (this.selectedFlags.find(item)) {
+        if (item in this.selectedFlags) {
           calcNumber =+ Math.pow(2, this.flags.indexOf(item) + 6);
         }
       }
 
-      this.category.forEach(getNumberFromCategoriesCB);
-      this.flags.forEach(getNumberFromFlagsCB);
+      this.category.forEach(getNumberFromCategoriesCB.bind(this));
+      this.flags.forEach(getNumberFromFlagsCB.bind(this));
 
       this.$emit("emitPreferencesACB", calcNumber);
-      
-      this.setPreferencesACB();
+    
     },
     setPreferencesACB() {
       this.selectedCategories = [];
       this.selectedFlags = [];
-      decipherNumber(this.jokePreferences);
+      this.decipherNumber(this.preferences);
     },
     decipherNumber(number) {
       let i = 0;
       while (number != 0) {
         if(Math.pow(2, i) >= number){
           if(Math.pow(2, i) == number){
-            addPreferenceAccordingToIndex(i);
+            this.addPreferenceAccordingToIndex(i);
             break;
           }
           if(Math.pow(2, i) > number){
-            addPreferenceAccordingToIndex(i-1);
+            this.addPreferenceAccordingToIndex(i-1);
             number -= Math.pow(2, i);
             i = -1;
           }

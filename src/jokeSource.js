@@ -54,11 +54,13 @@ function getJoke(number){
 
         blacklist = "?blacklistFlags=" + invertedFlags.join(',');
     }
-    if (selectedFlags == 0) {
+    if (selectedFlags.length == 0) {
         blacklist = "";
         type = "?type=single"
     }
-
+    console.log(category)
+    console.log(blacklist)
+    console.log(type)
     return fetch("https://v2.jokeapi.dev/joke/" + category + blacklist + type, {  // object literal
         method: "GET"       
     }

@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     setCurrentJokeACB() {
+      console.log(this.model.preferenceNumber);
       resolvePromise(getJoke(this.model.preferenceNumber), this.model.jokePromiseState);
     },
     addCurrentJokeToFavoritesACB() {

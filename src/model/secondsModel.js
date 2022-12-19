@@ -18,7 +18,7 @@ class secondsModel{
         this.jokePromiseState = {};
         this.currentJoke = "";
         this.favoriteJokes = favoriteJokes;
-        this.preferenceNumber = preferenceNumber;
+        this.preferenceNumber = 63;
     }
 
 
