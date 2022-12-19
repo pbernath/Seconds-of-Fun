@@ -19,7 +19,7 @@ import { getJoke } from "../jokeSource.js";
     @sendJokeToFavoriteACB="addCurrentJokeToFavoritesACB"
     @addCategoryACB="addCategoryInModelACB"
     @removeCategoryACB="removeCategoryInModelACB"
-    @addBlacklistACB="addCategoryInModelACB"
+    @addBlacklistACB="addBlacklistInModelACB"
     @removeBlacklistACB="removeBlacklistInModelACB"
   />
 </template>
@@ -58,15 +58,19 @@ export default {
       }
     },
     addCategoryInModelACB(category) {
+      console.log("presenter forwards adding to model, category: " + category);
       this.model.addJokeCategory(category);
     },
     removeCategoryInModelACB(category) {
+      console.log("presenter forwards removing to model, category: " + category);
       this.model.removeJokeCategory(category);
     },
     addBlacklistInModelACB(blacklist) {
+      console.log("presenter forwards adding to model, blacklist: " + blacklist);
       this.model.addJokeBlacklist(blacklist);
     },
     removeBlacklistInModelACB(blacklist) {
+      console.log("presenter forwards removing to model, blacklist: " + blacklist);
       this.model.removeJokeBlacklist(blacklist);
     },
   },

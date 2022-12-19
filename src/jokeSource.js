@@ -10,14 +10,21 @@ function treatHTTPResponseACB(response){
     throw ("Status is not 200");
 }
 function getJoke(props){
+    let blacklistItems = ["NSFW", "Religious", "Political", "Racist", "Sexist", "Explicit"];
     let category = "any";
     let blacklist = "";
     let type = "?type=single";
     if (props.category.length != 0) {
         category = props.category.join(',');
     }
-    if (props.blacklist.length != 0) {
-        blacklist = "?blacklistFlags=" + props.blacklist.join(',');
+    if (props.blacklist.length != 6) {
+        let invertedFlags = [];
+        function filterFlags(item) {
+            return !props.blacklist.includes(item);
+            }
+        invertedFlags = blacklistItems.filter(filterFlags);
+
+        blacklist = "?blacklistFlags=" + invertedFlags.join(',');
         type = "&type=single";
     }
     console.log(category);

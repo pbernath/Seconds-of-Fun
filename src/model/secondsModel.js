@@ -9,7 +9,7 @@ import {resolvePromise} from '../resolvePromise.js';
 
 class secondsModel{
 
-    constructor(userMail = null, favoriteJokes = [], jokeCategories = [], jokeBlacklist = []){
+    constructor(userMail = null, favoriteJokes = [], jokeCategories = [], jokeBlacklist = [],){
         this.observers = [];
 
         this.userMail = userMail;
@@ -146,7 +146,7 @@ class secondsModel{
         this.notifyObservers({addBlacklistFlag: flagToAdd})
     }
 
-    removeCategoryBlacklist(flagToRemove){
+    removeJokeBlacklist(flagToRemove){
         function hasSameIdNotifsCB(flag){
             return flag == flagToRemove;
         }
