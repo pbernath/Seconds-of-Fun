@@ -9,15 +9,27 @@ function treatHTTPResponseACB(response){
     }
     throw ("Status is not 200");
 }
-function getJoke(){
-    return fetch("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single", {  // object literal
+function getJoke(props){
+    let category = "any";
+    let blacklist = "";
+    let type = "?type=single";
+    if (props.category.length != 0) {
+        category = props.category.join(',');
+    }
+    if (props.blacklist.length != 0) {
+        blacklist = "?blacklistFlags=" + props.blacklist.join(',');
+        type = "&type=single";
+    }
+    console.log(category);
+    console.log(blacklist);
+    return fetch("https://v2.jokeapi.dev/joke/" + category + blacklist + type, {  // object literal
         method: "GET"       
-     } 
+    }
     ).then(treatHTTPResponseACB);
 }
 
 function getJokeByID(ID) {
-    return fetch("https://v2.jokeapi.dev/joke/Any?idRange=" + ID + "?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single", {  // object literal
+    return fetch("https://v2.jokeapi.dev/joke/Any?idRange=" + ID, {  // object literal
     method: "GET"       
     } 
     ).then(treatHTTPResponseACB);

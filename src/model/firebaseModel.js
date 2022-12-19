@@ -60,6 +60,8 @@ function signOutOfAccount (model) {
             // Sign-out successful
             model.setUser(null);
             model.setAuthErrorMessage(null);
+            model.resetPreferences();
+            model.setFavoriteJokes([]);
             updateModelFromFirebase(model);
         }
     )
@@ -90,6 +92,30 @@ function observerRecap(model) {
                 }
             }
 
+            if (payload.addJokeCategory){
+                if (auth.currentUser) {
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/categories/"), payload.addJokeCategory), payload.addJokeCategory;
+                }
+            }
+
+            if (payload.removeJokeCategory){
+                if (auth.currentUser) {
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/categories/"), payload.removeJokeCategory), null;
+                }
+            }
+
+            if (payload.addBlacklistFlag){
+                if (auth.currentUser) {
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/blacklist/"), payload.addBlacklistFlag), payload.addBlacklistFlag;
+                }
+            }
+
+            if (payload.removeBlacklistFlag){
+                if (auth.currentUser) {
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/blacklist/"), payload.removeBlacklistFlag), null;
+                }
+            }
+
         }
     }
     model.addObserver(obsACB);
@@ -100,34 +126,51 @@ function firebaseModelPromise() {
 
     function makeBigPromiseACB(firebaseData) {
         let user = null;
-        let favoriteJokes = [];
 
         if (firebaseData.val()) {
 
+            /*
             if(firebaseData.val().favoriteJokes){
                 favoriteJokes = firebaseData.val().favoriteJokes;
-                console.log(favoriteJokes);
             }
 
+            if(firebaseData.val().jokePreferences) {
+                console.log(firebaseData.val().jokePreferences);
+                if (firebaseData.val().jokePreferences.categories) {
+                    jokeCategories = firebaseData.val().jokePreferences.categories;
+                    console.log(jokeCategories);
+                }
+                if (firebaseData.val().jokePreferences.blacklist) {
+                    jokeBlacklist = firebaseData.val().jokePreferences.blacklist;
+                    console.log(jokeBlacklist);
+                }
+            }
+            */
+
         }
-        
+
         if (auth.currentUser) {
             user = auth.currentUser.email;
         }
 
+        /*
         function makeJokePromiseCB(ID) {
             return getJokeByID(ID);
         }
+        */
         
         function createModelACB() {
-            return new secondsModel(user, favoriteJokes);
+            return new secondsModel(user);
         }
         
-        const jokePromiseArray= Object.keys(favoriteJokes).map(makeJokePromiseCB);
-        return Promise.all(jokePromiseArray).then(createModelACB);
+        // const jokePromiseArray= Object.keys(favoriteJokes).map(makeJokePromiseCB);
+        // return Promise.all(jokePromiseArray).then(createModelACB);
+
+        return createModelACB();
     }
 
     return get(ref(database, REF)).then(makeBigPromiseACB);
+
 }
 
 function updateFirebaseFromModel(model) {
@@ -146,7 +189,7 @@ function updateModelFromFirebase(model) {
     */
     
     onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
-        function testAddedInFirebaseACB(firebaseData){
+        function jokeAddedInFirebaseACB(firebaseData){
             function jokeAlreadyAddedCB(joke) {
                 return joke.id == +firebaseData.key;
             }
@@ -161,11 +204,34 @@ function updateModelFromFirebase(model) {
 
     onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
         function jokeRemovedInFirebaseACB(firebaseData){
-            console.log(model.favoriteJokes)
             model.removeFromFavorites({id: +firebaseData.key}); 
-            console.log(model.favoriteJokes)
         }
     )
+
+    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/categories/"),
+        function jokeCategoryAddedToFirebaseACB(firebaseData){
+            model.addJokeCategory(firebaseData.key);
+        }
+    )
+
+    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/categories/"),
+        function jokeCategoryRemovedFromFirebaseACB(firebaseData){
+            model.removeJokeCategory(firebaseData.key); 
+        }
+    )
+
+    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/blacklist/"),
+        function jokeBlacklistAddedToFirebaseACB(firebaseData){
+            model.addJokeBlacklist(firebaseData.key);
+        }
+    )
+
+    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/blacklist/"),
+        function jokeBlacklistRemovedFromFirebaseACB(firebaseData){
+            model.removeJokeBlacklist(firebaseData.key);
+        }
+    )
+
 
     return;
 }

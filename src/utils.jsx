@@ -6,7 +6,6 @@ function jokeSort(jokesList){
             return 1;
         }
     }
-    console.log(jokesList);
     return [...jokesList].sort(sortByIDCB);
 }
 export {jokeSort}

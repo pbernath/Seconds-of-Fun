@@ -8,111 +8,121 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 </script>
 
 <template>
-  <div class="jokes_page">
-    <p v-if="joke != msg" class="jokes_page_msg">{{ joke }}</p>
-    <LoadingGIF class="jokes_page_msg" v-else/>
+  <div v-if="settings">
+    <td>
+      <tr v-for="item in category" :key="item">
+        <input
+          type="checkbox"
+          v-model="selectedCategories"
+          :value="item"
+          @change="addPreferencesACB"
+        />
+        {{
+          item
+        }}
+      </tr>
+    </td>
+    <td>
+      <tr v-for="item in flags" :key="item">
+        <input
+          type="checkbox"
+          v-model="selectedFlags"
+          :value="item"
+          @change="addPreferencesACB"
+        />
+        {{
+          item
+        }}
+      </tr>
+    </td>
     <styledButton
-      buttonText="Next joke!"
-      @click="getJokeACB"
+      class="button"
+      v-if="loggedIn"
+      buttonText="Go back to jokes!"
+      @click="changeToSettingsACB"
     />
-    <styledButton v-if="loggedIn"
+  </div>
+
+  <div v-if="!settings" class="jokes_page">
+    <p v-if="joke != msg" class="jokes_page_msg">{{ joke }}</p>
+    <LoadingGIF class="jokes_page_msg" v-else />
+    <styledButton class="button" buttonText="Next joke!" @click="getJokeACB" />
+    <styledButton
+      class="button"
+      v-if="loggedIn"
       buttonText="Save!"
       @click="addToFavoriteJokesACB"
     />
-    <p v-else>Log in to save the joke!</p>
+    <p v-else>Log in to save the joke and to change the joke preferences!</p>
+    <p v-if="isASavedJoke">Joke was saved!</p>
+    <styledButton
+      class="button"
+      v-if="loggedIn"
+      buttonText="Change joke preferences!"
+      @click="changeToSettingsACB"
+    />
   </div>
 </template>
 
-
 <script>
 export default {
-  props: ["jokeData", "loading", "loggedIn"],
-  emits: ["getNewJokeACB", "setJokeOnLoadACB" ,"sendJokeToFavoriteACB"],
-  data(){return {msg: "Waiting for a joke..."}},
+  props: ["jokeData", "loading", "loggedIn", "isASavedJoke", "jokePreferences"],
+  emits: [
+    "getNewJokeACB",
+    "setJokeOnLoadACB",
+    "sendJokeToFavoriteACB",
+    "setPreferencesACB",
+  ],
+  data() {
+    return {
+      settings: false,
+      msg: "Waiting for a joke...",
+      category: ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"],
+      flags: ["NSFW", "Religious", "Political", "Racist", "Sexist", "Explicit"],
+      selectedCategories: [],
+      selectedFlags: [],
+    };
+  },
   computed: {
     joke() {
       this.$emit("setJokeOnLoadACB");
       return this.jokeData.data.joke;
     },
   },
+  created() {
+    // this.selectedCategories = this.jokePreferences.categories;
+    function filterFlags(item) {
+      return !this.selectedFlags.includes(item);
+    }
+    this.selectedFlags = this.jokePreferences.blacklist.filter(filterFlags.bind(this));
+
+  },
   methods: {
+    changeToSettingsACB(){
+      this.settings = !this.settings;
+    },
     getJokeACB() {
       this.$emit("getNewJokeACB");
     },
     addToFavoriteJokesACB() {
       this.$emit("sendJokeToFavoriteACB");
     },
+
+    addPreferencesACB() {
+      let invertedFlags = []
+      function filterFlags(item) {
+          return !this.selectedFlags.includes(item);
+        }
+      invertedFlags = this.flags.filter(filterFlags.bind(this))
+
+      this.$emit("setPreferencesACB", {categories: this.selectedCategories, blacklist: invertedFlags});
+    },
   },
 };
 </script>
 
-
 <style scoped>
-/* Turns the page into a flex container where it acts as a parent where the jokes window and buttons are its children.  */
-.jokes_page {
-  display:flex;
-  flex-direction: column;
-}
-/* Global effects on the button during mouse hover. */
-.button:hover {
-  background-color: #00bd7e;
-  transition: 0.7s;
-  border-radius: 10px;
-  color: black;
-}
-/* Specific settings for Desktop view.  */
-@media (min-width: 768px) {
-  .jokes_page_msg {
-  font-size: large;
-  color:white;
-  border-style: solid;
-  border-radius: 0px;
-  border-color: #00bd7e;
-  border-width: 0px;
-  /* height: 250px;
-  width: 500px; */
-  margin: auto;
-  padding: 5em;
-}
 .button {
-        background-color:#191a1c;
-        border-color: #5b576b;
-        border-radius: 4px;
-        color:antiquewhite;
-        height: 100px; 
-        width: 100px;
-        margin-left: auto;
-        position: fixed;
-        right: 15px;
-        bottom: 15px;
-    }
-}
-/* Specific settings for Mobile view. */
-@media (max-width: 768px) {
-  .jokes_page_msg {
-  font-size: x-large;
-  color:white;
-  border-style: solid;
-  border-radius: 0px;
-  border-color: #00bd7e;
-  border-width: 0px;
-  /* height: 250px;
-  width: 500px; */
-  margin:auto;
-  padding: 3em;
-  }
-  .button {
-    position: fixed;
-        background-color:#191a1c;
-        border-color: #5b576b;
-        border-radius: 4px;
-        color:antiquewhite;
-        height: 100px; 
-        width: 100px;
-        top: 15px;
-        right: 15px;
-    }
+  cursor: pointer;
 }
 </style>
-
-

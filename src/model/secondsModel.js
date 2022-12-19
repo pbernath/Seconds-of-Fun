@@ -9,7 +9,7 @@ import {resolvePromise} from '../resolvePromise.js';
 
 class secondsModel{
 
-    constructor(userMail = null, favoriteJokes = []){
+    constructor(userMail = null, favoriteJokes = [], jokeCategories = [], jokeBlacklist = []){
         this.observers = [];
 
         this.userMail = userMail;
@@ -18,6 +18,8 @@ class secondsModel{
         this.jokePromiseState = {};
         this.currentJoke = "";
         this.favoriteJokes = favoriteJokes;
+        this.jokeCategories = jokeCategories;
+        this.jokeBlacklist = jokeBlacklist;
     }
 
 
@@ -92,8 +94,82 @@ class secondsModel{
         this.notifyObservers({favoriteJokeToAdd: jokeToAdd})
     }
 
-    getAJoke(){ 
-        resolvePromise(getJoke(), this.jokePromiseState)
+    setFavoriteJokes(listOfJokes){
+        this.favoriteJokes = listOfJokes;
+    }
+
+    addJokePreferences (props) {
+        this.jokeCategories = props.categories;
+        this.jokeBlacklist = props.blacklist;
+    }
+    addJokeCategory(categoryToAdd){
+        function hasSameIdNotifsCB(category){
+            return category == categoryToAdd;
+        }
+        
+        if(this.jokeCategories.some(hasSameIdNotifsCB) == true){
+            return;
+        }
+        this.jokeCategories=[...this.jokeCategories, categoryToAdd]
+        this.notifyObservers({addJokeCategory: categoryToAdd})
+    }
+
+    removeJokeCategory(categoryToRemove){
+        function hasSameIdNotifsCB(category){
+            return category == categoryToRemove;
+        }
+        
+        if(this.jokeCategories.some(hasSameIdNotifsCB) == false){
+            return;
+        }
+
+        function hasSameIdCB(category){
+            if (category == categoryToRemove) {
+                return false;
+            }
+            return true;
+        }
+
+        this.jokeCategories = this.jokeCategories.filter(hasSameIdCB);
+        this.notifyObservers({removeJokeCategory: categoryToRemove});
+    }
+
+    addJokeBlacklist(flagToAdd){
+        function hasSameIdNotifsCB(flag){
+            return flag == flagToAdd;
+        }
+        
+        if(this.jokeBlacklist.some(hasSameIdNotifsCB) == true){
+            return;
+        }
+        this.jokeBlacklist=[...this.jokeBlacklist, flagToAdd]
+        this.notifyObservers({addBlacklistFlag: flagToAdd})
+    }
+
+    removeCategoryBlacklist(flagToRemove){
+        function hasSameIdNotifsCB(flag){
+            return flag == flagToRemove;
+        }
+        
+        if(this.jokeBlacklist.some(hasSameIdNotifsCB) == false){
+            return;
+        }
+
+        function hasSameIdCB(flag){
+            if (flag == flagToRemove) {
+                return false;
+            }
+            return true;
+        }
+
+        this.jokeBlacklist = this.jokeBlacklist.filter(hasSameIdCB);
+        this.notifyObservers({removeBlacklistFlag: flagToRemove});
+    }
+
+
+    resetPreferences() {
+        this.jokeCategories = [];
+        this.jokeBlacklist = [];
     }
 
 }
