@@ -7,6 +7,9 @@ import styledButton from "../components/styledButton.vue";
 import LoadingGIF from "../components/icons/LoadingGIF.vue";
 </script>
 
+
+
+
 <template>
     <div class="comic_page">
     <p v-if="comic != msg" class="comic_page">
