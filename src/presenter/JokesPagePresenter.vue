@@ -11,7 +11,7 @@ import { getJoke } from "../jokeSource.js";
 </script>
 <template>
   <JokesPage
-    :loggedIn="this.model.userMail != null"
+    :loggedIn="model.userMail != null"
     :jokeData="jokeData"
     :jokePreferences="jokePreferences"
     @getNewJokeACB="setCurrentJokeACB"
