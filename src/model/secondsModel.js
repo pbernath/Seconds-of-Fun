@@ -66,7 +66,6 @@ class secondsModel{
         }
         
         if(this.favoriteJokes.some(hasSameIdNotifsCB) == false){
-            console.log("yeah2")
             return;
         }
 
@@ -103,6 +102,7 @@ class secondsModel{
         this.jokeBlacklist = props.blacklist;
     }
     addJokeCategory(categoryToAdd){
+        console.log(categoryToAdd);
         function hasSameIdNotifsCB(category){
             return category == categoryToAdd;
         }
@@ -115,6 +115,7 @@ class secondsModel{
     }
 
     removeJokeCategory(categoryToRemove){
+        console.log(categoryToRemove);
         function hasSameIdNotifsCB(category){
             return category == categoryToRemove;
         }
@@ -135,6 +136,7 @@ class secondsModel{
     }
 
     addJokeBlacklist(flagToAdd){
+        console.log(flagToAdd);
         function hasSameIdNotifsCB(flag){
             return flag == flagToAdd;
         }
@@ -147,6 +149,7 @@ class secondsModel{
     }
 
     removeJokeBlacklist(flagToRemove){
+        console.log(flagToRemove);
         function hasSameIdNotifsCB(flag){
             return flag == flagToRemove;
         }
@@ -168,6 +171,7 @@ class secondsModel{
 
 
     resetPreferences() {
+        console.log("Preferences reset");
         this.jokeCategories = [];
         this.jokeBlacklist = [];
     }

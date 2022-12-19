@@ -27,8 +27,6 @@ function getJoke(props){
         blacklist = "?blacklistFlags=" + invertedFlags.join(',');
         type = "&type=single";
     }
-    console.log(category);
-    console.log(blacklist);
     return fetch("https://v2.jokeapi.dev/joke/" + category + blacklist + type, {  // object literal
         method: "GET"       
     }

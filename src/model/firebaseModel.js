@@ -58,14 +58,19 @@ function signOutOfAccount (model) {
     signOut(auth)
     .then(function handleSignOut () {
             // Sign-out successful
+            console.log("IM NOW LOGGED OUT 1");
             model.setUser(null);
             model.setAuthErrorMessage(null);
             model.resetPreferences();
             model.setFavoriteJokes([]);
+            console.log("IM NOW LOGGED OUT 2");
             updateModelFromFirebase(model);
         }
     )
     .catch(function handleError (error) {
+            if (error == undefined) {
+                return;
+            }
             const errorCode = error.code;
             console.log(errorCode);
             model.setAuthErrorMessage(errorCode);

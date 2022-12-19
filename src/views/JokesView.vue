@@ -104,7 +104,6 @@ export default {
   },
   methods: {
     changeToSettingsACB(){
-      console.log("changing view to/from preferences");
       this.settings = !this.settings;
       this.setJokePreferencesACB();
     },
@@ -115,38 +114,28 @@ export default {
       this.$emit("sendJokeToFavoriteACB");
     },
     addCategoryToPreferencesACB(category) {
-      console.log("emitting category add");
       this.$emit("addCategoryACB", category);
     },
     removeCategoryFromPreferencesACB(category) {
-      console.log("emitting category removal");
       this.$emit("removeCategoryACB", category);
     },
     addBlacklistToPreferencesACB(flag) {
-      console.log("emitting blacklist add");
       this.$emit("addBlacklistACB", flag);
     },
     removeBlacklistFromPreferencesACB(flag) {
-      console.log("emitting blacklist removal");
       this.$emit("removeBlacklistACB", flag);
     },
     adjustCategoriesACB(item) {
-      console.log("item chosen " + item);
       if (this.selectedCategories.find((listItem) => {return listItem == item})) {
-        console.log("sending category to add");
         this.addCategoryToPreferencesACB(item);
       } else {
-        console.log("sending category to remove");
         this.removeCategoryFromPreferencesACB(item);
       }
     },
     adjustBlacklistACB(item) {
-      console.log("item chosen " + item);
       if (this.selectedFlags.find((listItem) => {return listItem == item})) {
-        console.log("sending blacklist to add");
         this.addBlacklistToPreferencesACB(item);
       } else {
-        console.log("sending blacklist to remove");
         this.removeBlacklistFromPreferencesACB(item);
       }
     },
