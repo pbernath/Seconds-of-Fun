@@ -27,8 +27,9 @@ function getJoke(number){
             }
             if(Math.pow(2, i) > number){
                 addPreferenceAccordingToIndex(i-1);
-                number -= Math.pow(2, i);
+                number -= Math.pow(2, i-1);
                 i = -1;
+
             }
         }
         i++;
@@ -36,28 +37,29 @@ function getJoke(number){
 
     function addPreferenceAccordingToIndex(index) {
         if (index < 6) {
-          selectedCategories = [categoryItems[index], ...selectedCategories];
+            selectedCategories = [categoryItems[index], ...selectedCategories];
         } else {
-          selectedFlags = [flagItems[index - 6], ...selectedFlags];
+            selectedFlags = [flagItems[index - 6], ...selectedFlags];
         }
     }
 
-    if (selectedCategories.length != 0) {
+    if (selectedCategories.length != 6 || selectedCategories.length != 0) {
         category = selectedCategories.join(',');
     }
     if (selectedFlags.length != 6 && selectedFlags.length != 0) {
         let invertedFlags = [];
         function filterFlags(item) {
-            return !props.selectedFlags.includes(item);
+            return !selectedFlags.includes(item);
             }
         invertedFlags = flagItems.filter(filterFlags);
 
         blacklist = "?blacklistFlags=" + invertedFlags.join(',');
     }
-    if (selectedFlags.length == 0) {
+    if (selectedFlags.length == 6) {
         blacklist = "";
         type = "?type=single"
     }
+    console.log("Check that the info for the fetch is corresponding to the preferences!");
     console.log(category)
     console.log(blacklist)
     console.log(type)

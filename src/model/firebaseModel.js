@@ -25,6 +25,7 @@ function createAccount (email, password, model) {
             // Signed in
             const user = userCredential.user;
             model.setUser(user.email);
+            set(ref(database, REF + "/users/"+ user.uid + "/jokePreferences/"), model.preferenceNumber);
             model.setAuthErrorMessage(null);
         }
     )
@@ -59,18 +60,12 @@ function signOutOfAccount (model) {
     .then(function handleSignOut () {
             // Sign-out successful
             console.log("IM NOW LOGGED OUT 1");
-            model.setUser(null);
-            model.setAuthErrorMessage(null);
-            model.resetPreferences();
-            model.setFavoriteJokes([]);
+            model.cleanupAfterUser();
             console.log("IM NOW LOGGED OUT 2");
             updateModelFromFirebase(model);
         }
     )
     .catch(function handleError (error) {
-            if (error == undefined) {
-                return;
-            }
             const errorCode = error.code;
             console.log(errorCode);
             model.setAuthErrorMessage(errorCode);

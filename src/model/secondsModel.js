@@ -18,7 +18,7 @@ class secondsModel{
         this.jokePromiseState = {};
         this.currentJoke = "";
         this.favoriteJokes = favoriteJokes;
-        this.preferenceNumber = 63;
+        this.preferenceNumber = preferenceNumber;
     }
 
 
@@ -97,12 +97,34 @@ class secondsModel{
     }
 
     updatePreferences(preferenceNumber) {
+        if (preferenceNumber == null) {
+            preferenceNumber = 63;
+        }
         this.preferenceNumber = preferenceNumber;
-        this.notifyObservers({preference: preferenceNumber})
+        this.notifyObservers({preference: preferenceNumber});
     }
 
     resetPreferences() {
-        this.preferenceNumber = 63;
+        this.updatePreferences(63);
+    }
+
+    resetUser() {
+        this.setUser(null);
+    }
+
+    resetAuthErrorMessage() {
+        this.setAuthErrorMessage(null);
+    }
+
+    resetFavoriteJokes() {
+        this.setFavoriteJokes([]);
+    }
+
+    cleanupAfterUser() {
+        this.resetUser();
+        this.resetAuthErrorMessage();
+        this.resetPreferences();
+        this.resetFavoriteJokes();
     }
 
 }
