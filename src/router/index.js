@@ -21,7 +21,8 @@ import HomeView from "../views/HomeView.vue";
 import JokesPagePresenter from "../presenter/JokesPagePresenter.vue";
 import LoginPresenter from "../presenter/LoginPresenter.vue";
 import ComicPresenter from "../presenter/ComicPresenter.vue";
-import FavoriteJokesPresenter from "../presenter/FavoriteJokesPresenter.vue"; 
+import FavoriteJokesPresenter from "../presenter/FavoriteJokesPresenter.vue";
+import FavoriteComicPresenter from "../presenter/FavoriteComicPresenter.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -49,6 +50,11 @@ const router = createRouter({
       path: "/favorite_jokes_page/",
       name: "favorite_jokes",
       component: FavoriteJokesPresenter,
+    },
+    {
+      path: "/favorite_comic_page/",
+      name: "favorite_comic",
+      component: FavoriteComicPresenter,
     },
   ],
 });
