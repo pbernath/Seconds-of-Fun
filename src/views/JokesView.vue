@@ -86,17 +86,14 @@ export default {
   computed: {
     joke() {
       this.$emit("setJokeOnLoadACB");
-      console.log("Calling joke() in computed");
       return this.jokeData.data.joke;
     },
 
     preferences(){
-      console.log("Calling preferences() in computed");
       return this.jokePreferences;
     }
   },
   created() {
-    console.log("Entered created()");
     /*
     this.selectedCategories = this.jokePreferences.categories;
     function filterFlags(item) {
@@ -121,9 +118,6 @@ export default {
     adjustPreferencesACB() {
       let calcNumber = 0;
 
-      console.log("Calling adjustPreferencesACB");
-      console.log("Number starts at: " + calcNumber);
-
       function getNumberFromCategoriesCB(item) {
         function comparisonCB(sCategory){
           return sCategory ==item;
@@ -131,7 +125,6 @@ export default {
 
         if (this.selectedCategories.find(comparisonCB)) {
           calcNumber = calcNumber + Math.pow(2, this.category.indexOf(item));
-          console.log("Number now at: " + calcNumber);
         }
       }
       function getNumberFromFlagsCB(item) {
@@ -140,40 +133,29 @@ export default {
         }
         if (this.selectedFlags.find(comparisonCB)) {
           calcNumber = calcNumber + Math.pow(2, this.flags.indexOf(item) + 6);
-          console.log("Number now at: " + calcNumber);
         }
       }
 
       this.category.forEach(getNumberFromCategoriesCB.bind(this));
       this.flags.forEach(getNumberFromFlagsCB.bind(this));
 
-      console.log("Calculated preference number: " + calcNumber);
-      console.log("Emitting calculated number");
-
       this.$emit("emitPreferencesACB", calcNumber);
     
     },
     setPreferencesACB() {
-      console.log("Calling setPreferencesACB");
       const tempData = this;
       let tempCategories = [];
       let tempFlags = [];
       let number = this.preferences;
       let i = 0;
 
-      console.log("Number needed to be deciphered: " + number);
-
       while (number != 0) {
         if(Math.pow(2, i) >= number){
-          console.log("Current number: " + number);
           if(Math.pow(2, i) == number){
-            console.log("Number to subtract: " + Math.pow(2, i));
             addPreferenceAccordingToIndex(i);
-            console.log("Stop the while calculation");
             break;
           }
           if(Math.pow(2, i) > number){
-            console.log("Number to subtract: " + Math.pow(2, i-1));
             addPreferenceAccordingToIndex(i-1);
             number -= Math.pow(2, i-1);
             i = -1;
@@ -186,10 +168,8 @@ export default {
       this.selectedFlags = tempFlags;
       function addPreferenceAccordingToIndex(index) {
         if (index < 6) {
-          console.log("Index " + index + " in category is " + tempData.category[index]);
           tempCategories = [...tempCategories, tempData.category[index]];
         } else {
-          console.log("Index " + index - 6 + " in flags is " + tempData.flags[index - 6]);
           tempFlags = [...tempFlags, tempData.flags[index - 6]];
         }
       }

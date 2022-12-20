@@ -9,7 +9,7 @@ import {resolvePromise} from '../resolvePromise.js';
 
 class secondsModel{
 
-    constructor(userMail = null, favoriteJokes = [], preferenceNumber = 63){
+    constructor(userMail = null, favoriteJokes = [], preferenceNumber = 63,){
         this.observers = [];
 
         this.userMail = userMail;

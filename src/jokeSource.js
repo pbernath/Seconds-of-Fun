@@ -42,8 +42,8 @@ function getJoke(number){
             selectedFlags = [flagItems[index - 6], ...selectedFlags];
         }
     }
-
-    if (selectedCategories.length != 6 || selectedCategories.length != 0) {
+    
+    if (selectedCategories.length != 6 && selectedCategories.length != 0) {
         category = selectedCategories.join(',');
     }
     if (selectedFlags.length != 6 && selectedFlags.length != 0) {
@@ -59,10 +59,7 @@ function getJoke(number){
         blacklist = "";
         type = "?type=single"
     }
-    console.log("Check that the info for the fetch is corresponding to the preferences!");
-    console.log(category)
-    console.log(blacklist)
-    console.log(type)
+
     return fetch("https://v2.jokeapi.dev/joke/" + category + blacklist + type, {  // object literal
         method: "GET"       
     }

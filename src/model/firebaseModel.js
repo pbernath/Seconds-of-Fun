@@ -59,9 +59,7 @@ function signOutOfAccount (model) {
     signOut(auth)
     .then(function handleSignOut () {
             // Sign-out successful
-            console.log("IM NOW LOGGED OUT 1");
             model.cleanupAfterUser();
-            console.log("IM NOW LOGGED OUT 2");
             updateModelFromFirebase(model);
         }
     )
@@ -79,27 +77,29 @@ function observerRecap(model) {
     function obsACB(payload){
     
         if (payload) {
+            // These payloads are for all users
 
-            if (payload.favoriteJokeToAdd){
-                if (auth.currentUser) {
+
+
+
+            // These payloads are for idividual users
+            if (auth.currentUser) {
+
+                if (payload.favoriteJokeToAdd){
                     set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteJokes/" + payload.favoriteJokeToAdd.id), payload.favoriteJokeToAdd.category);
                 }
-            }
 
-            if (payload.removeJoke){
-                if (auth.currentUser) {
+                if (payload.removeJoke){
                     set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteJokes/" + payload.removeJoke.id), null);
                 }
-            }
 
-            if (payload.preference){
-                if (auth.currentUser) {
+                if (payload.preference){
                     set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/"), payload.preference);
                 }
             }
-
         }
     }
+
     model.addObserver(obsACB);
 
 }
@@ -162,33 +162,41 @@ function updateFirebaseFromModel(model) {
 
 function updateModelFromFirebase(model) {
 
-    
-    onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/"),
-        function inputHasChangedInFirebaseACB(firebaseData) {
-            model.updatePreferences(firebaseData.val());
-        }
-    )
-    
-    
-    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
-        function jokeAddedInFirebaseACB(firebaseData){
-            function jokeAlreadyAddedCB(joke) {
-                return joke.id == +firebaseData.key;
-            }
-            if (!model.favoriteJokes.find(jokeAlreadyAddedCB)) {
-                function addjokeACB(joke) {
-                    model.addJokeToFavorites(joke);
-                }
-                getJokeByID(+firebaseData.key).then(addjokeACB);
-            }
-        }
-    )
+    // These should trigger regardless of if there is a user logged in or not
 
-    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
-        function jokeRemovedInFirebaseACB(firebaseData){
-            model.removeFromFavorites({id: +firebaseData.key}); 
-        }
-    )
+
+
+
+    // These only trigger if and when there is a user logged in
+    if (auth.currentUser) {
+
+        onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/"),
+            function inputHasChangedInFirebaseACB(firebaseData) {
+                model.updatePreferences(firebaseData.val());
+            }
+        )
+
+        onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
+            function jokeAddedInFirebaseACB(firebaseData){
+                function jokeAlreadyAddedCB(joke) {
+                    return joke.id == +firebaseData.key;
+                }
+                if (!model.favoriteJokes.find(jokeAlreadyAddedCB)) {
+                    function addjokeACB(joke) {
+                        model.addJokeToFavorites(joke);
+                    }
+                    getJokeByID(+firebaseData.key).then(addjokeACB);
+                }
+            }
+        )
+
+        onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
+            function jokeRemovedInFirebaseACB(firebaseData){
+                model.removeFromFavorites({id: +firebaseData.key}); 
+            }
+        )
+
+    }
     
     return;
 }
