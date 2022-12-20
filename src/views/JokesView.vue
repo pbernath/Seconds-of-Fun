@@ -125,14 +125,21 @@ export default {
       console.log("Number starts at: " + calcNumber);
 
       function getNumberFromCategoriesCB(item) {
-        if (item in this.selectedCategories) {
-          calcNumber =+ Math.pow(2, this.category.indexOf(item));
+        function comparisonCB(sCategory){
+          return sCategory ==item;
+        }
+
+        if (this.selectedCategories.find(comparisonCB)) {
+          calcNumber = calcNumber + Math.pow(2, this.category.indexOf(item));
           console.log("Number now at: " + calcNumber);
         }
       }
       function getNumberFromFlagsCB(item) {
-        if (item in this.selectedFlags) {
-          calcNumber =+ Math.pow(2, this.flags.indexOf(item) + 6);
+        function comparisonCB(sFlag){
+          return sFlag ==item;
+        }
+        if (this.selectedFlags.find(comparisonCB)) {
+          calcNumber = calcNumber + Math.pow(2, this.flags.indexOf(item) + 6);
           console.log("Number now at: " + calcNumber);
         }
       }
@@ -148,14 +155,13 @@ export default {
     },
     setPreferencesACB() {
       console.log("Calling setPreferencesACB");
+      const tempData = this;
       let tempCategories = [];
       let tempFlags = [];
-      let number = this.preferences();
+      let number = this.preferences;
       let i = 0;
 
       console.log("Number needed to be deciphered: " + number);
-
-      debugger;
 
       while (number != 0) {
         if(Math.pow(2, i) >= number){
@@ -176,18 +182,15 @@ export default {
         i++;
       }
 
-      debugger;
-
       this.selectedCategories = tempCategories;
       this.selectedFlags = tempFlags;
-
       function addPreferenceAccordingToIndex(index) {
         if (index < 6) {
-          console.log("Index " + index + " in category is " + category[index]);
-          tempCategories = [...tempCategories, category[index]];
+          console.log("Index " + index + " in category is " + tempData.category[index]);
+          tempCategories = [...tempCategories, tempData.category[index]];
         } else {
-          console.log("Index " + index - 6 + " in flags is " + flags[index - 6]);
-          tempFlags = [...tempFlags, flags[index - 6]];
+          console.log("Index " + index - 6 + " in flags is " + tempData.flags[index - 6]);
+          tempFlags = [...tempFlags, tempData.flags[index - 6]];
         }
       }
 
