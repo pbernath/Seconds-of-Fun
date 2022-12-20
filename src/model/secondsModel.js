@@ -101,7 +101,7 @@ class secondsModel{
     }
 
     updatePreferences(preferenceNumber) {
-        if (preferenceNumber == null) {
+        if (preferenceNumber == null || preferenceNumber == 0) {
             preferenceNumber = 63;
         }
         this.preferenceNumber = preferenceNumber;
