@@ -20,8 +20,6 @@ class secondsModel{
         this.currentJoke = "";
         this.favoriteJokes = favoriteJokes;
         this.preferenceNumber = preferenceNumber;
-        this.jokeCategories = jokeCategories;
-        this.jokeBlacklist = jokeBlacklist;
 
         this.comicPromiseState = {};
         this.favComics = comics;
