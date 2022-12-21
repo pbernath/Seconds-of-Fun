@@ -61,12 +61,13 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
       buttonText="Change joke preferences!"
       @click="changeToSettingsACB"
     />
+    <p v-if="jokeSaved">Joke has been saved!</p>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["jokeData", "loading", "loggedIn", "isASavedJoke", "jokePreferences"],
+  props: ["jokeData", "loading", "loggedIn", "isASavedJoke", "jokePreferences","jokeSaved"],
   emits: [
     "getNewJokeACB",
     "setJokeOnLoadACB",

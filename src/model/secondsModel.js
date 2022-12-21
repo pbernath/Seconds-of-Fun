@@ -99,7 +99,9 @@ class secondsModel{
     setFavoriteJokes(listOfJokes){
         this.favoriteJokes = listOfJokes;
     }
-
+    setFavoriteComics(listOfComics){
+        this.favComics = listOfComics;
+    }
     updatePreferences(preferenceNumber) {
         if (preferenceNumber == null || preferenceNumber == 0) {
             preferenceNumber = 63;
@@ -123,12 +125,17 @@ class secondsModel{
     resetFavoriteJokes() {
         this.setFavoriteJokes([]);
     }
+    
+    resetFavoriteComics() {
+        this.setFavoriteComics([]);
+    }
 
     cleanupAfterUser() {
         this.resetUser();
         this.resetAuthErrorMessage();
         this.resetPreferences();
         this.resetFavoriteJokes();
+        this.resetFavoriteComics();
     }
 
 

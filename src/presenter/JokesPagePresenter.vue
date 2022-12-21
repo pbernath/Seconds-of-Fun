@@ -12,6 +12,7 @@ import { getJoke } from "../jokeSource.js";
 <template>
   <JokesPage
     :loggedIn="model.userMail != null"
+    :jokeSaved="isJokeSaved"
     :jokeData="jokeData"
     :jokePreferences="jokePreferences"
     @getNewJokeACB="setCurrentJokeACB"
@@ -37,6 +38,15 @@ export default {
     },
     jokePreferences () {
       return this.model.preferenceNumber;
+    },
+    isJokeSaved(){
+      if(this.model.jokePromiseState.data){
+        function compareIdsCB(joke){
+          return joke.id == this.model.jokePromiseState.data.id;
+        }
+
+        return this.model.favoriteJokes.some(compareIdsCB.bind(this));
+      }
     }
   },
   created() {

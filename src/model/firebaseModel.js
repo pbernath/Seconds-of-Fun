@@ -82,7 +82,7 @@ function observerRecap(model) {
 
 
 
-            // These payloads are for idividual users
+            // These payloads are for individual users
             if (auth.currentUser) {
 
                 if (payload.favoriteJokeToAdd){
@@ -91,6 +91,14 @@ function observerRecap(model) {
 
                 if (payload.removeJoke){
                     set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteJokes/" + payload.removeJoke.id), null);
+                }
+
+                if (payload.favoriteComicToAdd){
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteComics/" + payload.favoriteComicToAdd.num), payload.favoriteComicToAdd.title);
+                }
+
+                if (payload.removeComic){
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteComics/" + payload.removeComic.num), null);
                 }
 
                 if (payload.preference){
@@ -196,6 +204,22 @@ function updateModelFromFirebase(model) {
             }
         )
 
+        onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteComics/"),
+            function comicAddedInFirebaseACB(firebaseData){
+                function comicAlreadyAddedCB(comic) {
+                    return comic.num == +firebaseData.key;
+                }
+                if (!model.favComics.find(comicAlreadyAddedCB)) {
+                    model.addFavComic({num: +firebaseData.key, title: firebaseData.val()});
+                }
+            }
+        )
+
+        onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteComics/"),
+            function comicRemovedInFirebaseACB(firebaseData){
+                model.removeFromFavComic({num: +firebaseData.key, title: firebaseData.val()}); 
+            }
+        )
     }
     
     return;
