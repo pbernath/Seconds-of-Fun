@@ -49,30 +49,37 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
     <styledButton class="button" buttonText="Next joke!" @click="getJokeACB" />
     <styledButton
       class="button"
-      v-if="loggedIn"
+      v-if="loggedIn && !jokeSaved"
       buttonText="Save!"
       @click="addToFavoriteJokesACB"
     />
-    <p v-else>Log in to save the joke and to change the joke preferences!</p>
-    <p v-if="isASavedJoke">Joke was saved!</p>
+    <styledButton
+      class="button"
+      v-if="loggedIn && jokeSaved"
+      buttonText="Unsave!"
+      @click="removeFromFavoriteJokesACB"
+    />
     <styledButton
       class="button"
       v-if="loggedIn"
       buttonText="Change joke preferences!"
       @click="changeToSettingsACB"
     />
-    <p v-if="jokeSaved">Joke has been saved!</p>
+    <p v-if="!loggedIn">
+      Log in to save the joke and to change the joke preferences!
+    </p>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["jokeData", "loading", "loggedIn", "isASavedJoke", "jokePreferences","jokeSaved"],
+  props: ["jokeData", "loading", "loggedIn", "jokePreferences", "jokeSaved"],
   emits: [
     "getNewJokeACB",
     "setJokeOnLoadACB",
     "sendJokeToFavoriteACB",
     "emitPreferencesACB",
+    "removeJokeFromFavoriteACB",
   ],
   data() {
     return {
@@ -90,9 +97,9 @@ export default {
       return this.jokeData.data.joke;
     },
 
-    preferences(){
+    preferences() {
       return this.jokePreferences;
-    }
+    },
   },
   created() {
     /*
@@ -102,13 +109,11 @@ export default {
     }
     this.selectedFlags = this.jokePreferences.blacklist.filter(filterFlags.bind(this));
     */
-
   },
   methods: {
-    changeToSettingsACB(){
+    changeToSettingsACB() {
       this.setPreferencesACB();
       this.settings = !this.settings;
-      
     },
     getJokeACB() {
       this.$emit("getNewJokeACB");
@@ -116,12 +121,15 @@ export default {
     addToFavoriteJokesACB() {
       this.$emit("sendJokeToFavoriteACB");
     },
+    removeFromFavoriteJokesACB() {
+      this.$emit("removeJokeFromFavoriteACB");
+    },
     adjustPreferencesACB() {
       let calcNumber = 0;
 
       function getNumberFromCategoriesCB(item) {
-        function comparisonCB(sCategory){
-          return sCategory ==item;
+        function comparisonCB(sCategory) {
+          return sCategory == item;
         }
 
         if (this.selectedCategories.find(comparisonCB)) {
@@ -129,8 +137,8 @@ export default {
         }
       }
       function getNumberFromFlagsCB(item) {
-        function comparisonCB(sFlag){
-          return sFlag ==item;
+        function comparisonCB(sFlag) {
+          return sFlag == item;
         }
         if (this.selectedFlags.find(comparisonCB)) {
           calcNumber = calcNumber + Math.pow(2, this.flags.indexOf(item) + 6);
@@ -141,7 +149,6 @@ export default {
       this.flags.forEach(getNumberFromFlagsCB.bind(this));
 
       this.$emit("emitPreferencesACB", calcNumber);
-    
     },
     setPreferencesACB() {
       const tempData = this;
@@ -151,14 +158,14 @@ export default {
       let i = 0;
 
       while (number != 0) {
-        if(Math.pow(2, i) >= number){
-          if(Math.pow(2, i) == number){
+        if (Math.pow(2, i) >= number) {
+          if (Math.pow(2, i) == number) {
             addPreferenceAccordingToIndex(i);
             break;
           }
-          if(Math.pow(2, i) > number){
-            addPreferenceAccordingToIndex(i-1);
-            number -= Math.pow(2, i-1);
+          if (Math.pow(2, i) > number) {
+            addPreferenceAccordingToIndex(i - 1);
+            number -= Math.pow(2, i - 1);
             i = -1;
           }
         }
@@ -174,9 +181,7 @@ export default {
           tempFlags = [...tempFlags, tempData.flags[index - 6]];
         }
       }
-
     },
-
   },
 };
 </script>

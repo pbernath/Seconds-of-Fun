@@ -18,6 +18,7 @@ import { getJoke } from "../jokeSource.js";
     @getNewJokeACB="setCurrentJokeACB"
     @setJokeOnLoadACB="setJoke"
     @sendJokeToFavoriteACB="addCurrentJokeToFavoritesACB"
+    @removeJokeFromFavoriteACB="removeCurrentJokeFromFavoriteACB"
     @emitPreferencesACB="setJokePreferencesACB"
 
   />
@@ -44,7 +45,6 @@ export default {
         function compareIdsCB(joke){
           return joke.id == this.model.jokePromiseState.data.id;
         }
-
         return this.model.favoriteJokes.some(compareIdsCB.bind(this));
       }
     }
@@ -59,6 +59,9 @@ export default {
     },
     addCurrentJokeToFavoritesACB() {
       this.model.addJokeToFavorites(this.model.jokePromiseState.data);
+    },
+    removeCurrentJokeFromFavoriteACB(){
+      this.model.removeFromFavorites(this.model.jokePromiseState.data);
     },
     setJoke() {
       if (this.model.jokePromiseState.data) {
