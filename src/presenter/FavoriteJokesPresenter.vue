@@ -4,7 +4,10 @@ import {jokeSort} from "../utils.jsx"
 </script>
 
 <template>
-  <FavoriteJokes :jokes="favorites" @removeJokeACB="jokeRemovalACB"/>
+  <FavoriteJokes 
+  :loggedIn="model.userMail != null"
+  :jokes="favorites" 
+  @removeJokeACB="jokeRemovalACB"/>
 </template>
 
 <script>

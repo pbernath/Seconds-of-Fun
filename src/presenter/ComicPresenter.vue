@@ -12,6 +12,7 @@ import ComicView from "../views/ComicView.vue"
 <template>
   <ComicView
     v-if="comicData != undefined"
+    :loggedIn="model.userMail != null"
     :comicData="comicData"
     @getRandomComicACB="getRandomComicACB" 
     @getNextComicACB="setNextComicACB"    
@@ -55,7 +56,9 @@ export default {
     favComicACB() {
       console.log("fav comic ACB")
       console.log(this.model.comicPromiseState.data)
-      this.model.addFavComic(this.model.comicPromiseState.data);
+      if(this.model.comicPromiseState.data){
+        this.model.addFavComic({num: this.model.comicPromiseState.data.num, title: this.model.comicPromiseState.data.safe_title});
+      }
     },
     
   },

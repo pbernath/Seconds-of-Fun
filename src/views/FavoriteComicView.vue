@@ -3,13 +3,15 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 </script>
       
 <template>
-  <div>
+  <div v-if="loggedIn">
     <li :key="comic.num" class="comicList" v-for="comic in comics">
         <button @click="removeACB(comic.num)">X</button>
 
-        <div @click="goToFavComicACB(comic.num)">{{ comic.safe_title }}</div>
+        <div @click="goToFavComicACB(comic.num)">{{ comic.title }}</div>
     </li>
   </div>
+  <h1 v-else> You have to be logged in to see your favorite comics  </h1>
+
 </template>
 
 
@@ -28,7 +30,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
  
 <script>
 export default {
-    props:['comics'],
+    props:['comics', 'loggedIn'],
     emits:["goToFavComicACB", "removeFavComicACB"],
     computed: {
     comic(){

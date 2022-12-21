@@ -3,7 +3,11 @@ import FavoriteComicView from "../views/FavoriteComicView.vue";
 </script>
 
 <template>
-    <FavoriteComicView :comics="favComics" @goToFavComicACB="routeToFavComicACB" @removeFavComicACB="removeFavComicACB"/>
+    <FavoriteComicView 
+    :loggedIn="model.userMail != null"
+    :comics="favComics" 
+    @goToFavComicACB="routeToFavComicACB" 
+    @removeFavComicACB="removeFavComicACB"/>
 </template>
 
 <style>
