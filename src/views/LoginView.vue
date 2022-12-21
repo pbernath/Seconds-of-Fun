@@ -70,27 +70,19 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 					</td>
 					<td></td>
 					<td>
-						<tr></tr>
 						<div class="pointer">
+							<br />
 							<div v-if="!showPassword" @click="toggleShowPasswordACB">
-								<table>
-									<td>
-										<h3 style="color: #00bd7e"> (◕‿◕) </h3>
-									</td>
-									<td>
-										<h3 style="color: #ebebeba3">Show Password</h3>
-									</td>
-								</table>
+								<h3>
+									<span style="color: #00bd7e"> (◕‿◕)  </span>
+									<span style="color: #ebebeba3"> Show Password</span>
+								</h3>
 							</div>
 							<div v-if="showPassword" @click="toggleShowPasswordACB">
-								<table>
-									<td>
-										<h3 style="color: #00bd7e"> (>‿&lt) </h3>
-									</td>
-									<td>
-										<h3 style="color: #ebebeba3">Hide Password</h3>
-									</td>
-								</table>
+								<h3>
+									<span style="color: #00bd7e"> (>‿&lt)  </span>
+									<span style="color: #ebebeba3"> Hide Password</span>
+								</h3>
 							</div>
 						</div>
 					</td>
@@ -104,26 +96,32 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 			<br />
 			<div class="pointer">
 				<div v-if="logIn" @click="switchToSignUpACB">
-					<h3 style="color: #ebebeba3">
-						Not yet registered? Click here to 
-					</h3>
-					<h3 style="color: #00bd7e">
-						Sign Up!
+					<h3>
+						<span style="color: #ebebeba3">
+							Not yet registered? Click here to 
+						</span>
+						<span style="color: #00bd7e">
+							Sign Up!
+						</span>
 					</h3>
 				</div>
 				<div v-if="!logIn" @click="switchToLogInACB">
-					<h3 style="color: #ebebeba3">
-						Already signed up? Click here to 
-					</h3>
-					<h3 style="color: #00bd7e">
-						Sign In!
+					<h3>
+						<span style="color: #ebebeba3">
+							Already signed up? Click here to 
+						</span>
+						<span style="color: #00bd7e">
+							Sign In!
+						</span>
 					</h3>
 				</div>
 			</div>
 		</div>
 		<div v-else>
-			<h1>Signed in as </h1>
-			<h1 style="color: #00bd7e">{{ fetchUser }}</h1>
+			<h1>
+				<span>Signed in as </span>
+				<span style="color: #00bd7e">{{ fetchUser }}</span>
+			</h1>
 			<br />
 			<h3 @click="logOutACB" class="pointer">Click here to sign out!</h3>
 		</div>

@@ -10,7 +10,7 @@ import {getComic, getNextComic, getPrevComic, getFavoriteComic} from "../comicSo
 
 class secondsModel{
 
-    constructor(userMail = null, favoriteJokes = [], jokeCategories = [], jokeBlacklist = [], comics = [],){
+    constructor(userMail = null, favoriteJokes = [], preferenceNumber = 63, comics = [],){
         this.observers = [];
 
         this.userMail = userMail;
@@ -19,11 +19,10 @@ class secondsModel{
         this.jokePromiseState = {};
         this.currentJoke = "";
         this.favoriteJokes = favoriteJokes;
-        this.jokeCategories = jokeCategories;
-        this.jokeBlacklist = jokeBlacklist;
+        this.preferenceNumber = preferenceNumber;
 
-        this.comicPromiseState={};
-        this.favComics=comics;
+        this.comicPromiseState = {};
+        this.favComics = comics;
     }
 
 
@@ -70,7 +69,6 @@ class secondsModel{
         }
         
         if(this.favoriteJokes.some(hasSameIdNotifsCB) == false){
-            console.log("yeah2")
             return;
         }
 
@@ -102,78 +100,35 @@ class secondsModel{
         this.favoriteJokes = listOfJokes;
     }
 
-    addJokePreferences (props) {
-        this.jokeCategories = props.categories;
-        this.jokeBlacklist = props.blacklist;
+    updatePreferences(preferenceNumber) {
+        if (preferenceNumber == null || preferenceNumber == 0) {
+            preferenceNumber = 63;
+        }
+        this.preferenceNumber = preferenceNumber;
+        this.notifyObservers({preference: preferenceNumber});
     }
-    addJokeCategory(categoryToAdd){
-        function hasSameIdNotifsCB(category){
-            return category == categoryToAdd;
-        }
-        
-        if(this.jokeCategories.some(hasSameIdNotifsCB) == true){
-            return;
-        }
-        this.jokeCategories=[...this.jokeCategories, categoryToAdd]
-        this.notifyObservers({addJokeCategory: categoryToAdd})
-    }
-
-    removeJokeCategory(categoryToRemove){
-        function hasSameIdNotifsCB(category){
-            return category == categoryToRemove;
-        }
-        
-        if(this.jokeCategories.some(hasSameIdNotifsCB) == false){
-            return;
-        }
-
-        function hasSameIdCB(category){
-            if (category == categoryToRemove) {
-                return false;
-            }
-            return true;
-        }
-
-        this.jokeCategories = this.jokeCategories.filter(hasSameIdCB);
-        this.notifyObservers({removeJokeCategory: categoryToRemove});
-    }
-
-    addJokeBlacklist(flagToAdd){
-        function hasSameIdNotifsCB(flag){
-            return flag == flagToAdd;
-        }
-        
-        if(this.jokeBlacklist.some(hasSameIdNotifsCB) == true){
-            return;
-        }
-        this.jokeBlacklist=[...this.jokeBlacklist, flagToAdd]
-        this.notifyObservers({addBlacklistFlag: flagToAdd})
-    }
-
-    removeJokeBlacklist(flagToRemove){
-        function hasSameIdNotifsCB(flag){
-            return flag == flagToRemove;
-        }
-        
-        if(this.jokeBlacklist.some(hasSameIdNotifsCB) == false){
-            return;
-        }
-
-        function hasSameIdCB(flag){
-            if (flag == flagToRemove) {
-                return false;
-            }
-            return true;
-        }
-
-        this.jokeBlacklist = this.jokeBlacklist.filter(hasSameIdCB);
-        this.notifyObservers({removeBlacklistFlag: flagToRemove});
-    }
-
 
     resetPreferences() {
-        this.jokeCategories = [];
-        this.jokeBlacklist = [];
+        this.updatePreferences(63);
+    }
+
+    resetUser() {
+        this.setUser(null);
+    }
+
+    resetAuthErrorMessage() {
+        this.setAuthErrorMessage(null);
+    }
+
+    resetFavoriteJokes() {
+        this.setFavoriteJokes([]);
+    }
+
+    cleanupAfterUser() {
+        this.resetUser();
+        this.resetAuthErrorMessage();
+        this.resetPreferences();
+        this.resetFavoriteJokes();
     }
 
 

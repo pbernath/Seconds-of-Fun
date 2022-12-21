@@ -25,6 +25,7 @@ function createAccount (email, password, model) {
             // Signed in
             const user = userCredential.user;
             model.setUser(user.email);
+            set(ref(database, REF + "/users/"+ user.uid + "/jokePreferences/"), model.preferenceNumber);
             model.setAuthErrorMessage(null);
         }
     )
@@ -58,10 +59,7 @@ function signOutOfAccount (model) {
     signOut(auth)
     .then(function handleSignOut () {
             // Sign-out successful
-            model.setUser(null);
-            model.setAuthErrorMessage(null);
-            model.resetPreferences();
-            model.setFavoriteJokes([]);
+            model.cleanupAfterUser();
             updateModelFromFirebase(model);
         }
     )
@@ -79,45 +77,29 @@ function observerRecap(model) {
     function obsACB(payload){
     
         if (payload) {
+            // These payloads are for all users
 
-            if (payload.favoriteJokeToAdd){
-                if (auth.currentUser) {
+
+
+
+            // These payloads are for idividual users
+            if (auth.currentUser) {
+
+                if (payload.favoriteJokeToAdd){
                     set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteJokes/" + payload.favoriteJokeToAdd.id), payload.favoriteJokeToAdd.category);
                 }
-            }
 
-            if (payload.removeJoke){
-                if (auth.currentUser) {
+                if (payload.removeJoke){
                     set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/favoriteJokes/" + payload.removeJoke.id), null);
                 }
-            }
 
-            if (payload.addJokeCategory){
-                if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/categories/" + payload.addJokeCategory ), payload.addJokeCategory);
+                if (payload.preference){
+                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/"), payload.preference);
                 }
             }
-
-            if (payload.removeJokeCategory){
-                if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/categories/" + payload.removeJokeCategory), null);
-                }
-            }
-
-            if (payload.addBlacklistFlag){
-                if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/blacklist/" + payload.addBlacklistFlag), payload.addBlacklistFlag);
-                }
-            }
-
-            if (payload.removeBlacklistFlag){
-                if (auth.currentUser) {
-                    set(ref(database, REF + "/users/"+ auth.currentUser.uid + "/jokePreferences/blacklist/" + payload.removeBlacklistFlag), null);
-                }
-            }
-
         }
     }
+
     model.addObserver(obsACB);
 
 }
@@ -180,78 +162,42 @@ function updateFirebaseFromModel(model) {
 
 function updateModelFromFirebase(model) {
 
-    /*
-    onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/input/"),
-        function inputHasChangedInFirebaseACB(firebaseData) {
-            model.setInput(firebaseData.val());
-        }
-    )
-    */
-    
-    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
-        function jokeAddedInFirebaseACB(firebaseData){
-            function jokeAlreadyAddedCB(joke) {
-                return joke.id == +firebaseData.key;
+    // These should trigger regardless of if there is a user logged in or not
+
+
+
+
+    // These only trigger if and when there is a user logged in
+    if (auth.currentUser) {
+
+        onValue(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/"),
+            function inputHasChangedInFirebaseACB(firebaseData) {
+                model.updatePreferences(firebaseData.val());
             }
-            if (!model.favoriteJokes.find(jokeAlreadyAddedCB)) {
-                function addjokeACB(joke) {
-                    model.addJokeToFavorites(joke);
+        )
+
+        onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
+            function jokeAddedInFirebaseACB(firebaseData){
+                function jokeAlreadyAddedCB(joke) {
+                    return joke.id == +firebaseData.key;
                 }
-                getJokeByID(+firebaseData.key).then(addjokeACB);
+                if (!model.favoriteJokes.find(jokeAlreadyAddedCB)) {
+                    function addjokeACB(joke) {
+                        model.addJokeToFavorites(joke);
+                    }
+                    getJokeByID(+firebaseData.key).then(addjokeACB);
+                }
             }
-        }
-    )
+        )
 
-    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
-        function jokeRemovedInFirebaseACB(firebaseData){
-            model.removeFromFavorites({id: +firebaseData.key}); 
-        }
-    )
-
-    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/categories/"),
-        function jokeCategoryAddedToFirebaseACB(firebaseData){
-            function categoryAlreadyAddedCB(category) {
-                return category == firebaseData.key;
+        onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/favoriteJokes/"),
+            function jokeRemovedInFirebaseACB(firebaseData){
+                model.removeFromFavorites({id: +firebaseData.key}); 
             }
-            if (!model.jokeCategories.find(categoryAlreadyAddedCB)) {
-                model.addJokeCategory(firebaseData.key);
-            }
-            else{
-                return;
-            }
+        )
 
-        }
-    )
-
-    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/categories/"),
-        function jokeCategoryRemovedFromFirebaseACB(firebaseData){
-            model.removeJokeCategory(firebaseData.key); 
-        }
-    )
-
-    onChildAdded(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/blacklist/"),
-        function jokeBlacklistAddedToFirebaseACB(firebaseData){
-            function jokeBlacklistAlreadyAddedCB(flag) {
-                return flag == firebaseData.key;
-            }
-            if (!model.jokeBlacklist.find(jokeBlacklistAlreadyAddedCB)) {
-                model.addJokeBlacklist(firebaseData.key);
-            }
-            else{
-
-                return;
-            }
-
-        }
-    )
-
-    onChildRemoved(ref(database, REF + "/users/" + auth.currentUser.uid + "/jokePreferences/blacklist/"),
-        function jokeBlacklistRemovedFromFirebaseACB(firebaseData){
-            model.removeJokeBlacklist(firebaseData.key);
-        }
-    )
-
-
+    }
+    
     return;
 }
 

@@ -25,7 +25,7 @@ import { resolvePromise } from '../resolvePromise';
 <script>
 export default {
 	data() {
-		return { myModel: new secondsModel(), firebaseModelPromiseState: {} };
+		return { myModel: {}, firebaseModelPromiseState: {} };
 	},
 	created() {
 		if (!this.firebaseModelPromiseState.promise) {
@@ -50,8 +50,8 @@ export default {
 		continueSetup() {
 			this.myModel = this.firebaseModelPromiseState.data;
 			window.myModel = this.myModel;
-			updateModelFromFirebase(this.firebaseModelPromiseState.data);
-			updateFirebaseFromModel(this.firebaseModelPromiseState.data);
+			updateModelFromFirebase(this.myModel);
+			updateFirebaseFromModel(this.myModel);
 		},
 	},
 };

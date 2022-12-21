@@ -16,7 +16,7 @@ function resolvePromise(promiseToResolve, promiseState, notify){
         if(promiseState.promise !== promiseToResolve) {
             return;
         }
-        promiseState.data= result;
+        promiseState.data = result;
         if (notify) {
             notify();
         }

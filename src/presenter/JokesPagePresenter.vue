@@ -17,10 +17,8 @@ import { getJoke } from "../jokeSource.js";
     @getNewJokeACB="setCurrentJokeACB"
     @setJokeOnLoadACB="setJoke"
     @sendJokeToFavoriteACB="addCurrentJokeToFavoritesACB"
-    @addCategoryACB="addCategoryInModelACB"
-    @removeCategoryACB="removeCategoryInModelACB"
-    @addBlacklistACB="addBlacklistInModelACB"
-    @removeBlacklistACB="removeBlacklistInModelACB"
+    @emitPreferencesACB="setJokePreferencesACB"
+
   />
 </template>
 <script>
@@ -38,16 +36,16 @@ export default {
       return this.model.jokePromiseState;
     },
     jokePreferences () {
-      return {category: this.model.jokeCategories, blacklist: this.model.jokeBlacklist};
+      return this.model.preferenceNumber;
     }
   },
   created() {
     if (this.model.jokePromiseState.promise == undefined)
-      resolvePromise(getJoke({category: this.model.jokeCategories, blacklist: this.model.jokeBlacklist}), this.model.jokePromiseState);
+      resolvePromise(getJoke(this.model.preferenceNumber), this.model.jokePromiseState);
   },
   methods: {
     setCurrentJokeACB() {
-      resolvePromise(getJoke({category: this.model.jokeCategories, blacklist: this.model.jokeBlacklist}), this.model.jokePromiseState);
+      resolvePromise(getJoke(this.model.preferenceNumber), this.model.jokePromiseState);
     },
     addCurrentJokeToFavoritesACB() {
       this.model.addJokeToFavorites(this.model.jokePromiseState.data);
@@ -57,21 +55,8 @@ export default {
         this.model.currentJoke = this.model.jokePromiseState.data.id;
       }
     },
-    addCategoryInModelACB(category) {
-      console.log("presenter forwards adding to model, category: " + category);
-      this.model.addJokeCategory(category);
-    },
-    removeCategoryInModelACB(category) {
-      console.log("presenter forwards removing to model, category: " + category);
-      this.model.removeJokeCategory(category);
-    },
-    addBlacklistInModelACB(blacklist) {
-      console.log("presenter forwards adding to model, blacklist: " + blacklist);
-      this.model.addJokeBlacklist(blacklist);
-    },
-    removeBlacklistInModelACB(blacklist) {
-      console.log("presenter forwards removing to model, blacklist: " + blacklist);
-      this.model.removeJokeBlacklist(blacklist);
+    setJokePreferencesACB(preferenceNumber){
+      this.model.updatePreferences(preferenceNumber);
     },
   },
   components: {

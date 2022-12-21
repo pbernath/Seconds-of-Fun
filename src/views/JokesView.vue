@@ -15,7 +15,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
           type="checkbox"
           v-model="selectedCategories"
           :value="item"
-          @change="adjustCategoriesACB(item)"
+          @change="adjustPreferencesACB"
         />
         {{
           item
@@ -28,7 +28,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
           type="checkbox"
           v-model="selectedFlags"
           :value="item"
-          @change="adjustBlacklistACB(item)"
+          @change="adjustPreferencesACB"
         />
         {{
           item
@@ -71,10 +71,7 @@ export default {
     "getNewJokeACB",
     "setJokeOnLoadACB",
     "sendJokeToFavoriteACB",
-    "addCategoryACB",
-    "removeCategoryACB",
-    "addBlacklistACB",
-    "removeBlacklistACB",
+    "emitPreferencesACB",
   ],
   data() {
     return {
@@ -82,8 +79,8 @@ export default {
       msg: "Waiting for a joke...",
       category: ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"],
       flags: ["NSFW", "Religious", "Political", "Racist", "Sexist", "Explicit"],
-      selectedCategories: this.jokePreferences.category,
-      selectedFlags: this.jokePreferences.blacklist,
+      selectedCategories: [],
+      selectedFlags: [],
     };
   },
   computed: {
@@ -91,6 +88,10 @@ export default {
       this.$emit("setJokeOnLoadACB");
       return this.jokeData.data.joke;
     },
+
+    preferences(){
+      return this.jokePreferences;
+    }
   },
   created() {
     /*
@@ -104,9 +105,9 @@ export default {
   },
   methods: {
     changeToSettingsACB(){
-      console.log("changing view to/from preferences");
+      this.setPreferencesACB();
       this.settings = !this.settings;
-      this.setJokePreferencesACB();
+      
     },
     getJokeACB() {
       this.$emit("getNewJokeACB");
@@ -114,46 +115,67 @@ export default {
     addToFavoriteJokesACB() {
       this.$emit("sendJokeToFavoriteACB");
     },
-    addCategoryToPreferencesACB(category) {
-      console.log("emitting category add");
-      this.$emit("addCategoryACB", category);
-    },
-    removeCategoryFromPreferencesACB(category) {
-      console.log("emitting category removal");
-      this.$emit("removeCategoryACB", category);
-    },
-    addBlacklistToPreferencesACB(flag) {
-      console.log("emitting blacklist add");
-      this.$emit("addBlacklistACB", flag);
-    },
-    removeBlacklistFromPreferencesACB(flag) {
-      console.log("emitting blacklist removal");
-      this.$emit("removeBlacklistACB", flag);
-    },
-    adjustCategoriesACB(item) {
-      console.log("item chosen " + item);
-      if (this.selectedCategories.find((listItem) => {return listItem == item})) {
-        console.log("sending category to add");
-        this.addCategoryToPreferencesACB(item);
-      } else {
-        console.log("sending category to remove");
-        this.removeCategoryFromPreferencesACB(item);
+    adjustPreferencesACB() {
+      let calcNumber = 0;
+
+      function getNumberFromCategoriesCB(item) {
+        function comparisonCB(sCategory){
+          return sCategory ==item;
+        }
+
+        if (this.selectedCategories.find(comparisonCB)) {
+          calcNumber = calcNumber + Math.pow(2, this.category.indexOf(item));
+        }
       }
-    },
-    adjustBlacklistACB(item) {
-      console.log("item chosen " + item);
-      if (this.selectedFlags.find((listItem) => {return listItem == item})) {
-        console.log("sending blacklist to add");
-        this.addBlacklistToPreferencesACB(item);
-      } else {
-        console.log("sending blacklist to remove");
-        this.removeBlacklistFromPreferencesACB(item);
+      function getNumberFromFlagsCB(item) {
+        function comparisonCB(sFlag){
+          return sFlag ==item;
+        }
+        if (this.selectedFlags.find(comparisonCB)) {
+          calcNumber = calcNumber + Math.pow(2, this.flags.indexOf(item) + 6);
+        }
       }
+
+      this.category.forEach(getNumberFromCategoriesCB.bind(this));
+      this.flags.forEach(getNumberFromFlagsCB.bind(this));
+
+      this.$emit("emitPreferencesACB", calcNumber);
+    
     },
-    setJokePreferencesACB() {
-      this.selectedCategories = this.jokePreferences.category;
-      this.selectedFlags = this.jokePreferences.blacklist;
+    setPreferencesACB() {
+      const tempData = this;
+      let tempCategories = [];
+      let tempFlags = [];
+      let number = this.preferences;
+      let i = 0;
+
+      while (number != 0) {
+        if(Math.pow(2, i) >= number){
+          if(Math.pow(2, i) == number){
+            addPreferenceAccordingToIndex(i);
+            break;
+          }
+          if(Math.pow(2, i) > number){
+            addPreferenceAccordingToIndex(i-1);
+            number -= Math.pow(2, i-1);
+            i = -1;
+          }
+        }
+        i++;
+      }
+
+      this.selectedCategories = tempCategories;
+      this.selectedFlags = tempFlags;
+      function addPreferenceAccordingToIndex(index) {
+        if (index < 6) {
+          tempCategories = [...tempCategories, tempData.category[index]];
+        } else {
+          tempFlags = [...tempFlags, tempData.flags[index - 6]];
+        }
+      }
+
     },
+
   },
 };
 </script>
