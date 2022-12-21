@@ -13,6 +13,7 @@ import ComicView from "../views/ComicView.vue"
   <ComicView
     v-if="comicData != undefined"
     :loggedIn="model.userMail != null"
+    :comicSaved="isComicSaved"
     :comicData="comicData"
     @getRandomComicACB="getRandomComicACB" 
     @getNextComicACB="setNextComicACB"    
@@ -26,12 +27,24 @@ export default {
   //Vue component
   props: ["model"],
   computed: {
+    
+
     comicData() {
       if (this.model.comicPromiseState.data == null) {
         this.model.comicPromiseState.data = { comic: "Waiting for a comic..." };
       }
       return this.model.comicPromiseState;
     },
+
+    isComicSaved(){
+      if(this.model.comicPromiseState.data){
+        function compareIdsCB(comic){
+          return comic.num == this.model.comicPromiseState.data.num;
+        }
+      return this.model.favComics.some(compareIdsCB.bind(this));
+      }
+    },
+
   },
   created() {
     if (this.model.comicPromiseState.promise == undefined)
@@ -39,23 +52,15 @@ export default {
   },
   methods: {
     getRandomComicACB() {
-      console.log("Current comic ACB")
-      console.log(this.model.comicPromiseState.data)
       this.model.getRandomComic();
     },
     setNextComicACB() {
-      console.log("Next comic ACB")
-      console.log(this.model.comicPromiseState.data)
       this.model.setNextComic();
     },
     setPrevComicACB() {
-      console.log("Previous comic ACB")
-      console.log(this.model.comicPromiseState.data)
       this.model.setPrevComic();
     },
     favComicACB() {
-      console.log("fav comic ACB")
-      console.log(this.model.comicPromiseState.data)
       if(this.model.comicPromiseState.data){
         this.model.addFavComic({num: this.model.comicPromiseState.data.num, title: this.model.comicPromiseState.data.safe_title});
       }

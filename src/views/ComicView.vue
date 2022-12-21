@@ -37,6 +37,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
       @click="favComicACB"
     />
     <p v-else> You have to be logged in to save your favorite comic </p>
+    <p v-if="comicSaved"> Saved to your favorite comics!</p>
   </div>
 </template>
 
@@ -54,8 +55,8 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
  
 <script>
 export default {
-  props: ["comicData", "loading","loggedIn"],
-  emits: ["getRandomComicACB", "getNextComicACB", "getPrevComicACB", "favComicACB"],
+  props: ["comicData", "loading","loggedIn", "comicSaved"],
+  emits: ["getRandomComicACB", "getNextComicACB", "getPrevComicACB", "favComicACB", "comicSaved"],
   data(){return {msg: "Waiting for a comic..."}},
   computed: {
     comicTitle() {
