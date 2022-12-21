@@ -62,11 +62,18 @@ a,
 
     border: 0px;
     text-align: center;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 img {
 	max-width: 100%;
 	max-height: 100%;
+}
+
+.comicImage {
+	max-width: 5em;
+	max-height: 5em;
 }
 
 /* General settings for Desktop view. */
@@ -75,6 +82,12 @@ img {
 		display: flex;
 		place-items: center;
 	}
+
+	.flex-item {
+		max-width: 5em;
+		max-height: 5em;
+	}
+	
 }
 
 /* General settings for Mobile view. */
