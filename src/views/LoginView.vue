@@ -124,6 +124,11 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 			</h1>
 			<br />
 			<h3 @click="logOutACB" class="pointer">Click here to sign out!</h3>
+			<br />
+			<h3>
+				<span @click="goToFavJokeACB" class="pointer">Favorite Jokes </span>
+				<span @click="goToFavComicACB" class="pointer">Favorite Comics</span>
+			</h3>
 		</div>
 		<h3 color="red">{{ fetchErrorMessage }}</h3>
 		<h3 color="red">{{ passwordMismatch }}</h3>
@@ -170,7 +175,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 <script>
 export default {
 	props: ['userFromFirebase', 'errorMessage'],
-	emits: ['getDetailsForAuthACB', 'signOutFromFirebaseACB', 'errorAckACB'],
+	emits: ['getDetailsForAuthACB', 'signOutFromFirebaseACB', 'errorAckACB', 'jokeFavoritesRoutingACB', 'comicFavoritesRoutingACB'],
 	data() {
 		return {
 			logIn: true,
@@ -230,6 +235,12 @@ export default {
 			this.switchToLogInACB();
 			this.showPassword = false;
 			this.$emit('signOutFromFirebaseACB');
+		},
+		goToFavJokeACB() {
+			this.$emit("jokeFavoritesRoutingACB");
+		},
+		goToFavComicACB() {
+			this.$emit("comicFavoritesRoutingACB");
 		},
 	},
 };

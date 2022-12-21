@@ -20,6 +20,8 @@ import {createAccount, signInToAccount, signOutOfAccount, updateModelFromFirebas
     @getDetailsForAuthACB="handleAuthACB"
     @signOutFromFirebaseACB="handleSignOutACB"
     @errorAckACB="resetErrorMessageACB"
+    @jokeFavoritesRoutingACB="routeToJokeFavsACB"
+    @comicFavoritesRoutingACB="routeToComicFavsACB"
     />
 </template>
 
@@ -56,6 +58,12 @@ export default {
         },
         resetErrorMessageACB() {
             this.model.setAuthErrorMessage(null);
+        },
+        routeToJokeFavsACB() {
+            this.$router.push({ name: "favorite_jokes" });
+        },
+        routeToComicFavsACB() {
+            this.$router.push({ name: "favorite_comic" });
         },
     },
     components: {
