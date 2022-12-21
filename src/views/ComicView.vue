@@ -18,8 +18,8 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 
     <img v-if="comic != msg" :src=comicImage >
     <LoadingGIF v-else/>
-
-    <styledButton
+    <div>
+      <styledButton
       buttonText="Random Comic strip"
       @click="getRandomComicACB"
     />
@@ -45,6 +45,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
     <p v-if="!loggedIn">
       Log in to save the joke and to change the joke preferences!
     </p>
+    </div>
   </div>
 </template>
 
