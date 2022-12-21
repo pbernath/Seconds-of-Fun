@@ -10,23 +10,23 @@ import styledButton from "../components/styledButton.vue";
 <template>
   <div class="flex-container">
     <div class="flex-item">
-      <img src="../assets/sof-logo-500.png" id="homeLogo" width="100" height="100" @click="goToHomeACB" class="pointer"/>
+      <img src="../assets/sof-logo-500.png" id="homeLogo" @click="goToHomeACB" class="pointer"/>
     </div>
     <div class="flex-item">
-      <styledButton buttonText="Jokes" @click="goToJokesPageACB"/>
+      <img src="../components/icons/jokes.png" id=jokesLogo @click="goToJokesPageACB" class="pointer"/>
     </div>
     <div class="flex-item">
-      <styledButton buttonText="Comics" @click="goToComicACB"/>
+      <img src="../components/icons/comics.png" id=comicsLogo @click="goToComicACB" class="pointer"/>
     </div>
     <div class="flex-item">
-      <styledButton buttonText="Login" @click="goToLoginACB"/>
+      <img src="../components/icons/signin.png" id=loginLogo @click="goToLoginACB" class="pointer"/>
     </div>
-    <div class="flex-item">
+    <!-- <div class="flex-item">
       <styledButton buttonText="Favorite jokes" @click="goToFavoriteJokesACB"/>
     </div>
     <div class="flex-item" label="FavoriteComic">
       <styledButton buttonText="Favorite comics" @click="goToFavoriteComicACB"/>
-    </div>
+    </div> -->
   </div>
 </template>
 
