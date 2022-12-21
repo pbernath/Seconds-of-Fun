@@ -44,7 +44,7 @@ export default{
 		place-items: flex-start;
 		align-items: flex-start;
 		justify-content: left;
-		flex-wrap: wrap;
+		/* flex-wrap: wrap; */
 	}
 	.wrapper {
 		position: fixed;
@@ -52,7 +52,7 @@ export default{
 		place-items: flex-start;
 		justify-content: left;
 		flex-direction: column;
-		flex-wrap: wrap;
+		/* flex-wrap: wrap; */
 		top: 0.3em;
 		left: 0.3em;
 	}
@@ -73,7 +73,7 @@ export default{
 		justify-content: space-between;
 		align-items: stretch;
 		flex-direction: inherit;
-		flex-wrap: wrap;
+		/* flex-wrap: wrap; */
 		bottom: 0em;
 		left: 0em;
 		margin: 0px;

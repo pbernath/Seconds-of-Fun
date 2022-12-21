@@ -29,13 +29,13 @@ props:['buttonText']
 /* Specific settings for Mobile view. */
 @media (max-width: 768px) {
 .button {
+      flex: 1 1 auto;
       background-color:#191a1c;
       border-color: #5b576b;
       border-radius: 4px;
       color:antiquewhite;
-      height: 100px; 
-      width: 10em;
-      flex-grow: 4;
+      height: 100px;
+      min-width: 5em; 
       margin:0px;
       padding:0px;
       align-self: flex-start;
