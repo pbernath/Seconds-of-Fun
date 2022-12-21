@@ -19,6 +19,7 @@ import ComicView from "../views/ComicView.vue"
     @getNextComicACB="setNextComicACB"    
     @getPrevComicACB="setPrevComicACB"
     @favComicACB="favComicACB"
+    @removeComicFromFavACB="removeComicFromFavACB"
   />
 </template>
 
@@ -65,6 +66,9 @@ export default {
         this.model.addFavComic({num: this.model.comicPromiseState.data.num, title: this.model.comicPromiseState.data.safe_title});
       }
     },
+    removeComicFromFavACB(){
+      this.model.removeFromFavComic(this.model.comicPromiseState.data)
+    }
     
   },
   components: {

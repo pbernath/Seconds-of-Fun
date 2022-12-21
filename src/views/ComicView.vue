@@ -32,12 +32,19 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
       @click="getPrevComicACB"
     />
     <styledButton
-      v-if="loggedIn"
-      buttonText="Fav"
+      v-if="loggedIn && !comicSaved"
+      buttonText="Save!"
       @click="favComicACB"
     />
-    <p v-else> You have to be logged in to save your favorite comic </p>
-    <p v-if="comicSaved"> Saved to your favorite comics!</p>
+    <styledButton
+      v-if="loggedIn && comicSaved"
+      buttonText="Unsave!"
+      @click="removeFromFavoriteComicsACB"
+    />
+
+    <p v-if="!loggedIn">
+      Log in to save the joke and to change the joke preferences!
+    </p>
   </div>
 </template>
 
@@ -56,7 +63,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 <script>
 export default {
   props: ["comicData", "loading","loggedIn", "comicSaved"],
-  emits: ["getRandomComicACB", "getNextComicACB", "getPrevComicACB", "favComicACB", "comicSaved"],
+  emits: ["getRandomComicACB", "getNextComicACB", "getPrevComicACB", "favComicACB", "comicSaved","removeComicFromFavACB"],
   data(){return {msg: "Waiting for a comic..."}},
   computed: {
     comicTitle() {
@@ -81,6 +88,9 @@ export default {
     },
     favComicACB() {
       this.$emit("favComicACB");
+    },
+    removeFromFavoriteComicsACB() {
+      this.$emit("removeComicFromFavACB");
     },
   },
 };
