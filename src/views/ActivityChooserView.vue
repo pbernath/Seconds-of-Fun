@@ -10,16 +10,16 @@ import styledButton from "../components/styledButton.vue";
 <template>
   <div class="flex-container">
     <div class="flex-item">
-      <img src="../assets/sof-logo-500.png" id="homeLogo" @click="goToHomeACB" class="pointer"/>
+      <img src="../assets/logo-500.png" id="homeLogo" @click="goToHomeACB" class="pointer"/>
     </div>
     <div class="flex-item">
-      <img src="../components/icons/jokes.png" id=jokesLogo @click="goToJokesPageACB" class="pointer"/>
+      <img src="../assets/joke-500.png" id=jokesLogo @click="goToJokesPageACB" class="pointer"/>
     </div>
     <div class="flex-item">
-      <img src="../components/icons/comics.png" id=comicsLogo @click="goToComicACB" class="pointer"/>
+      <img src="../assets/comic-500.png" id=comicsLogo @click="goToComicACB" class="pointer"/>
     </div>
     <div class="flex-item">
-      <img src="../components/icons/signin.png" id=loginLogo @click="goToLoginACB" class="pointer"/>
+      <img src="../assets/user-500.png" id=loginLogo @click="goToLoginACB" class="pointer"/>
     </div>
     <!-- <div class="flex-item">
       <styledButton buttonText="Favorite jokes" @click="goToFavoriteJokesACB"/>
@@ -37,8 +37,6 @@ export default {
     "jokesPageRoutingACB",
     "comicPageRoutingACB",
     "loginPageRoutingACB",
-    "favoriteJokesPageRoutingACB",
-    "favoriteComicPageRoutingACB",
   ],
   methods: {
     goToHomeACB() {
@@ -52,12 +50,6 @@ export default {
     },
     goToLoginACB() {
       this.$emit("loginPageRoutingACB");
-    },
-    goToFavoriteJokesACB() {
-      this.$emit("favoriteJokesPageRoutingACB");
-    },
-    goToFavoriteComicACB() {
-      this.$emit("favoriteComicPageRoutingACB");
     },
   },
 };
