@@ -20,23 +20,23 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
     <LoadingGIF v-else/>
     <div class="comic_buttonContainer">
       <div class="flex_comicButton">
-        <img src="../assets/user-500.png" id="Random" @click="getRandomComicACB" class="comic_buttons"/>
+        <img src="../assets/refresh-500.png" id="Random" @click="getRandomComicACB" class="comic_buttons"/>
       </div>
 
       <div class="flex_comicButton">
-        <img src="../assets/user-500.png" id="Previous" @click="getPrevComicACB" class="comic_buttons"/>
+        <img src="../assets/left-500.png" id="Previous" @click="getPrevComicACB" class="comic_buttons"/>
       </div>
 
       <div class="flex_comicButton">
-        <img src="../assets/user-500.png" id="Next" @click="getNextComicACB" class="comic_buttons"/>
+        <img src="../assets/right-500.png" id="Next" @click="getNextComicACB" class="comic_buttons"/>
       </div>
 
       <div v-if="loggedIn && !comicSaved" class="flex_comicButton">
-        <img  src="../assets/joke-500.png" id="Favorite" @click="favComicACB" class="comic_buttons"/>
+        <img  src="../assets/like-500-false.png" id="Favorite" @click="favComicACB" class="comic_buttons"/>
       </div>
 
       <div v-if="loggedIn && comicSaved" class="flex_comicButton">
-        <img  src="../assets/refresh-500.png" id="Unfavorite" @click="removeFromFavoriteComicsACB" class="comic_buttons"/>
+        <img  src="../assets/like-500-true.png" id="Unfavorite" @click="removeFromFavoriteComicsACB" class="comic_buttons"/>
       </div>
 
     </div>
@@ -49,6 +49,34 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 
 <style>
 
+.comic_page {
+	width: 100%;
+	height: 100%;
+	color: white;
+	border-style: solid;
+	border-radius: 100px;
+	border-color: #00bd7e;
+	border-width: 0px;
+	margin-left: 10em;
+	margin-right:10em;
+	margin-bottom: 50em;
+	z-index: 5;
+  }
+  
+  .flex_comicButton{
+	width: 5em;
+	height: 5em;
+	flex-wrap: wrap;
+	cursor: pointer;
+  }
+  .flex_comicButton:hover{
+	background-color:#00bd7e1b;
+  }
+  
+  .comic_buttonContainer {
+	display: flex;
+	flex-direction:row;
+  }
 
 
 
