@@ -8,7 +8,6 @@ function treatHTTPResponseACB(response){
 
 function getComic(){ //get random comic 
     let comicNmbr=Math.floor((Math.random() * 2712)+1);
-    console.log(comicNmbr)
 
     return fetch("https://xkcd.now.sh/?comic="+comicNmbr.toString(), {  // object literal
         method: "GET"       
