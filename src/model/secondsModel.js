@@ -167,7 +167,6 @@ class secondsModel{
 
         this.favComics=[...this.favComics, comicToAdd]
         this.notifyObservers({favoriteComicToAdd: comicToAdd})
-        console.log(this.favComics)
     }
 
     removeFromFavComic(comicToRemove){

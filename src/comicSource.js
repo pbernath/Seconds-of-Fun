@@ -8,7 +8,6 @@ function treatHTTPResponseACB(response){
 
 function getComic(){ //get random comic 
     let comicNmbr=Math.floor((Math.random() * 2712)+1);
-    console.log(comicNmbr)
 
     return fetch("https://xkcd.now.sh/?comic="+comicNmbr.toString(), {  // object literal
         method: "GET"       
@@ -17,7 +16,6 @@ function getComic(){ //get random comic
 }
 
 function getNextComic(currentComic){ //get next comic (Does not check if there is a next comic)
-    console.log(currentComic+1)
     return fetch("https://xkcd.now.sh/?comic="+(currentComic+1).toString(), {  // object literal
         method: "GET"       
     } 
@@ -25,7 +23,6 @@ function getNextComic(currentComic){ //get next comic (Does not check if there i
 }
 
 function getPrevComic(currentComic){//get previous comic (As above, does not check if the previous comic exists)
-    console.log(currentComic-1)
     return fetch("https://xkcd.now.sh/?comic="+(currentComic-1).toString(), {  // object literal
         method: "GET"       
     } 
@@ -33,7 +30,6 @@ function getPrevComic(currentComic){//get previous comic (As above, does not che
 }
 
 function getFavoriteComic(currentComic){//get previous comic (As above, does not check if the previous comic exists)
-    console.log(currentComic)
     return fetch("https://xkcd.now.sh/?comic="+(currentComic).toString(), {  // object literal
         method: "GET"       
     } 

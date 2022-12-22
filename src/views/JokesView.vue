@@ -52,7 +52,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
     <div class="jokeButtons">
       <div class="flex-item-joke-buttons">
         <img
-          src="../assets/right-500.png"
+          src="../assets/refresh-500.png"
           @click="getJokeACB"
           class="pointer"
         />
@@ -77,11 +77,11 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
           @click="changeToSettingsACB"
           class="pointer"
         />
-        <p v-if="!loggedIn">
-          Log in to save the joke and to change the joke preferences!
-        </p>
       </div>
     </div>
+    <p v-if="!loggedIn">
+      Log in to save the joke and to change the joke preferences!
+    </p>
   </div>
 </template>
 

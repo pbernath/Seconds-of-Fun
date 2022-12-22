@@ -198,9 +198,6 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 	}
 }
 @media (max-width: 410px) {
-	base {
-		place-items: top;
-	}
 	.wide {
 		display: none;
 	}

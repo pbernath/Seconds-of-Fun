@@ -80,4 +80,27 @@ export default{
 		padding: 0px;
 	}
 }
+
+@media (min-width: 400px) and (max-width: 768px) {
+	.mainDiv {
+		display: flex;
+		flex-direction: row;
+		align-content: bottom;
+		place-items: end start;
+	}
+	.wrapper {
+		position: fixed;
+		width: 400px;
+		display: flex;
+		place-items: flex-end;
+		justify-content: space-between;
+		align-items: stretch;
+		flex-direction: inherit;
+		/* flex-wrap: wrap; */
+		bottom: 0em;
+		left: 0em;
+		margin: 0px;
+		padding: 0px;
+	}
+}
 </style>

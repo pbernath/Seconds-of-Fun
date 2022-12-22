@@ -12,6 +12,7 @@ defineProps({
 </script>
 
 <template>
+  <img src="../assets/logo-500.png" class="the_logo" />
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
     <h3>
@@ -25,6 +26,11 @@ defineProps({
 
 <style scoped>
 /* Settings for the displayed text on the landing page.  */
+.the_logo {
+  width: 10em;
+  height: 10em;
+  margin-left: 1.5em;
+}
 .h1 {
 	font-weight: 500;
 	font-size: 2.6rem;
