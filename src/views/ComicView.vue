@@ -85,7 +85,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 <script>
 export default {
   props: ["comicData", "loading","loggedIn", "comicSaved"],
-  emits: ["getRandomComicACB", "getNextComicACB", "getPrevComicACB", "favComicACB", "comicSaved",""],
+  emits: ["getRandomComicACB", "getNextComicACB", "getPrevComicACB", "favComicACB", "comicSaved","removeComicFromFavACB"],
   data(){return {msg: "Waiting for a comic..."}},
   computed: {
     comicTitle() {
