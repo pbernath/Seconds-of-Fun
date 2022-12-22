@@ -38,7 +38,6 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
     <div class="flex-item">
         <img
           src="../assets/joke-500.png"
-          id="jokesLogo"
           @click="changeToSettingsACB"
           class="pointer"
         />
@@ -54,7 +53,6 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
       <div class="flex-item-joke-buttons">
         <img
           src="../assets/right-500.png"
-          id="homeLogo"
           @click="getJokeACB"
           class="pointer"
         />
@@ -62,7 +60,6 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
       <div class="flex-item-joke-buttons" v-if="loggedIn && !jokeSaved" >
         <img
           src="../assets/like-500-false.png"
-          id="jokesLogo"
           @click="addToFavoriteJokesACB"
           class="pointer"
         />
@@ -70,7 +67,6 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
       <div  class="flex-item-joke-buttons" v-if="loggedIn && jokeSaved">
         <img
           src="../assets/like-500-true.png"
-          id="comicsLogo"
           @click="removeFromFavoriteJokesACB"
           class="pointer"
         />
@@ -78,7 +74,6 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
       <div v-if="loggedIn" class="flex-item-joke-buttons">
         <img
           src="../assets/settings-500.png"
-          id="loginLogo"
           @click="changeToSettingsACB"
           class="pointer"
         />
