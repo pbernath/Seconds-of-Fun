@@ -71,7 +71,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 					</td>
 					<td></td>
 					<td>
-						<div v-if="checkWidth > 410" class="pointer">
+						<div class="wide">
 							<br />
 							<div v-if="!showPassword" @click="toggleShowPasswordACB">
 								<h3>
@@ -88,8 +88,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 						</div>
 					</td>
 				</table>
-				<div v-if="checkWidth <= 410" class="pointer">
-					<br />
+				<div class="narrow">
 					<div v-if="!showPassword" @click="toggleShowPasswordACB">
 						<h3>
 							<span style="color: #00bd7e"> (◕‿◕)  </span>
@@ -104,10 +103,10 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 					</div>
 				</div>
 				<div>
-					<img src="../assets/right-500.png" @click="continueLogInACB" class="pointer" style="width: 100px; height: 100px;"/>
+					<img src="../assets/right-500.png" @click="continueLogInACB" class="flex_continueButton" />
 				</div>
 			</div>
-			<div class="pointer">
+			<div class="wide">
 				<div v-if="logIn" @click="switchToSignUpACB">
 					<h3>
 						<span style="color: #ebebeba3">
@@ -129,6 +128,41 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 					</h3>
 				</div>
 			</div>
+			<div class="narrow">
+				<div v-if="logIn" @click="switchToSignUpACB">
+					<h3>
+						<span style="color: #ebebeba3">
+							Not yet registered? 
+						</span>
+					</h3>
+					<h3>
+						<span style="color: #ebebeba3">
+							Click here to 
+						</span>
+						<span style="color: #00bd7e">
+							Sign Up!
+						</span>
+					</h3>
+				</div>
+				<div v-if="!logIn" @click="switchToLogInACB">
+					<h3>
+						<span style="color: #ebebeba3">
+							Already signed up? 
+						</span>
+						<span style="color: #00bd7e">
+							Sign In!
+						</span>
+					</h3>
+					<h3>
+						<span style="color: #ebebeba3">
+							Click here to 
+						</span>
+						<span style="color: #00bd7e">
+							Sign In!
+						</span>
+					</h3>
+				</div>
+			</div>
 		</div>
 		<div v-else>
 			<h1>
@@ -136,12 +170,17 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 				<span style="color: #00bd7e">{{ fetchUser }}</span>
 			</h1>
 			<br />
-			<h3 @click="logOutACB" class="pointer">Click here to sign out!</h3>
-			<br />
-			<h3>
-				<span @click="goToFavJokeACB" class="pointer">Favorite Jokes </span>
-				<span @click="goToFavComicACB" class="pointer">Favorite Comics</span>
-			</h3>
+			<div>
+				<span>
+					<img src="../assets/joke-500-like.png" @click="goToFavJokeACB" class="flex_continueButton" />
+				</span>
+				<span>
+					<img src="../assets/dude-500-thicc-like.png" @click="goToFavComicACB" class="flex_continueButton" />
+				</span>
+				<span>
+					<img src="../assets/user-500-x.png" @click="logOutACB" class="flex_continueButton" />
+				</span>
+			</div>
 		</div>
 		<h3 style="color: #df6464">{{ fetchErrorMessage }}</h3>
 		<h3 style="color: #df6464">{{ passwordMismatch }}</h3>
@@ -149,40 +188,40 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 </template>
 
 <style scoped>
-@media (min-width: 768px) {
-	.about {
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
+@media (min-width: 410px) {
+	.wide {
+		display:block;
+		cursor: pointer;
 	}
-	.login_page {
-		width: 100%;
-		height: 100%;
-		border-color: #00bd7e;
-		border-style: solid;
-		border-radius: 0px;
-		border-width: 0px;
-		margin: auto;
+	.narrow {
+		display: none;
 	}
 }
-@media (max-width: 768px) {
-	.about {
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
+@media (max-width: 410px) {
+	base {
+		place-items: top;
 	}
-	.login_page {
-		width: 100%;
-		height: 100%;
-		border-color: #00bd7e;
-		border-style: solid;
-		border-radius: 0px;
-		border-width: 0px;
+	.wide {
+		display: none;
+	}
+	.narrow {
+		display: block;
+		cursor: pointer;
 	}
 }
+
 .pointer {
   cursor: pointer;
 }
+.flex_continueButton{
+    cursor: pointer;
+	width: 5em;
+    height: 5em;
+  }
+  .flex_continueButton:hover{
+    background-color:#00bd7e1b;
+  }
+
 </style>
 
 <script>
@@ -197,6 +236,7 @@ export default {
 			password: null,
 			secondPassword: null,
 			passwordMismatch: null,
+			currentWidth: window.innerWidth,
 		};
 	},
 	created() {},
@@ -213,7 +253,8 @@ export default {
 			}
 		},
 		checkWidth() {
-			return window.innerWidth;
+			this.currentWidth = window.innerWidth;
+			return this.currentWidth;
 		}
 	},
 	methods: {
