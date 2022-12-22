@@ -48,6 +48,7 @@ a,
     -moz-box-align: center;
     box-align: center;  
     align-items: center;
+
 }
 
 .flex-item {
@@ -71,10 +72,30 @@ img {
 	max-height: 100%;
 }
 
-.comicImage {
-	max-width: 5em;
-	max-height: 5em;
-}
+.comic_page {
+	width: 100%;
+	height: 100%;
+	color: white;
+	border-style: solid;
+	border-radius: 100px;
+	border-color: #00bd7e;
+	border-width: 0px;
+	margin-left: 10em;
+	margin-right:10em;
+	margin-bottom: 50em;
+	
+  }
+  
+  .flex_comicButton{
+	width: 5em;
+	height: 5em;
+	flex-wrap: wrap;
+  }
+  
+  .comic_buttonContainer {
+	display: flex;
+	flex-direction:row;
+  }
 
 /* General settings for Desktop view. */
 @media (min-width: 768px) {
@@ -95,6 +116,8 @@ img {
 	body {
 		display: flex;
 		place-items: center;
+		overflow: auto;
+
 	}
 
 	/* #flex-container {
