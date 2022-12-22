@@ -89,14 +89,23 @@ img {
 }
 
 /* General settings for Mobile view. */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (min-width: 400px) {
 	body {
 		display: flex;
 		place-items: center;
 		overflow: auto;
-		
-
 	}
+}
+
+@media (max-width: 400px) {
+	
+		.flex-item {
+			max-width: 3em;
+			max-height: 3em;
+			position: relative;
+			justify-content: space-evenly;
+		}
+}
 
 	/* #flex-container {
 		display: flex;
@@ -106,7 +115,6 @@ img {
 	#flex-container > .flex-item {
 		flex: auto;
 	} */
-}
 
 
   #app {

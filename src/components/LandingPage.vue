@@ -29,7 +29,8 @@ defineProps({
 .the_logo {
   width: 10em;
   height: 10em;
-  margin-left: 1.5em;
+margin: auto;
+
 }
 .h1 {
 	font-weight: 500;

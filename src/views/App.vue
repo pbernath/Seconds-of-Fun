@@ -78,6 +78,7 @@ export default{
 		left: 0em;
 		margin: 0px;
 		padding: 0px;
+		justify-content: space-evenly;
 	}
 }
 
@@ -90,7 +91,7 @@ export default{
 	}
 	.wrapper {
 		position: fixed;
-		width: 400px;
+		/* width: 400px; */
 		display: flex;
 		place-items: flex-end;
 		justify-content: space-between;

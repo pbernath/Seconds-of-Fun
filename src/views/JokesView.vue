@@ -35,7 +35,8 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
         }}
       </tr>
     </td>
-    <div class="flex-item">
+    <!-- <div class="flex-item"> -->
+      <div class="flex-item-joke-buttons">
         <img
           src="../assets/joke-500.png"
           @click="changeToSettingsACB"
