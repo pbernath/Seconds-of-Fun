@@ -5,13 +5,7 @@
 @import './base.css';
 
 /* General settings for the entire page. */
-#app {
-	max-width: 1280px;
-	margin: 0 auto;
-	padding: 2rem;
-	display: flex;
-	font-weight: normal;
-}
+
 a,
 /* General trademark green tone that is used for text and icons. */
 .green {
@@ -48,6 +42,9 @@ a,
     -moz-box-align: center;
     box-align: center;  
     align-items: center;
+	z-index: 4;
+	background-color: #191A1C;
+
 }
 
 .flex-item {
@@ -66,15 +63,16 @@ a,
 	max-height: 100%;
 }
 
+.flex-item:hover{
+	background-color: #00bd7e1b;
+}
+
 img {
 	max-width: 100%;
 	max-height: 100%;
 }
 
-.comicImage {
-	max-width: 5em;
-	max-height: 5em;
-}
+
 
 /* General settings for Desktop view. */
 @media (min-width: 768px) {
@@ -95,6 +93,9 @@ img {
 	body {
 		display: flex;
 		place-items: center;
+		overflow: auto;
+		
+
 	}
 
 	/* #flex-container {
@@ -105,4 +106,14 @@ img {
 	#flex-container > .flex-item {
 		flex: auto;
 	} */
+}
+
+
+  #app {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 2rem;
+	display: flex;
+	font-weight: normal;
+	z-index: 2;
 }

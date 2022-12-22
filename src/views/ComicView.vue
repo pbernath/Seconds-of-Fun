@@ -11,54 +11,75 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 
 
 <template>
-    <div class="comic_page">
-    <p v-if="comic != msg" class="comic_page">
+  <div class="comic_page">
+    <h1 v-if="comic != msg" class="comic_title">
         {{ comicTitle }}
-    </p>
+    </h1>
 
     <img v-if="comic != msg" :src=comicImage >
     <LoadingGIF v-else/>
-    <div>
-      <styledButton
-      buttonText="Random Comic strip"
-      @click="getRandomComicACB"
-    />
-    <styledButton
-      buttonText="Next Comic"
-      @click="getNextComicACB"
-    />
-    <styledButton
-      buttonText="Previous Comic"
-      @click="getPrevComicACB"
-    />
-    <styledButton
-      v-if="loggedIn && !comicSaved"
-      buttonText="Save!"
-      @click="favComicACB"
-    />
-    <styledButton
-      v-if="loggedIn && comicSaved"
-      buttonText="Unsave!"
-      @click="removeFromFavoriteComicsACB"
-    />
+    <div class="comic_buttonContainer">
+      <div class="flex_comicButton">
+        <img src="../assets/refresh-500.png" id="Random" @click="getRandomComicACB" class="comic_buttons"/>
+      </div>
+
+      <div class="flex_comicButton">
+        <img src="../assets/left-500.png" id="Previous" @click="getPrevComicACB" class="comic_buttons"/>
+      </div>
+
+      <div class="flex_comicButton">
+        <img src="../assets/right-500.png" id="Next" @click="getNextComicACB" class="comic_buttons"/>
+      </div>
+
+      <div v-if="loggedIn && !comicSaved" class="flex_comicButton">
+        <img  src="../assets/like-500-false.png" id="Favorite" @click="favComicACB" class="comic_buttons"/>
+      </div>
+
+      <div v-if="loggedIn && comicSaved" class="flex_comicButton">
+        <img  src="../assets/like-500-true.png" id="Unfavorite" @click="removeFromFavoriteComicsACB" class="comic_buttons"/>
+      </div>
+
+    </div>
 
     <p v-if="!loggedIn">
-      Log in to save the joke and to change the joke preferences!
+      Log in to save the comic!
     </p>
-    </div>
   </div>
 </template>
 
 <style>
+
 .comic_page {
-  width: 100%;
-  height: 100%;
-  color: white;
-  border-style: solid;
-  border-radius: 0px;
-  border-color: #00bd7e;
-  border-width: 0px;
-}
+	width: 100%;
+	height: 100%;
+	color: white;
+	border-style: solid;
+	border-radius: 100px;
+	border-color: #00bd7e;
+	border-width: 0px;
+	margin-left: 10em;
+	margin-right:10em;
+	margin-bottom: 50em;
+	z-index: 5;
+  }
+  
+  .flex_comicButton{
+	width: 5em;
+	height: 5em;
+	flex-wrap: wrap;
+	cursor: pointer;
+  }
+  .flex_comicButton:hover{
+	background-color:#00bd7e1b;
+  }
+  
+  .comic_buttonContainer {
+	display: flex;
+	flex-direction:row;
+  }
+
+
+
 </style>
  
 <script>

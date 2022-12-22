@@ -16,7 +16,7 @@ import styledButton from "../components/styledButton.vue";
       <img src="../assets/joke-500.png" id=jokesLogo @click="goToJokesPageACB" class="pointer"/>
     </div>
     <div class="flex-item">
-      <img src="../assets/comic-500.png" id=comicsLogo @click="goToComicACB" class="pointer"/>
+      <img src="../assets/dude-500-thicc.png" id=comicsLogo @click="goToComicACB" class="pointer"/>
     </div>
     <div class="flex-item">
       <img src="../assets/user-500.png" id=loginLogo @click="goToLoginACB" class="pointer"/>

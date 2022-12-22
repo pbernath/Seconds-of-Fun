@@ -190,4 +190,8 @@ export default {
 .button {
   cursor: pointer;
 }
+.jokes_page{
+  margin-left: 5em;
+
+}
 </style>
