@@ -57,9 +57,8 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 	border-radius: 100px;
 	border-color: #00bd7e;
 	border-width: 0px;
-	margin-left: 10em;
-	margin-right:10em;
-	margin-bottom: 50em;
+	margin-left: 4em;
+	margin-bottom: 30em;
 	z-index: -1;
   }
   
