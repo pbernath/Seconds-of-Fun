@@ -57,10 +57,8 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 	border-radius: 100px;
 	border-color: #00bd7e;
 	border-width: 0px;
-	margin-left: 10em;
-	margin-right:10em;
-	margin-bottom: 50em;
-	z-index: -1;
+	margin-bottom: 30em;
+	z-index: 5;
   }
   
   .flex_comicButton{
@@ -77,6 +75,7 @@ import LoadingGIF from "../components/icons/LoadingGIF.vue";
 	display: flex;
 	flex-direction:row;
   }
+
 
 
 </style>
