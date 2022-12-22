@@ -29,7 +29,7 @@ defineProps({
 .the_logo {
   width: 10em;
   height: 10em;
-margin: auto;
+  margin: 1.5em;
 
 }
 .h1 {
