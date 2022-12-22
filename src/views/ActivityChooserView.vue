@@ -79,5 +79,9 @@ export default {
   cursor: pointer;
 }
 
+#navBar {
+  z-index: 1;
+  background-color: black;
+}
 
 </style>
