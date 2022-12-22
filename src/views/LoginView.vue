@@ -12,7 +12,8 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 		<div v-if="!fetchUser">
 			<div>
 				<div>
-					<h1>Sign in to enable extra features!</h1>
+					<h1 v-if="logIn">Sign in to enable extra features!</h1>
+					<h1 v-if="!logIn">Sign up to enable extra features!</h1>
 				</div>
 				<br />
 				<table>
@@ -70,7 +71,7 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 					</td>
 					<td></td>
 					<td>
-						<div class="pointer">
+						<div v-if="checkWidth > 410" class="pointer">
 							<br />
 							<div v-if="!showPassword" @click="toggleShowPasswordACB">
 								<h3>
@@ -87,13 +88,25 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 						</div>
 					</td>
 				</table>
-				<br />
+				<div v-if="checkWidth <= 410" class="pointer">
+					<br />
+					<div v-if="!showPassword" @click="toggleShowPasswordACB">
+						<h3>
+							<span style="color: #00bd7e"> (◕‿◕)  </span>
+							<span style="color: #ebebeba3"> Show Password</span>
+						</h3>
+					</div>
+					<div v-if="showPassword" @click="toggleShowPasswordACB">
+						<h3>
+							<span style="color: #00bd7e"> (>‿&lt)  </span>
+							<span style="color: #ebebeba3"> Hide Password</span>
+						</h3>
+					</div>
+				</div>
 				<div>
-					<styledButton v-if="logIn" buttonText="Sign In" @click="continueLogInACB" />
-					<styledButton v-if="!logIn" buttonText="Sign Up!" @click="continueLogInACB" />
+					<img src="../assets/right-500.png" @click="continueLogInACB" class="pointer" style="width: 100px; height: 100px;"/>
 				</div>
 			</div>
-			<br />
 			<div class="pointer">
 				<div v-if="logIn" @click="switchToSignUpACB">
 					<h3>
@@ -130,8 +143,8 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 				<span @click="goToFavComicACB" class="pointer">Favorite Comics</span>
 			</h3>
 		</div>
-		<h3 color="red">{{ fetchErrorMessage }}</h3>
-		<h3 color="red">{{ passwordMismatch }}</h3>
+		<h3 style="color: #df6464">{{ fetchErrorMessage }}</h3>
+		<h3 style="color: #df6464">{{ passwordMismatch }}</h3>
 	</div>
 </template>
 
@@ -174,8 +187,8 @@ import LoginPresenter from '../presenter/LoginPresenter.vue';
 
 <script>
 export default {
-	props: ['userFromFirebase', 'errorMessage'],
-	emits: ['getDetailsForAuthACB', 'signOutFromFirebaseACB', 'errorAckACB', 'jokeFavoritesRoutingACB', 'comicFavoritesRoutingACB'],
+	props: ['userFromFirebase', 'errorMessage',],
+	emits: ['getDetailsForAuthACB', 'signOutFromFirebaseACB', 'errorAckACB', 'jokeFavoritesRoutingACB', 'comicFavoritesRoutingACB',],
 	data() {
 		return {
 			logIn: true,
@@ -199,6 +212,9 @@ export default {
 				return null;
 			}
 		},
+		checkWidth() {
+			return window.innerWidth;
+		}
 	},
 	methods: {
 		toggleShowPasswordACB() {
